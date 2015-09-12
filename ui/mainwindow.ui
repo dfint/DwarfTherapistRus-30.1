@@ -1,0 +1,1553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>918</width>
+    <height>377</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Dwarf Therapist</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/img/hammer.png</normaloff>:/img/hammer.png</iconset>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <widget class="QWidget" name="main_widget">
+   <layout class="QVBoxLayout" name="v_box">
+    <property name="spacing">
+     <number>9</number>
+    </property>
+    <property name="leftMargin">
+     <number>9</number>
+    </property>
+    <property name="topMargin">
+     <number>9</number>
+    </property>
+    <property name="rightMargin">
+     <number>9</number>
+    </property>
+    <property name="bottomMargin">
+     <number>9</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="lbl_group_by">
+        <property name="text">
+         <string>Group By</string>
+        </property>
+        <property name="buddy">
+         <cstring>cb_group_by</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="cb_group_by">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Change how dwarves are grouped in the table</string>
+        </property>
+        <property name="statusTip">
+         <string>Change how dwarves are grouped in the table</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>30</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>Nothing</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_filter">
+        <property name="text">
+         <string>Search</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="le_filter_text">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_run_filter">
+        <property name="text">
+         <string>Add Filter</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="cb_filter_script">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QComboBox::AdjustToContents</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="btn_clear_filters">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>Click to clear all active filters, or use the drop down to clear specific filters.</string>
+        </property>
+        <property name="statusTip">
+         <string>Click to clear all active filters, or use the drop down to clear specific filters.</string>
+        </property>
+        <property name="text">
+         <string>Active Filters</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources.qrc">
+          <normaloff>:/img/cross.png</normaloff>:/img/cross.png</iconset>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::DelayedPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_dwarf_total">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Adults/Children/Babies</string>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_dwarfs">
+        <property name="text">
+         <string>Dwarfs</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_pending_changes">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_pending_changes_lbl">
+        <property name="text">
+         <string>Pending Changes</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>918</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="act_connect_to_DF"/>
+    <addaction name="act_read_dwarves"/>
+    <addaction name="separator"/>
+    <addaction name="act_commit_pending_changes"/>
+    <addaction name="act_clear_pending_changes"/>
+    <addaction name="separator"/>
+    <addaction name="act_import_existing_professions"/>
+    <addaction name="act_export_custom_professions"/>
+    <addaction name="act_import_saved_custom_professions"/>
+    <addaction name="separator"/>
+    <addaction name="act_export_csv"/>
+    <addaction name="separator"/>
+    <addaction name="act_export_gridviews"/>
+    <addaction name="act_import_saved_gridviews"/>
+    <addaction name="separator"/>
+    <addaction name="act_print"/>
+    <addaction name="separator"/>
+    <addaction name="act_clear_user_settings"/>
+    <addaction name="separator"/>
+    <addaction name="act_options"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="act_exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="act_help"/>
+    <addaction name="separator"/>
+    <addaction name="act_go_project_home"/>
+    <addaction name="act_go_forums"/>
+    <addaction name="act_go_new_issue"/>
+    <addaction name="act_go_donate"/>
+    <addaction name="separator"/>
+    <addaction name="act_about"/>
+   </widget>
+   <widget class="QMenu" name="menuWindows">
+    <property name="title">
+     <string>Windows</string>
+    </property>
+    <widget class="QMenu" name="menu_docks">
+     <property name="title">
+      <string>Docks</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/img/ui-layered-pane.png</normaloff>:/img/ui-layered-pane.png</iconset>
+     </property>
+    </widget>
+    <addaction name="menu_docks"/>
+   </widget>
+   <widget class="QMenu" name="menuScripting">
+    <property name="title">
+     <string>Scripting</string>
+    </property>
+    <widget class="QMenu" name="menu_edit_filters">
+     <property name="title">
+      <string>Edit Filter Script</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/img/script_pencil.png</normaloff>:/img/script_pencil.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menu_remove_script">
+     <property name="title">
+      <string>Remove Filter Script</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/img/script_minus.png</normaloff>:/img/script_minus.png</iconset>
+     </property>
+    </widget>
+    <addaction name="act_add_new_filter_script"/>
+    <addaction name="menu_edit_filters"/>
+    <addaction name="separator"/>
+    <addaction name="menu_remove_script"/>
+   </widget>
+   <widget class="QMenu" name="menuRoles">
+    <property name="title">
+     <string>Roles</string>
+    </property>
+    <widget class="QMenu" name="menu_edit_roles">
+     <property name="title">
+      <string>Edit Custom Role</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/img/script_pencil.png</normaloff>:/img/script_pencil.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menu_remove_roles">
+     <property name="title">
+      <string>Remove Custom Role</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/img/script_minus.png</normaloff>:/img/script_minus.png</iconset>
+     </property>
+    </widget>
+    <addaction name="act_add_new_custom_role"/>
+    <addaction name="menu_edit_roles"/>
+    <addaction name="separator"/>
+    <addaction name="menu_remove_roles"/>
+    <addaction name="separator"/>
+    <addaction name="act_import_roles"/>
+    <addaction name="act_export_roles"/>
+   </widget>
+   <widget class="QMenu" name="menuOptimizer">
+    <property name="title">
+     <string>Optimizer</string>
+    </property>
+    <widget class="QMenu" name="menu_edit_opts">
+     <property name="toolTip">
+      <string>Edit an existing optimization plan.</string>
+     </property>
+     <property name="title">
+      <string>Edit Optimization Plan</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/img/script_pencil.png</normaloff>:/img/script_pencil.png</iconset>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menu_remove_opt">
+     <property name="title">
+      <string>Remove Optimization Plan</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/img/script_minus.png</normaloff>:/img/script_minus.png</iconset>
+     </property>
+    </widget>
+    <addaction name="act_add_new_opt"/>
+    <addaction name="menu_edit_opts"/>
+    <addaction name="separator"/>
+    <addaction name="menu_remove_opt"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menuScripting"/>
+   <addaction name="menuRoles"/>
+   <addaction name="menuOptimizer"/>
+   <addaction name="menuWindows"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QToolBar" name="main_toolbar">
+   <property name="windowTitle">
+    <string>Main Toolbar</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="act_connect_to_DF"/>
+   <addaction name="act_read_dwarves"/>
+   <addaction name="separator"/>
+   <addaction name="act_expand_all"/>
+   <addaction name="act_collapse_all"/>
+   <addaction name="separator"/>
+   <addaction name="act_clear_pending_changes"/>
+   <addaction name="act_commit_pending_changes"/>
+   <addaction name="separator"/>
+   <addaction name="act_options"/>
+   <addaction name="act_help"/>
+   <addaction name="separator"/>
+   <addaction name="act_exit"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="BaseDock" name="dock_pending_jobs_list">
+   <property name="minimumSize">
+    <size>
+     <width>150</width>
+     <height>143</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Pending Changes</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QTreeWidget" name="tree_pending">
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="uniformRowHeights">
+        <bool>true</bool>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="allColumnsShowFocus">
+        <bool>true</bool>
+       </property>
+       <column>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QPushButton" name="btn_commit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Commit Changes</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/img/table--arrow.png</normaloff>:/img/table--arrow.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_clear">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Clear Changes</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/img/table--minus.png</normaloff>:/img/table--minus.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_expand_all_pending">
+         <property name="toolTip">
+          <string>Expand All</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/img/arrow-out.png</normaloff>:/img/arrow-out.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_collapse_all_pending">
+         <property name="toolTip">
+          <string>Collapse All</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/img/arrow-in.png</normaloff>:/img/arrow-in.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="BaseDock" name="dock_custom_professions">
+   <property name="minimumSize">
+    <size>
+     <width>223</width>
+     <height>143</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Customizations</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QTreeWidget" name="tree_custom_professions">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+       <property name="showDropIndicator" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="indentation">
+        <number>5</number>
+       </property>
+       <property name="uniformRowHeights">
+        <bool>false</bool>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+       <attribute name="headerVisible">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string notr="true">1</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btn_new_custom_profession">
+         <property name="toolTip">
+          <string>Add a new custom profession.</string>
+         </property>
+         <property name="statusTip">
+          <string>Add a new custom profession.</string>
+         </property>
+         <property name="whatsThis">
+          <string>Add a new custom profession.</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">Text-align:left</string>
+         </property>
+         <property name="text">
+          <string>Custom Profession</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/img/document--plus.png</normaloff>:/img/document--plus.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_new_super_labor">
+         <property name="toolTip">
+          <string>Add a new super labor. Super labors are columns that allow the toggling of multiple labors at a time.</string>
+         </property>
+         <property name="statusTip">
+          <string>Add a new super labor. Super labors are columns that allow the toggling of multiple labors at a time.</string>
+         </property>
+         <property name="whatsThis">
+          <string>Add a new super labor. Super labors are columns that allow the toggling of multiple labors at a time.</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">Text-align:left</string>
+         </property>
+         <property name="text">
+          <string>Super Labor</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/img/table-insert-column.png</normaloff>:/img/table-insert-column.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="act_connect_to_DF">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/connect.png</normaloff>:/img/connect.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Connect To DF</string>
+   </property>
+   <property name="toolTip">
+    <string>Attempt connecting to a running copy of Dwarf Fortress (CTRL+SHIFT+C)</string>
+   </property>
+   <property name="statusTip">
+    <string>Attempt connecting to a running copy of Dwarf Fortress. (CTRL+SHIFT+C)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
+  </action>
+  <action name="act_exit">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/cross.png</normaloff>:/img/cross.png</iconset>
+   </property>
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="toolTip">
+    <string>Close Dwarf Therapist (CTRL+X)</string>
+   </property>
+   <property name="statusTip">
+    <string>Close Dwarf Therapist (CTRL+X)</string>
+   </property>
+  </action>
+  <action name="act_about">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/question-frame.png</normaloff>:/img/question-frame.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>Exactly what you think...</string>
+   </property>
+  </action>
+  <action name="act_read_dwarves">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/refresh.png</normaloff>:/img/refresh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Read Dwarves</string>
+   </property>
+   <property name="iconText">
+    <string>Read Dwarves</string>
+   </property>
+   <property name="toolTip">
+    <string>Attempt to load all Dwarves from DF (CTRL+R)</string>
+   </property>
+   <property name="statusTip">
+    <string>Attempt to load all Dwarves from DF (CTRL+R)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="act_expand_all">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/arrow-out.png</normaloff>:/img/arrow-out.png</iconset>
+   </property>
+   <property name="text">
+    <string>Expand All</string>
+   </property>
+   <property name="toolTip">
+    <string>Expand all groups (CTRL+Right Arrow)</string>
+   </property>
+   <property name="statusTip">
+    <string>Expand all groups (CTRL+Right Arrow)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Right</string>
+   </property>
+  </action>
+  <action name="act_collapse_all">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/arrow-in.png</normaloff>:/img/arrow-in.png</iconset>
+   </property>
+   <property name="text">
+    <string>Collapse All</string>
+   </property>
+   <property name="toolTip">
+    <string>Collapse all groups (CTRL+Left Arrow)</string>
+   </property>
+   <property name="statusTip">
+    <string>Collapse all groups (CTRL+Left Arrow)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Left</string>
+   </property>
+  </action>
+  <action name="act_add_custom_profession">
+   <property name="text">
+    <string>Add Custom Profession</string>
+   </property>
+  </action>
+  <action name="act_clear_pending_changes">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/table--minus.png</normaloff>:/img/table--minus.png</iconset>
+   </property>
+   <property name="text">
+    <string>C&amp;lear Pending Changes</string>
+   </property>
+   <property name="iconText">
+    <string>C&amp;lear</string>
+   </property>
+   <property name="toolTip">
+    <string>Abort all uncomitted changes (CTRL+E)</string>
+   </property>
+   <property name="statusTip">
+    <string>Abort all uncomitted changes (CTRL+E)</string>
+   </property>
+   <property name="whatsThis">
+    <string>Abort all uncomitted changes (CTRL+E)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="act_commit_pending_changes">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/table--arrow.png</normaloff>:/img/table--arrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Commit Pending Changes</string>
+   </property>
+   <property name="iconText">
+    <string>&amp;Commit</string>
+   </property>
+   <property name="toolTip">
+    <string>Write all uncomitted changes to DF (CTRL+T)</string>
+   </property>
+   <property name="statusTip">
+    <string>Write all uncomitted changes to DF (CTRL+T)</string>
+   </property>
+   <property name="whatsThis">
+    <string>Write all uncomitted changes to DF (CTRL+T)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="act_options">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/wrench-screwdriver.png</normaloff>:/img/wrench-screwdriver.png</iconset>
+   </property>
+   <property name="text">
+    <string>O&amp;ptions...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the options menu (CTRL+P)</string>
+   </property>
+   <property name="statusTip">
+    <string>Open the options menu (CTRL+P)</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open the options menu (CTRL+P)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="act_import_existing_professions">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/application-import.png</normaloff>:/img/application-import.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Professions from DF</string>
+   </property>
+   <property name="toolTip">
+    <string>Import all custom professions from the loaded game, and create new labor templates for them</string>
+   </property>
+  </action>
+  <action name="act_go_forums">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/globe--arrow.png</normaloff>:/img/globe--arrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Discussion Forums</string>
+   </property>
+   <property name="toolTip">
+    <string>Launch a browser to Dwarf Therapist's discussion forums</string>
+   </property>
+  </action>
+  <action name="act_go_project_home">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/globe--arrow.png</normaloff>:/img/globe--arrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Project Homepage</string>
+   </property>
+   <property name="toolTip">
+    <string>Launch a browser to Dwarf Therapist's project homepage</string>
+   </property>
+  </action>
+  <action name="act_go_new_issue">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/globe--arrow.png</normaloff>:/img/globe--arrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Request Feature / Report Bug</string>
+   </property>
+   <property name="toolTip">
+    <string>Report a bug or request a feature online</string>
+   </property>
+  </action>
+  <action name="act_go_donate">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/heart.png</normaloff>:/img/heart.png</iconset>
+   </property>
+   <property name="text">
+    <string>Donate</string>
+   </property>
+   <property name="toolTip">
+    <string>Your donations make the world a better place!</string>
+   </property>
+  </action>
+  <action name="act_export_custom_professions">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/document-export.png</normaloff>:/img/document-export.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export Custom Professions...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export your custom professions to file of your choosing</string>
+   </property>
+  </action>
+  <action name="act_import_saved_custom_professions">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/document-import.png</normaloff>:/img/document-import.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Custom Professions...</string>
+   </property>
+   <property name="toolTip">
+    <string>Import a custom professions file that was previously exported</string>
+   </property>
+  </action>
+  <action name="act_import_saved_gridviews">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/table-import.png</normaloff>:/img/table-import.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Grid Views...</string>
+   </property>
+   <property name="toolTip">
+    <string>Import Grid Views from file</string>
+   </property>
+  </action>
+  <action name="act_export_gridviews">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/table-export.png</normaloff>:/img/table-export.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export Grid Views...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Grid Views to file</string>
+   </property>
+  </action>
+  <action name="act_add_new_filter_script">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/script_plus.png</normaloff>:/img/script_plus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add New Filter Script</string>
+   </property>
+  </action>
+  <action name="act_print">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/camera.png</normaloff>:/img/camera.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Snapshot</string>
+   </property>
+   <property name="toolTip">
+    <string>Saves a snapshot of the current view as a png.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="act_clear_user_settings">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/status/img/broom.png</normaloff>:/status/img/broom.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear User Settings...</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear User Settings and exit application</string>
+   </property>
+  </action>
+  <action name="act_add_new_custom_role">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/script_plus.png</normaloff>:/img/script_plus.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Custom Role</string>
+   </property>
+  </action>
+  <action name="act_add_new_opt">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/script_plus.png</normaloff>:/img/script_plus.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Optimization Plan</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new optimization plan.</string>
+   </property>
+  </action>
+  <action name="act_export_csv">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/document-excel-csv.png</normaloff>:/img/document-excel-csv.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export Current Grid View as CSV</string>
+   </property>
+  </action>
+  <action name="act_import_roles">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/document-import.png</normaloff>:/img/document-import.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Custom Roles</string>
+   </property>
+  </action>
+  <action name="act_export_roles">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/document-export.png</normaloff>:/img/document-export.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export Custom Roles</string>
+   </property>
+  </action>
+  <action name="act_add_super_labor">
+   <property name="text">
+    <string>Add Super Labor</string>
+   </property>
+  </action>
+  <action name="act_help">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/img/book-question.png</normaloff>:/img/book-question.png</iconset>
+   </property>
+   <property name="text">
+    <string>Manual</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the Dwarf Therapist manual.</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>BaseDock</class>
+   <extends>QDockWidget</extends>
+   <header location="global">basedock.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>cb_group_by</tabstop>
+  <tabstop>le_filter_text</tabstop>
+  <tabstop>tree_pending</tabstop>
+  <tabstop>btn_expand_all_pending</tabstop>
+  <tabstop>btn_collapse_all_pending</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>act_connect_to_DF</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>connect_to_df()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_exit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_read_dwarves</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>read_dwarves()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_group_by</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_group_by(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>122</x>
+     <y>437</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>26</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_about</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>show_about()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>352</x>
+     <y>281</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_commit</sender>
+   <signal>clicked()</signal>
+   <receiver>act_commit_pending_changes</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>988</x>
+     <y>437</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_clear</sender>
+   <signal>clicked()</signal>
+   <receiver>act_clear_pending_changes</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1118</x>
+     <y>437</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_collapse_all_pending</sender>
+   <signal>clicked()</signal>
+   <receiver>tree_pending</receiver>
+   <slot>collapseAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1118</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1119</x>
+     <y>184</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_expand_all_pending</sender>
+   <signal>clicked()</signal>
+   <receiver>tree_pending</receiver>
+   <slot>expandAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>988</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1119</x>
+     <y>184</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_new_custom_profession</sender>
+   <signal>clicked()</signal>
+   <receiver>act_add_custom_profession</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1119</x>
+     <y>776</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_go_donate</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>go_to_donate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>373</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_go_forums</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>go_to_forums()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>373</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_go_new_issue</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>go_to_new_issue()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>373</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_go_project_home</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>go_to_project_home()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>373</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_export_custom_professions</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_custom_professions()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_import_saved_custom_professions</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>import_custom_professions()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_export_gridviews</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_gridviews()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_import_saved_gridviews</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>import_gridviews()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_add_new_filter_script</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_new_filter_script()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_clear_user_settings</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clear_user_settings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_add_new_custom_role</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_new_custom_role()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_print</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>print_gridview()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_add_new_opt</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_new_opt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_export_csv</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save_gridview_csv()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_import_roles</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>import_custom_roles()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_export_roles</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_custom_roles()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_new_super_labor</sender>
+   <signal>clicked()</signal>
+   <receiver>act_add_super_labor</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1055</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>act_help</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_help()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>connect_to_df()</slot>
+  <slot>read_dwarves()</slot>
+  <slot>filter_dwarves()</slot>
+  <slot>show_toolbutton_text(bool)</slot>
+  <slot>set_group_by(int)</slot>
+  <slot>show_about()</slot>
+  <slot>add_custom_profession()</slot>
+  <slot>open_options_menu()</slot>
+  <slot>set_single_click_labor_changes(bool)</slot>
+  <slot>go_to_forums()</slot>
+  <slot>go_to_donate()</slot>
+  <slot>go_to_project_home()</slot>
+  <slot>go_to_new_issue()</slot>
+  <slot>add_new_grid_view()</slot>
+  <slot>add_new_column_set()</slot>
+  <slot>export_custom_professions()</slot>
+  <slot>import_custom_professions()</slot>
+  <slot>export_gridviews()</slot>
+  <slot>import_gridviews()</slot>
+  <slot>add_new_filter_script()</slot>
+  <slot>print_gridview()</slot>
+  <slot>clear_user_settings()</slot>
+  <slot>add_new_custom_role()</slot>
+  <slot>add_new_opt()</slot>
+  <slot>save_gridview_csv()</slot>
+  <slot>export_custom_roles()</slot>
+  <slot>import_custom_roles()</slot>
+  <slot>open_help()</slot>
+ </slots>
+</ui>
