@@ -166,7 +166,7 @@ void Role::parsePreferences(QSettings &s, QString node, weight_info &g_weight, f
         if(p->pref_aspect->weight < 0)
             p->pref_aspect->weight = 1.0;
 
-        id = s.value("name",tr("Unknown")).toString();
+        id = s.value("name",trUtf8("Unknown")).toString();
         if(id == "Unknown"){
             LOGW << "Role" << m_name << "has an invalid preference, index:" << i;
         }
@@ -285,26 +285,26 @@ QString Role::generate_details(QString title, weight_info aspect_group_weight,
             group_lines = true;
 
         if(aspect_group_weight.weight != aspect_default_weight)
-            title_formatted.append(tr("<i> (w %1)</i>").arg(aspect_group_weight.weight));
+            title_formatted.append(trUtf8("<i> (w %1)</i>").arg(aspect_group_weight.weight));
 
-        summary = tr("<p style =\"margin:0; margin-left:10px; padding:0px;\"><b>%1:</b></p>").arg(title_formatted);
+        summary = trUtf8("<p style =\"margin:0; margin-left:10px; padding:0px;\"><b>%1:</b></p>").arg(title_formatted);
         QString w_str;
         foreach(QString id, weight_infos.uniqueKeys()){
             w_info = weight_infos.value(id);
             weight = w_info.weight;
 
-            if(title.toLower()==tr("skills"))
+            if(title.toLower()==trUtf8("skills"))
                 id = GameDataReader::ptr()->get_skill_name(id.toInt());
-            if(title.toLower()==tr("traits"))
+            if(title.toLower()==trUtf8("traits"))
                 id = GameDataReader::ptr()->get_trait_name(id.toInt());
 
             detail = capitalizeEach(id);
             float key = weight;
             if(w_info.is_neg){
-                w_str = tr("<i> <font color=red>(w-%1)</font></i>").arg(weight,0,'f',2);
+                w_str = trUtf8("<i> <font color=red>(w-%1)</font></i>").arg(weight,0,'f',2);
                 key *= -1;
             }else{
-                w_str = tr("<i> (w%1)</i>").arg(weight,0,'f',2);
+                w_str = trUtf8("<i> (w%1)</i>").arg(weight,0,'f',2);
             }
 
             if(group_lines){
@@ -348,7 +348,7 @@ QString Role::get_preference_details(float aspect_default_weight, Dwarf *d){
         weight_info wi = {false, prefs.at(i)->pref_aspect->is_neg, prefs.at(i)->pref_aspect->weight};
         weight_infos.insert(prefs.at(i)->get_name(),wi);
     }
-    m_pref_desc = generate_details(tr("Preferences"), prefs_weight, aspect_default_weight, weight_infos);
+    m_pref_desc = generate_details(trUtf8("Preferences"), prefs_weight, aspect_default_weight, weight_infos);
     QString pref_desc = m_pref_desc;
 
     highlight_pref_matches(d,pref_desc);
@@ -386,7 +386,7 @@ void Role::highlight_pref_matches(Dwarf *d, QString &pref_desc){
 
             if(pref_names.count() > 0){
                 qSort(pref_names);
-                pref_desc.insert(pref_desc.lastIndexOf("</p>"),tr("<br/><b>Matches:</b> %1").arg(pref_names.join(", ")));
+                pref_desc.insert(pref_desc.lastIndexOf("</p>"),trUtf8("<br/><b>Matches:</b> %1").arg(pref_names.join(", ")));
             }
         }
     }
@@ -414,7 +414,7 @@ void Role::write_aspect_group(QSettings &s, QString group_name, weight_info grou
         foreach(QString key, list.uniqueKeys()){
             s.setArrayIndex(count);
             a = list.value(key);
-            QString id = tr("%1%2").arg(a->is_neg ? "-" : "").arg(key);
+            QString id = trUtf8("%1%2").arg(a->is_neg ? "-" : "").arg(key);
             s.setValue("id",id);
             if(a->weight != 1.0){
                 s.setValue("weight",QString::number(a->weight,'g',2));
@@ -444,7 +444,7 @@ void Role::write_pref_group(QSettings &s, float default_prefs_weight){
             }
             s.setValue("exact", p->exact_match());
 
-            QString id = tr("%1%2").arg(p->pref_aspect->is_neg ? "-" : "").arg(p->get_name());
+            QString id = trUtf8("%1%2").arg(p->pref_aspect->is_neg ? "-" : "").arg(p->get_name());
             s.setValue("name",id);
             if(p->pref_aspect->weight != 1.0){
                 s.setValue("weight",QString::number(p->pref_aspect->weight,'g',2));

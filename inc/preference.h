@@ -39,17 +39,17 @@ public:
 
     static const QString get_pref_desc(const PREF_TYPES &type) {
         QMap<PREF_TYPES, QString> desc;
-        desc[LIKE_MATERIAL] = tr("Materials");
-        desc[LIKE_CREATURE] = tr("Creatures");
-        desc[LIKE_FOOD] = tr("Food & Drink");
-        desc[HATE_CREATURE] = tr("Dislikes");
-        desc[LIKE_ITEM] = tr("Items");
-        desc[LIKE_PLANT] = tr("Plants");
-        desc[LIKE_TREE] = tr("Trees");
-        desc[LIKE_COLOR] = tr("Colors");
-        desc[LIKE_SHAPE] = tr("Shapes");
-        desc[LIKE_OUTDOORS] = tr("Outdoors");
-        return desc.value(type, tr("N/A"));
+        desc[LIKE_MATERIAL] = trUtf8("Materials");
+        desc[LIKE_CREATURE] = trUtf8("Creatures");
+        desc[LIKE_FOOD] = trUtf8("Food & Drink");
+        desc[HATE_CREATURE] = trUtf8("Dislikes");
+        desc[LIKE_ITEM] = trUtf8("Items");
+        desc[LIKE_PLANT] = trUtf8("Plants");
+        desc[LIKE_TREE] = trUtf8("Trees");
+        desc[LIKE_COLOR] = trUtf8("Colors");
+        desc[LIKE_SHAPE] = trUtf8("Shapes");
+        desc[LIKE_OUTDOORS] = trUtf8("Outdoors");
+        return desc.value(type, trUtf8("N/A"));
     }
 
     Preference(QObject *parent);

@@ -33,11 +33,11 @@ DwarfDetailsDock::DwarfDetailsDock(QWidget *parent, Qt::WindowFlags flags)
     , m_current_id(-1)
 {
     m_widget->hide();
-    setWindowTitle(tr("Dwarf Details"));
+    setWindowTitle(trUtf8("Dwarf Details"));
     setObjectName("dock_dwarf_details");
     setFeatures(QDockWidget::AllDockWidgetFeatures);
     setAllowedAreas(Qt::AllDockWidgetAreas);
-    lbl_info = new QLabel(tr("Click on a dwarf name to show details here"), this);
+    lbl_info = new QLabel(trUtf8("Click on a dwarf name to show details here"), this);
     lbl_info->setAlignment(Qt::AlignCenter);
     setWidget(lbl_info);
 }

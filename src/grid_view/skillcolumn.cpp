@@ -147,10 +147,10 @@ void SkillColumn::build_tooltip(Dwarf *d, bool include_roles, bool check_labor){
             if(found_roles.count() > 0){
                 float role_rating=0;
                 //just list roles and %
-                role_str = tr("<h4>Related Roles:</h4><ul style=\"margin-left:-20px; padding-left:0px;\">");
+                role_str = trUtf8("<h4>Related Roles:</h4><ul style=\"margin-left:-20px; padding-left:0px;\">");
                 foreach(Role *r, found_roles){
                     role_rating = d->get_role_rating(r->name());
-                    role_str += tr("<li>%1 (%2%)</li>").arg(r->name()).arg(QString::number(role_rating,'f',2));
+                    role_str += trUtf8("<li>%1 (%2%)</li>").arg(r->name()).arg(QString::number(role_rating,'f',2));
                 }
                 role_str += "</ul>";
             }
@@ -164,7 +164,7 @@ void SkillColumn::build_tooltip(Dwarf *d, bool include_roles, bool check_labor){
         int bonus = raw_bonus - 100;
         if(bonus != 0){
             QString prefix = bonus < 0 ? "Penalty" : "Bonus";
-            str_skill_rate = tr("<br><b>XP %1: </b>%2% [RAW: %3%]")
+            str_skill_rate = trUtf8("<br><b>XP %1: </b>%2% [RAW: %3%]")
                     .arg(prefix)
                     .arg(QString::number(bonus,'f',0))
                     .arg(QString::number(raw_bonus,'f',0));
@@ -173,26 +173,26 @@ void SkillColumn::build_tooltip(Dwarf *d, bool include_roles, bool check_labor){
 
     QString str_mood = "";
     if(m_skill_id == d->highest_moodable().id()){
-        str_mood = tr("<br/><br/>This is the highest moodable skill.");
+        str_mood = trUtf8("<br/><br/>This is the highest moodable skill.");
         if(d->had_mood())
-            str_mood = tr("<br/><br/>Had a mood with this skill and crafted '%1'.").arg(d->artifact_name());
+            str_mood = trUtf8("<br/><br/>Had a mood with this skill and crafted '%1'.").arg(d->artifact_name());
     }
 
     QString labors_disabled = "";
     if(check_labor){
         QString reason = "";
         if(d->locked_in_mood()){
-            reason = tr("due to mood (%1)").arg(gdr->get_mood_name(d->current_mood(),true));
+            reason = trUtf8("due to mood (%1)").arg(gdr->get_mood_name(d->current_mood(),true));
         }else if(!d->can_set_labors()){
             if(!d->is_adult()){
-                reason = tr("for children and babies.");
+                reason = trUtf8("for children and babies.");
             }else{
-                reason = tr("for this profession.");
+                reason = trUtf8("for this profession.");
             }
         }
 
         if(!reason.isEmpty()){
-            labors_disabled = tr("<br/><h4 style=\"margin:0;\"><u>Labor cannot be changed %1</u></font></h4>").arg(reason);
+            labors_disabled = trUtf8("<br/><h4 style=\"margin:0;\"><u>Labor cannot be changed %1</u></font></h4>").arg(reason);
         }
     }
 
@@ -202,12 +202,12 @@ void SkillColumn::build_tooltip(Dwarf *d, bool include_roles, bool check_labor){
     float raw_rating = d->get_skill_level(m_skill_id, true, true);
     if ((m_skill_id != -1 && rating > -1) || d->had_mood()) {
         if(m_skill_id == -1){
-            skill_str = tr("<center>%1 %2%3</center>")
+            skill_str = trUtf8("<center>%1 %2%3</center>")
                     .arg(gdr->get_skill_name(m_skill_id,true))
                     .arg(str_mood)
                     .arg(labors_disabled);
         }else{
-            skill_str = tr("<center><h4 style=\"margin:0;\">%1 %2</h4><br/><b>[RAW LEVEL:</b> %3]<br/><b>Experience: </b>%4%5%6%7</center>")
+            skill_str = trUtf8("<center><h4 style=\"margin:0;\">%1 %2</h4><br/><b>[RAW LEVEL:</b> %3]<br/><b>Experience: </b>%4%5%6%7</center>")
                     .arg(gdr->get_skill_level_name(rating))
                     .arg(gdr->get_skill_name(m_skill_id,true))
                     .arg(QString::number((int)raw_rating))
@@ -218,8 +218,8 @@ void SkillColumn::build_tooltip(Dwarf *d, bool include_roles, bool check_labor){
         }
     } else {
         // either the skill isn't a valid id, or they have 0 experience in it
-        skill_str = tr("<center><b>%1</b>%2%3</center>")
-                .arg(tr("0 Experience"))
+        skill_str = trUtf8("<center><b>%1</b>%2%3</center>")
+                .arg(trUtf8("0 Experience"))
                 .arg(str_skill_rate)
                 .arg(labors_disabled);
     }
@@ -234,7 +234,7 @@ void SkillColumn::build_tooltip(Dwarf *d, bool include_roles, bool check_labor){
             conflicting_traits.append(con);
     }
     if(conflicting_traits.length() > 0){
-        conflicts_str = tr("<h4><b>%1</b></h4>")
+        conflicts_str = trUtf8("<h4><b>%1</b></h4>")
                 .arg(conflicting_traits.join(", "));
     }
 

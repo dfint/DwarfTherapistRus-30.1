@@ -52,10 +52,10 @@ optimizereditor::optimizereditor(QWidget *parent)
 
     ui->tw_labors->setHorizontalHeaderLabels(QStringList() << "Job" << "Role" << "Priority" << "Ratio" << "Worker Count");
 
-    ui->tw_labors->horizontalHeaderItem(1)->setToolTip(tr("The role or labor skill used to rank dwarves for the job."));
-    ui->tw_labors->horizontalHeaderItem(2)->setToolTip(tr("Determines how important assigning workers to the job is, in relation to other jobs. A 0.2 difference between priorties is advised for best results."));
-    ui->tw_labors->horizontalHeaderItem(3)->setToolTip(tr("Represents the ratio of the population which should be assigned to the job. For example setting 1 for each job will distribute workers evenly among all jobs."));
-    ui->tw_labors->horizontalHeaderItem(4)->setToolTip(tr("The actual number of dwarves which will be assigned to the job"));
+    ui->tw_labors->horizontalHeaderItem(1)->setToolTip(trUtf8("The role or labor skill used to rank dwarves for the job."));
+    ui->tw_labors->horizontalHeaderItem(2)->setToolTip(trUtf8("Determines how important assigning workers to the job is, in relation to other jobs. A 0.2 difference between priorties is advised for best results."));
+    ui->tw_labors->horizontalHeaderItem(3)->setToolTip(trUtf8("Represents the ratio of the population which should be assigned to the job. For example setting 1 for each job will distribute workers evenly among all jobs."));
+    ui->tw_labors->horizontalHeaderItem(4)->setToolTip(trUtf8("The actual number of dwarves which will be assigned to the job"));
 
     connect(ui->btnOptimize, SIGNAL(clicked()), this, SLOT(test_optimize()));
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(save_pressed()));
@@ -204,7 +204,7 @@ void optimizereditor::insert_row(PlanDetail *d){
     }else{
         cmb_roles->setCurrentIndex(0);
         if(!d->use_skill){
-            display_message(tr("The role for %1 (%2) could not be found! Skill level will be used instead.")
+            display_message(trUtf8("The role for %1 (%2) could not be found! Skill level will be used instead.")
                             .arg(l->name)
                             .arg(d->role_name),true);
             d->use_skill = true;
@@ -216,7 +216,7 @@ void optimizereditor::insert_row(PlanDetail *d){
     ui->tw_labors->setItem(row, 1, cmbitem);
 
     QDoubleSpinBox *sb_priority = new QDoubleSpinBox();
-    sb_priority->setStatusTip(tr("It is advised to keep a minimum difference of 0.2 between priorities for best results."));
+    sb_priority->setStatusTip(trUtf8("It is advised to keep a minimum difference of 0.2 between priorities for best results."));
     sb_priority->setMinimum(0.00);
     sb_priority->setMaximum(20.0);
     sb_priority->setSingleStep(0.2);
@@ -306,7 +306,7 @@ void optimizereditor::set_override_formatting(QWidget *w){
         p.setColor(w->backgroundRole(),m_color_override);
         w->setPalette(p);
         w->update();
-        w->setStatusTip(tr("This count has been overridden; it will not update dynamically on population changes."));
+        w->setStatusTip(trUtf8("This count has been overridden; it will not update dynamically on population changes."));
     }
 }
 
@@ -374,7 +374,7 @@ void optimizereditor::refresh_job_counts(){
     ui->lbl_counts->setText(pops);
     ui->lbl_counts->setToolTip(msg);
 
-    ui->tw_labors->horizontalHeaderItem(3)->setToolTip(tr("Represents the ratio of the total job slots (%1) which should be assigned to the job.")
+    ui->tw_labors->horizontalHeaderItem(3)->setToolTip(trUtf8("Represents the ratio of the total job slots (%1) which should be assigned to the job.")
                                                        .arg(QString::number(m_optimizer->total_raw_jobs())));
 }
 
@@ -431,7 +431,7 @@ void optimizereditor::draw_labor_context_menu(const QPoint &p){
     QMenu *m = new QMenu("",this);
     QModelIndex idx = ui->tw_labors->indexAt(p);
     if (idx.isValid()) { // context on a row
-        m->addAction(QIcon(":img/minus-circle.png"), tr("Remove Selected"), this, SLOT(remove_labor()));
+        m->addAction(QIcon(":img/minus-circle.png"), trUtf8("Remove Selected"), this, SLOT(remove_labor()));
         m->addSeparator();
     }
     QAction *a;
@@ -439,11 +439,11 @@ void optimizereditor::draw_labor_context_menu(const QPoint &p){
 
     QIcon icn(":img/plus-circle.png");
 
-    QMenu *labor_a_l = m->addMenu(icn, tr("A-I"));
+    QMenu *labor_a_l = m->addMenu(icn, trUtf8("A-I"));
     labor_a_l->setTearOffEnabled(true);
-    QMenu *labor_j_r = m->addMenu(icn, tr("J-R"));
+    QMenu *labor_j_r = m->addMenu(icn, trUtf8("J-R"));
     labor_j_r->setTearOffEnabled(true);
-    QMenu *labor_s_z = m->addMenu(icn, tr("S-Z"));
+    QMenu *labor_s_z = m->addMenu(icn, trUtf8("S-Z"));
     labor_s_z->setTearOffEnabled(true);
 
     bool exists;
@@ -468,20 +468,20 @@ void optimizereditor::draw_labor_context_menu(const QPoint &p){
         }
     }
 
-    QString msg = tr("A-I (%1 jobs)").arg(labor_a_l->children().count());
+    QString msg = trUtf8("A-I (%1 jobs)").arg(labor_a_l->children().count());
     labor_a_l->setWindowTitle(msg);
     labor_a_l->setTitle(msg);
 
-    msg = tr("J-R (%1 jobs)").arg(labor_j_r->children().count());
+    msg = trUtf8("J-R (%1 jobs)").arg(labor_j_r->children().count());
     labor_j_r->setWindowTitle(msg);
     labor_j_r->setTitle(msg);
 
-    msg = tr("S-Z (%1 jobs)").arg(labor_s_z->children().count());
+    msg = trUtf8("S-Z (%1 jobs)").arg(labor_s_z->children().count());
     labor_s_z->setWindowTitle(msg);
     labor_s_z->setTitle(msg);
 
     m->addSeparator();
-    m->addAction(icn, tr("Assign remaining %1 jobs.").arg(m_remaining_labors.count())
+    m->addAction(icn, trUtf8("Assign remaining %1 jobs.").arg(m_remaining_labors.count())
                  , this, SLOT(add_remaining_jobs()));
 
     m->exec(ui->tw_labors->viewport()->mapToGlobal(p));
@@ -616,8 +616,8 @@ void optimizereditor::clear_log(){
 void optimizereditor::save_pressed(){
     if(GameDataReader::ptr()->get_opt_plan(ui->le_name->text())){
         if(QMessageBox::question(
-                    0, tr("Confirm Copy"),
-                    tr("An optimization plan with this name already exists, continue and overwrite?"),
+                    0, trUtf8("Confirm Copy"),
+                    trUtf8("An optimization plan with this name already exists, continue and overwrite?"),
                     QMessageBox::Yes | QMessageBox::No) == QMessageBox::No){
             return;
         }
@@ -626,7 +626,7 @@ void optimizereditor::save_pressed(){
     save(m_plan);
 
     if(ui->le_name->text().trimmed().isEmpty()){
-        QMessageBox::critical(this,tr("Invalid Plan Name"),tr("Please enter a name for this optimization plan."));
+        QMessageBox::critical(this,trUtf8("Invalid Plan Name"),trUtf8("Please enter a name for this optimization plan."));
         return;
     }
 
@@ -665,7 +665,7 @@ void optimizereditor::cleanup(){
 
 void optimizereditor::import_details(){
     clear_log();
-    QString path = QFileDialog::getOpenFileName(this, tr("CSV Import"),"",tr("CSV (*.csv);;All Files (*)"));
+    QString path = QFileDialog::getOpenFileName(this, trUtf8("CSV Import"),"",trUtf8("CSV (*.csv);;All Files (*)"));
 
     QFile file(path);
      if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -719,7 +719,7 @@ void optimizereditor::import_details(){
                  QString msg = "";
                  if(!role_name.isEmpty())
                      msg = "Role [" + role_name + "] was used instead.";
-                 display_message(tr("The role for %1 [%2] could not be found at line %3.")
+                 display_message(trUtf8("The role for %1 [%2] could not be found at line %3.")
                                  .arg(GameDataReader::ptr()->get_labor(d->labor_id)->name)
                                  .arg(d->role_name)
                                  .arg(msg)
@@ -756,7 +756,7 @@ void optimizereditor::import_details(){
 
              save(m_plan);
          }else{
-             display_message(tr("CSV has an invalid number of columns (%1) at line %2.")
+             display_message(trUtf8("CSV has an invalid number of columns (%1) at line %2.")
                              .arg(fields.count()).arg(linenum),true);
          }
 
@@ -775,7 +775,7 @@ void optimizereditor::import_details(){
 
 void optimizereditor::export_details(){
     clear_log();
-    QString path = QFileDialog::getSaveFileName(this, tr("CSV Export"),m_plan->name,tr("CSV (*.csv);;All Files (*)"));
+    QString path = QFileDialog::getSaveFileName(this, trUtf8("CSV Export"),m_plan->name,trUtf8("CSV (*.csv);;All Files (*)"));
 
     QFile file(path);
      if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){

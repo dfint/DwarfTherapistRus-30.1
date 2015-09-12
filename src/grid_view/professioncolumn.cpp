@@ -51,11 +51,11 @@ QStandardItem *ProfessionColumn::build_cell(Dwarf *d) {
     item->setData(CT_PROFESSION, DwarfModel::DR_COL_TYPE);
     item->setData(d->raw_profession(), DwarfModel::DR_SORT_VALUE);
 
-    QString tooltip = tr("<center><h3>%1</h3><h4>%2 (%3)</h4><h5><i>%4</i></h5>%5</center>")
+    QString tooltip = trUtf8("<center><h3>%1</h3><h4>%2 (%3)</h4><h5><i>%4</i></h5>%5</center>")
             .arg(m_title)
             .arg(d->profession())
             .arg(d->raw_profession())
-            .arg(tr("Right click to edit this profession's icon."))
+            .arg(trUtf8("Right click to edit this profession's icon."))
             .arg(tooltip_name_footer(d));
 
     item->setToolTip(tooltip);

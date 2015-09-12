@@ -75,8 +75,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_df(0)
-    , m_lbl_status(new QLabel(tr("Disconnected"), this))
-    , m_lbl_message(new QLabel(tr("Initializing"), this))
+    , m_lbl_status(new QLabel(trUtf8("Disconnected"), this))
+    , m_lbl_message(new QLabel(trUtf8("Initializing"), this))
     , m_progress(new QProgressBar(this))
     , m_settings(0)
     , m_view_manager(0)
@@ -219,26 +219,26 @@ MainWindow::MainWindow(QWidget *parent)
     set_interface_enabled(false);
 
     ui->cb_group_by->setItemData(0, DwarfModel::GB_NOTHING);
-    ui->cb_group_by->addItem(tr("Age"), DwarfModel::GB_AGE);
-    ui->cb_group_by->addItem(tr("Caste"), DwarfModel::GB_CASTE);
-    ui->cb_group_by->addItem(tr("Current Job"), DwarfModel::GB_CURRENT_JOB);
-    ui->cb_group_by->addItem(tr("Gender & Orientation"), DwarfModel::GB_SEX);
-    ui->cb_group_by->addItem(tr("Goals"), DwarfModel::GB_GOALS);
-    ui->cb_group_by->addItem(tr("Happiness"), DwarfModel::GB_HAPPINESS);
-    ui->cb_group_by->addItem(tr("Has Nickname"),DwarfModel::GB_HAS_NICKNAME);
-    ui->cb_group_by->addItem(tr("Health"),DwarfModel::GB_HEALTH);
-    ui->cb_group_by->addItem(tr("Highest Moodable Skill"), DwarfModel::GB_HIGHEST_MOODABLE);
-    ui->cb_group_by->addItem(tr("Highest Skill"), DwarfModel::GB_HIGHEST_SKILL);
-    ui->cb_group_by->addItem(tr("Legendary Status"), DwarfModel::GB_LEGENDARY);
-    ui->cb_group_by->addItem(tr("Migration Wave"),DwarfModel::GB_MIGRATION_WAVE);
-    ui->cb_group_by->addItem(tr("Military Status"),DwarfModel::GB_MILITARY_STATUS);
-    ui->cb_group_by->addItem(tr("Profession"), DwarfModel::GB_PROFESSION);
-    ui->cb_group_by->addItem(tr("Race"), DwarfModel::GB_RACE);
-    ui->cb_group_by->addItem(tr("Skill Rust"), DwarfModel::GB_SKILL_RUST);
-    ui->cb_group_by->addItem(tr("Squad"), DwarfModel::GB_SQUAD);
-    ui->cb_group_by->addItem(tr("Total Assigned Labors"),DwarfModel::GB_ASSIGNED_LABORS);
-    ui->cb_group_by->addItem(tr("Total Assigned Skilled Labors"),DwarfModel::GB_ASSIGNED_SKILLED_LABORS);
-    ui->cb_group_by->addItem(tr("Total Skill Levels"),DwarfModel::GB_TOTAL_SKILL_LEVELS);
+    ui->cb_group_by->addItem(trUtf8("Age"), DwarfModel::GB_AGE);
+    ui->cb_group_by->addItem(trUtf8("Caste"), DwarfModel::GB_CASTE);
+    ui->cb_group_by->addItem(trUtf8("Current Job"), DwarfModel::GB_CURRENT_JOB);
+    ui->cb_group_by->addItem(trUtf8("Gender & Orientation"), DwarfModel::GB_SEX);
+    ui->cb_group_by->addItem(trUtf8("Goals"), DwarfModel::GB_GOALS);
+    ui->cb_group_by->addItem(trUtf8("Happiness"), DwarfModel::GB_HAPPINESS);
+    ui->cb_group_by->addItem(trUtf8("Has Nickname"),DwarfModel::GB_HAS_NICKNAME);
+    ui->cb_group_by->addItem(trUtf8("Health"),DwarfModel::GB_HEALTH);
+    ui->cb_group_by->addItem(trUtf8("Highest Moodable Skill"), DwarfModel::GB_HIGHEST_MOODABLE);
+    ui->cb_group_by->addItem(trUtf8("Highest Skill"), DwarfModel::GB_HIGHEST_SKILL);
+    ui->cb_group_by->addItem(trUtf8("Legendary Status"), DwarfModel::GB_LEGENDARY);
+    ui->cb_group_by->addItem(trUtf8("Migration Wave"),DwarfModel::GB_MIGRATION_WAVE);
+    ui->cb_group_by->addItem(trUtf8("Military Status"),DwarfModel::GB_MILITARY_STATUS);
+    ui->cb_group_by->addItem(trUtf8("Profession"), DwarfModel::GB_PROFESSION);
+    ui->cb_group_by->addItem(trUtf8("Race"), DwarfModel::GB_RACE);
+    ui->cb_group_by->addItem(trUtf8("Skill Rust"), DwarfModel::GB_SKILL_RUST);
+    ui->cb_group_by->addItem(trUtf8("Squad"), DwarfModel::GB_SQUAD);
+    ui->cb_group_by->addItem(trUtf8("Total Assigned Labors"),DwarfModel::GB_ASSIGNED_LABORS);
+    ui->cb_group_by->addItem(trUtf8("Total Assigned Skilled Labors"),DwarfModel::GB_ASSIGNED_SKILLED_LABORS);
+    ui->cb_group_by->addItem(trUtf8("Total Skill Levels"),DwarfModel::GB_TOTAL_SKILL_LEVELS);
 
     read_settings();
     load_customizations();
@@ -351,7 +351,7 @@ void MainWindow::connect_to_df() {
     if (m_force_connect && m_df && m_df->find_running_copy(true)) {
         if(m_df->memory_layout()){
             LOGI << "Connection to DF version" << m_df->memory_layout()->game_version() << "established.";
-            set_status_message(tr("Connected to DF %1").arg(m_df->memory_layout()->game_version()),tr("Currently using layout file: %1").arg(m_df->memory_layout()->filename()));
+            set_status_message(trUtf8("Connected to DF %1").arg(m_df->memory_layout()->game_version()),trUtf8("Currently using layout file: %1").arg(m_df->memory_layout()->filename()));
         }else{
             LOGI << "Connection to unknown DF Version established.";
             set_status_message("Connected to unknown version!","");
@@ -359,7 +359,7 @@ void MainWindow::connect_to_df() {
         m_force_connect = false;
     } else if (m_df && m_df->find_running_copy() && m_df->is_ok()) {
         LOGI << "Connection to DF version" << m_df->memory_layout()->game_version() << "established.";
-        set_status_message(tr("Connected to DF %1").arg(m_df->memory_layout()->game_version()),tr("Currently using layout file: %1").arg(m_df->memory_layout()->filename()));
+        set_status_message(trUtf8("Connected to DF %1").arg(m_df->memory_layout()->game_version()),trUtf8("Currently using layout file: %1").arg(m_df->memory_layout()->filename()));
         m_force_connect = false;
     } else {
         m_force_connect = true;
@@ -391,8 +391,8 @@ void MainWindow::connect_to_df() {
 }
 
 void MainWindow::set_status_message(QString msg, QString tooltip_msg){
-    m_lbl_status->setText(tr("%1 - DT Version %2").arg(msg).arg(Version().to_string()));
-    m_lbl_status->setToolTip(tr("<span>%1</span>").arg(tooltip_msg));
+    m_lbl_status->setText(trUtf8("%1 - DT Version %2").arg(msg).arg(Version().to_string()));
+    m_lbl_status->setToolTip(trUtf8("<span>%1</span>").arg(tooltip_msg));
 }
 
 void MainWindow::lost_df_connection() {
@@ -405,9 +405,9 @@ void MainWindow::lost_df_connection() {
         m_df = 0;
         reset();
         set_interface_enabled(false);
-        QString details = tr("Dwarf Fortress has either stopped running, or you unloaded your game. Please re-connect when a fort is loaded.");
-        set_status_message(tr("Disconnected"), details);
-        QMessageBox::information(this, tr("Unable to talk to Dwarf Fortress"), details);
+        QString details = trUtf8("Dwarf Fortress has either stopped running, or you unloaded your game. Please re-connect when a fort is loaded.");
+        set_status_message(trUtf8("Disconnected"), details);
+        QMessageBox::information(this, trUtf8("Unable to talk to Dwarf Fortress"), details);
     }
 }
 
@@ -524,13 +524,13 @@ void MainWindow::read_dwarves() {
         //special grouping when using multiple castes, insert it after the caste group
         ui->cb_group_by->blockSignals(true);
         int grp_by = ui->cb_group_by->itemData(ui->cb_group_by->currentIndex()).toInt();
-        ui->cb_group_by->insertItem(3, QIcon(":img/exclamation-red-frame.png"), tr("Caste Tag"), DwarfModel::GB_CASTE_TAG);
-        ui->cb_group_by->setItemData(3, tr("Possible Spoilers! This may show special/hidden castes!"), Qt::ToolTipRole);
+        ui->cb_group_by->insertItem(3, QIcon(":img/exclamation-red-frame.png"), trUtf8("Caste Tag"), DwarfModel::GB_CASTE_TAG);
+        ui->cb_group_by->setItemData(3, trUtf8("Possible Spoilers! This may show special/hidden castes!"), Qt::ToolTipRole);
         ui->cb_group_by->setCurrentIndex(ui->cb_group_by->findData(grp_by));
         ui->cb_group_by->blockSignals(false);
     }
 
-    this->setWindowTitle(QString("%1 %2").arg(tr("Dwarf Therapist - ")).arg(m_df->fortress_name()));
+    this->setWindowTitle(QString("%1 %2").arg(trUtf8("Dwarf Therapist - ")).arg(m_df->fortress_name()));
 
     LOGI << "completed read in" << t.elapsed() << "ms";
     set_progress_message("");
@@ -590,19 +590,19 @@ void MainWindow::version_check_finished(bool error) {
 //            LOGI << "LATEST VERSION IS NEWER!";
 //            QMessageBox *mb = new QMessageBox(this);
 //            mb->setIcon(QMessageBox::Information);
-//            mb->setWindowTitle(tr("Update Available"));
-//            mb->setText(tr("A newer version of this application is available."));
-//            QString link = tr("<br><a href=\"%1\">Click Here to Download v%2"
+//            mb->setWindowTitle(trUtf8("Update Available"));
+//            mb->setText(trUtf8("A newer version of this application is available."));
+//            QString link = trUtf8("<br><a href=\"%1\">Click Here to Download v%2"
 //                              "</a>")
 //                           .arg(URL_DOWNLOAD_LIST)
 //                           .arg(newest_v.to_string());
-//            mb->setInformativeText(tr("You are currently running v%1. %2")
+//            mb->setInformativeText(trUtf8("You are currently running v%1. %2")
 //                                   .arg(our_v.to_string()).arg(link));
 //            mb->exec();
 //        } else if (m_show_result_on_equal) {
 //            QMessageBox *mb = new QMessageBox(this);
-//            mb->setWindowTitle(tr("Up to Date"));
-//            mb->setText(tr("You are running the most recent version of Dwarf "
+//            mb->setWindowTitle(trUtf8("Up to Date"));
+//            mb->setText(trUtf8("You are running the most recent version of Dwarf "
 //                           "Therapist."));
 //            mb->exec();
 //        }
@@ -673,9 +673,9 @@ void MainWindow::layout_check_finished(bool error) {
 //        if(m_df->add_new_layout(version, outFile)) {
 //            QMessageBox *mb = new QMessageBox(this);
 //            mb->setIcon(QMessageBox::Information);
-//            mb->setWindowTitle(tr("New Memory Layout Added"));
-//            mb->setText(tr("A new memory layout has been downloaded for this version of dwarf fortress!"));
-//            mb->setInformativeText(tr("New layout for version %1 of Dwarf Fortress.").arg(version));
+//            mb->setWindowTitle(trUtf8("New Memory Layout Added"));
+//            mb->setText(trUtf8("A new memory layout has been downloaded for this version of dwarf fortress!"));
+//            mb->setInformativeText(trUtf8("New layout for version %1 of Dwarf Fortress.").arg(version));
 //            mb->exec();
 
 //            LOGD << "Reconnecting to Dwarf Fortress!";
@@ -750,17 +750,17 @@ void MainWindow::new_creatures_count(int adults, int children, int babies, QStri
 }
 
 void MainWindow::refresh_pop_counts(){
-    ui->lbl_dwarf_total->setText(tr("%1/%2/%3%4").arg(m_pop_info.adults).arg(m_pop_info.children).arg(m_pop_info.infants)
+    ui->lbl_dwarf_total->setText(trUtf8("%1/%2/%3%4").arg(m_pop_info.adults).arg(m_pop_info.children).arg(m_pop_info.infants)
                                  .arg((m_pop_info.filtered >= 0 ? QString(" (%1)").arg(m_pop_info.filtered) : "")));
-    ui->lbl_dwarf_total->setToolTip(tr("%1 Adult%2<br/>%3 Child%4<br/>%5 Bab%6<br/>%7 Total Population%8")
+    ui->lbl_dwarf_total->setToolTip(trUtf8("%1 Adult%2<br/>%3 Child%4<br/>%5 Bab%6<br/>%7 Total Population%8")
                                     .arg(m_pop_info.adults).arg(m_pop_info.adults == 1 ? "" : "s")
                                     .arg(m_pop_info.children).arg(m_pop_info.children == 1 ? "" : "ren")
                                     .arg(m_pop_info.infants).arg(m_pop_info.infants == 1 ? "y" : "ies")
                                     .arg(m_pop_info.adults+m_pop_info.children+m_pop_info.infants)
-                                    .arg((m_pop_info.filtered >= 0 ? tr("<h4>Showing %1 due to filters.</h4>").arg(m_pop_info.filtered) : "")));
+                                    .arg((m_pop_info.filtered >= 0 ? trUtf8("<h4>Showing %1 due to filters.</h4>").arg(m_pop_info.filtered) : "")));
     ui->lbl_dwarfs->setText(m_pop_info.race_name);
-    ui->lbl_filter->setText(tr("Filter %1").arg(m_pop_info.race_name));
-    ui->act_read_dwarves->setText(tr("Read %1").arg(m_pop_info.race_name));
+    ui->lbl_filter->setText(trUtf8("Filter %1").arg(m_pop_info.race_name));
+    ui->act_read_dwarves->setText(trUtf8("Read %1").arg(m_pop_info.race_name));
     //TODO: update other interface stuff for the race name when using a custom race
 }
 
@@ -789,7 +789,7 @@ void MainWindow::load_customizations() {
     //add profession icons
     QTreeWidgetItem *icons = new QTreeWidgetItem();
     icons->setText(0,"Custom Icons");
-    icons->setToolTip(0,tr("Right click on a profession icon in the grid to customize the default icon."));
+    icons->setToolTip(0,trUtf8("Right click on a profession icon in the grid to customize the default icon."));
     foreach(int key, DT->get_custom_prof_icons().uniqueKeys()){
         i = new QTreeWidgetItem(icons);
         cp = DT->get_custom_prof_icon(key);
@@ -834,16 +834,16 @@ void MainWindow::draw_custom_profession_context_menu(const QPoint &p) {
     QMenu m(this);
     CUSTOMIZATION_TYPE t = static_cast<CUSTOMIZATION_TYPE>(idx.data(Qt::UserRole+1).toInt());
     if(t != CUSTOM_SUPER){
-        m.setTitle(tr("Custom Profession"));
+        m.setTitle(trUtf8("Custom Profession"));
         if(t == CUSTOM_ICON)
             m.setTitle(m.title() + " Icon");
     }else{
-        m.setTitle(tr("Super Labor"));
+        m.setTitle(trUtf8("Super Labor"));
     }
 
-    QAction *a = m.addAction(QIcon(":img/pencil.png"), tr("Edit %1").arg(idx.data().toString()), DT, SLOT(edit_customization()));
+    QAction *a = m.addAction(QIcon(":img/pencil.png"), trUtf8("Edit %1").arg(idx.data().toString()), DT, SLOT(edit_customization()));
     a->setData(data);
-    a = m.addAction(QIcon(":img/minus-circle.png"), tr("Delete %1").arg(idx.data().toString()), DT, SLOT(delete_customization()));
+    a = m.addAction(QIcon(":img/minus-circle.png"), trUtf8("Delete %1").arg(idx.data().toString()), DT, SLOT(delete_customization()));
     a->setData(data);
     m.exec(ui->tree_custom_professions->viewport()->mapToGlobal(p));
 }
@@ -918,7 +918,7 @@ void MainWindow::save_gridview_csv()
     GridView *gv = m_view_manager->get_active_view();
 
     QString defaultPath = QString("%1.csv").arg(gv->name());
-    QString fileName = QFileDialog::getSaveFileName(0 , tr("Save file as"), defaultPath, tr("csv files (*.csv)"));
+    QString fileName = QFileDialog::getSaveFileName(0 , trUtf8("Save file as"), defaultPath, trUtf8("csv files (*.csv)"));
     if (fileName.length()==0)
         return;
     if (!fileName.endsWith(".csv"))
@@ -930,7 +930,7 @@ void MainWindow::save_gridview_csv()
     QTextStream out(&f);
 
     QStringList row;
-    row.append(tr("Name"));
+    row.append(trUtf8("Name"));
     foreach(ViewColumnSet *set, gv->sets()) {
         foreach(ViewColumn *col, set->columns()) {
             if (col->type() != CT_SPACER)
@@ -977,8 +977,8 @@ void MainWindow::import_gridviews() {
 void MainWindow::clear_user_settings() {
     QMessageBox *mb = new QMessageBox(qApp->activeWindow());
     mb->setIcon(QMessageBox::Warning);
-    mb->setWindowTitle(tr("Clear User Settings"));
-    mb->setText(tr("Warning: This will delete all of your user settings and exit Dwarf Therapist!"));
+    mb->setWindowTitle(trUtf8("Clear User Settings"));
+    mb->setText(trUtf8("Warning: This will delete all of your user settings and exit Dwarf Therapist!"));
     mb->addButton(QMessageBox::Ok);
     mb->addButton(QMessageBox::Cancel);
     if(QMessageBox::Ok == mb->exec()) {
@@ -998,7 +998,7 @@ void MainWindow::clear_user_settings() {
             mb = new QMessageBox(qApp->activeWindow());
             mb->setIcon(QMessageBox::Critical);
             mb->setWindowTitle("Clear User Settings");
-            mb->setText(tr("Unable to delete settings file."));
+            mb->setText(trUtf8("Unable to delete settings file."));
             mb->exec();
             return;
         }
@@ -1033,7 +1033,7 @@ void MainWindow::remove_filter_script(){
     QAction *a = qobject_cast<QAction*>(QObject::sender());
     QString name =a->data().toString();
 
-    int answer = QMessageBox::question(0,"Confirm Remove",tr("Are you sure you want to remove script: <b>%1</b>?").arg(name),QMessageBox::Yes,QMessageBox::No);
+    int answer = QMessageBox::question(0,"Confirm Remove",trUtf8("Are you sure you want to remove script: <b>%1</b>?").arg(name),QMessageBox::Yes,QMessageBox::No);
     if(answer == QMessageBox::Yes){
         QSettings *s = DT->user_settings();
         s->remove(QString("filter_scripts/%1").arg(name));
@@ -1100,12 +1100,12 @@ void MainWindow::done_editing_role(int result){
 void MainWindow::remove_custom_role(){
     QAction *a = qobject_cast<QAction*>(QObject::sender());
     QString name = a->data().toString();
-    int answer = QMessageBox::question(0,"Confirm Remove",tr("Are you sure you want to remove role: <b>%1</b>?").arg(name),QMessageBox::Yes,QMessageBox::No);
+    int answer = QMessageBox::question(0,"Confirm Remove",trUtf8("Are you sure you want to remove role: <b>%1</b>?").arg(name),QMessageBox::Yes,QMessageBox::No);
     if(answer == QMessageBox::Yes){
         GameDataReader::ptr()->get_roles().remove(name);
 
         //prompt and remove columns??
-        answer = QMessageBox::question(0,"Clean Views",tr("Would you also like to remove role <b>%1</b> from all custom views?").arg(name),QMessageBox::Yes,QMessageBox::No);
+        answer = QMessageBox::question(0,"Clean Views",trUtf8("Would you also like to remove role <b>%1</b> from all custom views?").arg(name),QMessageBox::Yes,QMessageBox::No);
         if(answer == QMessageBox::Yes){
             ViewManager *vm = m_view_manager;
             foreach(GridView *gv, vm->views()){
@@ -1214,7 +1214,7 @@ void MainWindow::print_gridview() {
     if(!m_view_manager || !m_view_manager->get_active_view())
         return;
 
-    QString path = QFileDialog::getSaveFileName(this,tr("Save Snapshot"),m_view_manager->get_active_view()->name(),tr("PNG (*.png);;All Files (*)"));
+    QString path = QFileDialog::getSaveFileName(this,trUtf8("Save Snapshot"),m_view_manager->get_active_view()->name(),trUtf8("PNG (*.png);;All Files (*)"));
     if(path.isEmpty())
         return;
 
@@ -1326,14 +1326,14 @@ void MainWindow::preference_selected(QList<QPair<QString,QString> > vals, QStrin
             }
             if(create_name){
                 if(vals.count() == 1)
-                    filter_name = tr("%1: %2").arg(capitalize(pref.first)).arg(capitalize(pref.second));
+                    filter_name = trUtf8("%1: %2").arg(capitalize(pref.first)).arg(capitalize(pref.second));
                 else
                     pref_names.append(QString("%1 (%2)").arg(capitalize(pref.second)).arg(capitalize(pref.first)));
             }
         }
         filter.chop(4);
         if(pref_names.count()>0)
-            filter_name = tr("Preferences: ").append(pref_names.join(","));
+            filter_name = trUtf8("Preferences: ").append(pref_names.join(","));
 
         m_proxy->apply_script(filter_name, filter, pType);
     }else{
@@ -1419,7 +1419,7 @@ void MainWindow::done_editing_opt_plan(int result){
 void MainWindow::remove_opt(){
     QAction *a = qobject_cast<QAction*>(QObject::sender());
     QString name = a->data().toString();
-    int answer = QMessageBox::question(0,"Confirm Remove",tr("Are you sure you want to remove optimization plan: <b>%1</b>?").arg(name),QMessageBox::Yes,QMessageBox::No);
+    int answer = QMessageBox::question(0,"Confirm Remove",trUtf8("Are you sure you want to remove optimization plan: <b>%1</b>?").arg(name),QMessageBox::Yes,QMessageBox::No);
     if(answer == QMessageBox::Yes){
         GameDataReader::ptr()->get_opt_plans().remove(name);
         write_labor_optimizations();
@@ -1521,7 +1521,7 @@ void MainWindow::refresh_opts_menus() {
             m_btn_optimize->setPopupMode(QToolButton::MenuButtonPopup);
         }
         m_btn_optimize->setProperty("last_optimize",name);
-        m_btn_optimize->setToolTip(tr("Optimize labors using %1").arg(name));
+        m_btn_optimize->setToolTip(trUtf8("Optimize labors using %1").arg(name));
         m_act_btn_optimize->setVisible(true);
         m_act_sep_optimize->setVisible(true);
     }
@@ -1560,7 +1560,7 @@ void MainWindow::optimize(QString plan_name){
 
     laborOptimizerPlan *p = GameDataReader::ptr()->get_opt_plans().value(plan_name);
     if(!p){
-        QMessageBox::information(this, tr("Plan Missing"), tr("Couldn't find optimization plan."));
+        QMessageBox::information(this, trUtf8("Plan Missing"), trUtf8("Couldn't find optimization plan."));
         return;
     }
     LaborOptimizer *o = new LaborOptimizer(p,this);
@@ -1598,7 +1598,7 @@ void MainWindow::reset(){
     if(m_view_manager)
         m_view_manager->clear_selected();
 
-    new_creatures_count(0,0,0,tr("Dwarfs"));
+    new_creatures_count(0,0,0,trUtf8("Dwarfs"));
 }
 
 void MainWindow::clear_filter(){
@@ -1627,7 +1627,7 @@ void MainWindow::refresh_active_scripts(){
             ui->btn_clear_filters->menu()->clear();
             ui->btn_clear_filters->setMenu(NULL);
         }
-        ui->btn_clear_filters->setText(tr("Active Filters"));
+        ui->btn_clear_filters->setText(trUtf8("Active Filters"));
         ui->btn_clear_filters->setPopupMode(QToolButton::DelayedPopup);
         m_pop_info.filtered = -1;
     }else{

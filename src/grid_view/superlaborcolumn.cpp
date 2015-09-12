@@ -74,7 +74,7 @@ QStandardItem *SuperLaborColumn::build_cell(Dwarf *d) {
         item->setData(-1, DwarfModel::DR_RATING);
         item->setData(-1, DwarfModel::DR_DISPLAY_RATING);
         item->setData(-1,DwarfModel::DR_LABORS);
-        item->setToolTip(tr("Unknown super labor."));
+        item->setToolTip(trUtf8("Unknown super labor."));
         return item;
     }else{
         refresh(d,item);
@@ -107,16 +107,16 @@ void SuperLaborColumn::refresh(Dwarf *d, QStandardItem *item, QString title){
             modified_desc.append(labors.value(id));
     }
 
-    QString labors_desc = tr("<br/><b>Labors:</b> %1").arg(labors.count() <= 0 ? tr("None") : modified_desc.join(", "));
+    QString labors_desc = trUtf8("<br/><b>Labors:</b> %1").arg(labors.count() <= 0 ? trUtf8("None") : modified_desc.join(", "));
 
-    QString skill_msg = tr("<b>Average Skill Level:</b> %1<br/>").arg(QString::number((skill_rating < 0 ? 0 : skill_rating),'f',2));
+    QString skill_msg = trUtf8("<b>Average Skill Level:</b> %1<br/>").arg(QString::number((skill_rating < 0 ? 0 : skill_rating),'f',2));
 
     float role_rating = ml->get_role_rating(d->id());
     QString role_msg = ml->get_role_name();
     if(role_msg.isEmpty()){
-        role_msg = tr("<b>Average Role Rating:</br> %1%<br/>").arg(QString::number(role_rating,'f',2));
+        role_msg = trUtf8("<b>Average Role Rating:</br> %1%<br/>").arg(QString::number(role_rating,'f',2));
     }else{
-        role_msg = tr("<b>%1 Rating:</b> %2%<br/>").arg(role_msg).arg(QString::number(role_rating,'f',2));
+        role_msg = trUtf8("<b>%1 Rating:</b> %2%<br/>").arg(role_msg).arg(QString::number(role_rating,'f',2));
     }
 
     QString tt_title = m_title;

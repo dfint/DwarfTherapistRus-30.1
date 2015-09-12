@@ -64,17 +64,17 @@ QStandardItem *TrainedColumn::build_cell(Dwarf *d){
     if(rating == 7){ //tame
             rating = 50.0f; //don't draw tame animals, this has to be within the uberdelegate's ignore range
             sort_val = -1;
-            draw_rating = tr("");
+            draw_rating = trUtf8("");
     }else if(rating >= 1 && rating <= 6){ //trained levels
         if(symbols_ok){
             if(rating == 1)
-                draw_rating = tr("T");
+                draw_rating = trUtf8("T");
             else if(rating == 2)
-                draw_rating = tr("-");
+                draw_rating = trUtf8("-");
             else if(rating == 3)
-                draw_rating = tr("+");
+                draw_rating = trUtf8("+");
             else if(rating == 4)
-                draw_rating = tr("*");
+                draw_rating = trUtf8("*");
             else if(rating == 5)
                 draw_rating = sym_exceptional;
             else if(rating == 6)
@@ -83,11 +83,11 @@ QStandardItem *TrainedColumn::build_cell(Dwarf *d){
         rating = (rating / 6.0f * 100.0f / 2.0f) + 50.0f; //scale from 50 to 100
     }else if(rating == 0){ //semi-wild (medium red square)
         rating = 30.0f;
-        draw_rating = tr("Sw");
+        draw_rating = trUtf8("Sw");
     }else{ //wild, unknown (large red square)
         rating = 5.0f;
         sort_val = -2;
-        draw_rating = tr("W");
+        draw_rating = trUtf8("W");
     }
 
 

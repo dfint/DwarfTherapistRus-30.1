@@ -209,31 +209,31 @@ public:
     static QString get_job_mat_category_name(quint32 flags){
         switch(flags){
         case 0:
-            return tr("plant");
+            return trUtf8("plant");
         case 2:
-            return tr("wood");
+            return trUtf8("wood");
         case 4:
-            return tr("cloth");
+            return trUtf8("cloth");
         case 8:
-            return tr("silk");
+            return trUtf8("silk");
         case 16:
-            return tr("leather");
+            return trUtf8("leather");
         case 32:
-            return tr("bone");
+            return trUtf8("bone");
         case 64:
-            return tr("shell");
+            return trUtf8("shell");
         case 128:
-            return tr("wood mat");
+            return trUtf8("wood mat");
         case 256:
-            return tr("soap");
+            return trUtf8("soap");
         case 512:
-            return tr("ivory/tooth");
+            return trUtf8("ivory/tooth");
         case 1024:
-            return tr("horn/hoof");
+            return trUtf8("horn/hoof");
         case 2048:
-            return tr("pearl");
+            return trUtf8("pearl");
         case 4096:
-            return tr("yarn/wool/fur");
+            return trUtf8("yarn/wool/fur");
         }
 
         return "unknown";

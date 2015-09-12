@@ -109,38 +109,38 @@ public:
 
     static inline QString get_animal_trained_descriptor(const TRAINED_LEVEL &type) {
         switch (type) {
-        case semi_wild: return QObject::tr("Semi-wild");
-        case trained: return QObject::tr("Trained");
-        case well_trained: return QObject::tr("Well-trained");
-        case skillfully_trained: return QObject::tr("Skillfully Trained");
-        case expertly_trained: return QObject::tr("Expertly Trained");
-        case exceptionally_trained: return QObject::tr("Exceptionally Trained");
-        case masterfully_trained: return QObject::tr("Masterfully Trained");
-        case domesticated: return QObject::tr("Tame");
-        case wild_untamed: return QObject::tr("Wild");
-        case hostile: return QObject::tr("Hostile");
+        case semi_wild: return QObject::trUtf8("Semi-wild");
+        case trained: return QObject::trUtf8("Trained");
+        case well_trained: return QObject::trUtf8("Well-trained");
+        case skillfully_trained: return QObject::trUtf8("Skillfully Trained");
+        case expertly_trained: return QObject::trUtf8("Expertly Trained");
+        case exceptionally_trained: return QObject::trUtf8("Exceptionally Trained");
+        case masterfully_trained: return QObject::trUtf8("Masterfully Trained");
+        case domesticated: return QObject::trUtf8("Tame");
+        case wild_untamed: return QObject::trUtf8("Wild");
+        case hostile: return QObject::trUtf8("Hostile");
         default:
-            return QObject::tr("Unknown");
+            return QObject::trUtf8("Unknown");
         }
     }
 
 
     static QString get_gender_desc(const GENDER_TYPE &type) {
         switch (type) {
-        case SEX_UNK: return QObject::tr("Other");
-        case SEX_F: return QObject::tr("Female");
-        case SEX_M: return QObject::tr("Male");
+        case SEX_UNK: return QObject::trUtf8("Other");
+        case SEX_F: return QObject::trUtf8("Female");
+        case SEX_M: return QObject::trUtf8("Male");
         default:
-            return QObject::tr("Unknown");
+            return QObject::trUtf8("Unknown");
         }
     }
 
     static QString get_orientation_desc(const SEX_ORIENT_TYPE &type) {
         switch (type) {
-        case ORIENT_ASEXUAL: return QObject::tr("Asexual");
-        case ORIENT_HOMO: return QObject::tr("Homosexual");
-        case ORIENT_HETERO: return QObject::tr("Heterosexual");
-        case ORIENT_BISEXUAL: return QObject::tr("Bisexual");
+        case ORIENT_ASEXUAL: return QObject::trUtf8("Asexual");
+        case ORIENT_HOMO: return QObject::trUtf8("Homosexual");
+        case ORIENT_HETERO: return QObject::trUtf8("Heterosexual");
+        case ORIENT_BISEXUAL: return QObject::trUtf8("Bisexual");
         default:
             return "";
         }

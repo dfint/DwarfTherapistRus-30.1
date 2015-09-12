@@ -84,13 +84,13 @@ QStandardItem *WeaponColumn::build_cell(Dwarf *d) {
         return item;
     }
     if(d->body_size() < 0){
-        item->setToolTip(tr("Missing body_size offset!"));
+        item->setToolTip(trUtf8("Missing body_size offset!"));
         return item;
     }
 
     QString wep = m_weapon->name_plural().toLower();
     if(wep.indexOf(",")>0)
-        wep = tr("these weapons");
+        wep = trUtf8("these weapons");
     else
         wep = capitalizeEach(wep);
     float rating = 40; //small red square by default
@@ -104,7 +104,7 @@ QStandardItem *WeaponColumn::build_cell(Dwarf *d) {
     int caste_size = d->body_size(true);
     bool onehand = false;
     bool twohand = false;
-    QString desc = tr("<b>Can only wield</b> %1 with <u>2 hands</u>.").arg(wep);
+    QString desc = trUtf8("<b>Can only wield</b> %1 with <u>2 hands</u>.").arg(wep);
     if(caste_size > m_weapon->single_grasp())
         onehand = true;
     if(caste_size > m_weapon->multi_grasp())
@@ -112,13 +112,13 @@ QStandardItem *WeaponColumn::build_cell(Dwarf *d) {
 
     //setup drawing ratings
     if(!onehand && !twohand){
-        desc = tr("<b>Cannot wield</b> %1.").arg(wep);
+        desc = trUtf8("<b>Cannot wield</b> %1.").arg(wep);
         rating = 15; //this will give us a medium-large red square as the further from the median the larger the square gets
         numeric_rating = "X";
         sort_val = 0;
     }
     else if (twohand && onehand){
-        desc = tr("<b>Can wield</b> %1 with one or two hands.").arg(wep);
+        desc = trUtf8("<b>Can wield</b> %1 with one or two hands.").arg(wep);
         rating = 50; //49-51 are not drawn, so any value in there to draw nothing
         numeric_rating = "";
         sort_val = 2;
@@ -126,10 +126,10 @@ QStandardItem *WeaponColumn::build_cell(Dwarf *d) {
 
     QStringList weapon_skills;
     if(m_weapon->melee_skill() >= 0){
-        weapon_skills.append(tr("<b>Melee Skill:</b> %1").arg(GameDataReader::ptr()->get_skill_name(m_weapon->melee_skill())));
+        weapon_skills.append(trUtf8("<b>Melee Skill:</b> %1").arg(GameDataReader::ptr()->get_skill_name(m_weapon->melee_skill())));
     }
     if(m_weapon->ranged_skill() >= 0){
-        weapon_skills.append(tr("<b>Ranged Skill:</b> %1").arg(GameDataReader::ptr()->get_skill_name(m_weapon->ranged_skill())));
+        weapon_skills.append(trUtf8("<b>Ranged Skill:</b> %1").arg(GameDataReader::ptr()->get_skill_name(m_weapon->ranged_skill())));
     }
 
     QString tt_title = m_title;
@@ -156,14 +156,14 @@ QStandardItem *WeaponColumn::build_cell(Dwarf *d) {
             .arg(tt_title)
             .arg(desc)
             .arg(weapon_skills.join("<br>").append("<br/><br/>"))
-            .arg(tr("1h: <font color=%1>%2</font> cm<sup>3</sup><br>")
+            .arg(trUtf8("1h: <font color=%1>%2</font> cm<sup>3</sup><br>")
                  .arg(onehand ? norm_text.name() : QColor(Qt::red).name())
                  .arg(m_weapon->single_grasp()*10))
-            .arg(tr("2h: <font color=%1>%2</font> cm<sup>3</sup>")
+            .arg(trUtf8("2h: <font color=%1>%2</font> cm<sup>3</sup>")
                  .arg(twohand ? norm_text.name() : QColor(Qt::red).name())
                  .arg(m_weapon->multi_grasp()*10))
             .arg(d->nice_name())
-            .arg(tr("%1 cm<sup>3</sup>").arg(d->body_size() * 10)); //however in the tooltip, show the actual size
+            .arg(trUtf8("%1 cm<sup>3</sup>").arg(d->body_size() * 10)); //however in the tooltip, show the actual size
 
     item->setToolTip(tooltip);
 

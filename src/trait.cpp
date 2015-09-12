@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 QColor Trait::goal_color = QColor(255,153,0,255);
 QColor Trait::belief_color = QColor(32,156,158,255);
-QString Trait::inverted_message = QObject::tr("<h5 style=\"margin:0;\"><font color=red>*This trait's score should be valued inversely!</font></h5>");
+QString Trait::inverted_message = QObject::trUtf8("<h5 style=\"margin:0;\"><font color=red>*This trait's score should be valued inversely!</font></h5>");
 
 //personality facets
 Trait::Trait(int trait_id, QSettings &s, QObject *parent)
@@ -121,7 +121,7 @@ QString Trait::skill_conflicts_msgs(const short &val){
         if(!msg.isEmpty())
             items.append(msg);
     }
-    return items.join(tr(" and "));
+    return items.join(trUtf8(" and "));
 }
 
 QString Trait::skill_conflict_msg(const short &skill_id, const short &val){
@@ -130,8 +130,8 @@ QString Trait::skill_conflict_msg(const short &skill_id, const short &val){
         skill_conflict c = m_skill_conflicts.value(skill_id);
 
         if((c.limit < 0 && abs(val) < abs(c.limit)) || (c.limit > 0 && abs(val) > abs(c.limit))){
-            return tr("%1 be a %2")
-                    .arg(!c.gains_skill ? tr("Cannot") : tr("Can"))
+            return trUtf8("%1 be a %2")
+                    .arg(!c.gains_skill ? trUtf8("Cannot") : trUtf8("Can"))
                     .arg(GameDataReader::ptr()->get_skill_name(abs(skill_id)));
         }
     }
@@ -143,7 +143,7 @@ QString Trait::belief_conflicts_names(){
     foreach(int belief_id, m_belief_conflicts){
         items.append(GameDataReader::ptr()->get_belief_name(belief_id));
     }
-    return items.join(tr(" and "));
+    return items.join(trUtf8(" and "));
 }
 
 QString Trait::belief_conficts_msgs(short raw_value, QList<UnitBelief> conflicting_beliefs){
@@ -164,9 +164,9 @@ QString Trait::belief_conficts_msgs(short raw_value, QList<UnitBelief> conflicti
     }
     QStringList combined;
     if(cultural_conflicts.size() > 0)
-        combined << (raw_value > 50 ? tr(", but") : tr(", and")) + tr(" is conflicted because their culture %1").arg(formatList(cultural_conflicts));
+        combined << (raw_value > 50 ? trUtf8(", but") : trUtf8(", and")) + trUtf8(" is conflicted because their culture %1").arg(formatList(cultural_conflicts));
     if(personal_conflicts.size() > 0)
-        combined << tr(" although %1").arg(formatList(personal_conflicts));
+        combined << trUtf8(" although %1").arg(formatList(personal_conflicts));
     QString msgs = formatList(combined);
     return msgs;
 }

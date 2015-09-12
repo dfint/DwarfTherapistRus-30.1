@@ -99,14 +99,14 @@ void Race::read_race() {
         m_child_name_plural = m_baby_name_plural;
 
     if(m_baby_name == "")
-        m_baby_name = m_name + tr(" Baby");
+        m_baby_name = m_name + trUtf8(" Baby");
     if(m_baby_name_plural == "")
-        m_baby_name_plural = m_name_plural + tr(" Babies");
+        m_baby_name_plural = m_name_plural + trUtf8(" Babies");
 
     if(m_child_name == "")
-        m_child_name = m_name + tr(" Offspring");
+        m_child_name = m_name + trUtf8(" Offspring");
     if(m_child_name_plural == "")
-        m_child_name_plural = m_name + tr(" Offsprings");
+        m_child_name_plural = m_name + trUtf8(" Offsprings");
 
     m_child_name = capitalizeEach(m_child_name);
     m_child_name_plural = capitalizeEach(m_child_name_plural);

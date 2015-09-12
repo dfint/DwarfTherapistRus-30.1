@@ -98,7 +98,7 @@ Skill::Skill(short id, uint exp, short rating, int rust, int skill_rate)
 
     if(m_exp_progress > 100){ //indicates losing xp
         m_exp_progress = 100;
-        m_rust_rating = QObject::tr("Lost XP!");
+        m_rust_rating = QObject::trUtf8("Lost XP!");
         m_rust_color = QColor("#B7410E");
         m_losing_xp = true;
         m_rust_level = 3;
@@ -106,11 +106,11 @@ Skill::Skill(short id, uint exp, short rating, int rust, int skill_rate)
         //check for normal rusting
         float m_raw_precise = raw_level_precise();
         if(m_raw_precise >= 4 && (m_raw_precise * 0.75) <= m_rust){
-            m_rust_rating = QObject::tr("V. Rusty");
+            m_rust_rating = QObject::trUtf8("V. Rusty");
             m_rust_color = "#964B00";
             m_rust_level = 2;
         }else if(m_raw_level > 0 && (m_raw_level * 0.5) <= m_rust){
-            m_rust_rating = QObject::tr("Rusty");
+            m_rust_rating = QObject::trUtf8("Rusty");
             m_rust_color = "#CD7F32";
             m_rust_level = 1;
         }
@@ -194,13 +194,13 @@ float Skill::level_from_xp(int xp){
 QString Skill::get_rust_level_desc(int rust_level){
     QString ret_val;
     if(rust_level >= 3){
-        ret_val = QObject::tr("Lost Experience");
+        ret_val = QObject::trUtf8("Lost Experience");
     }else if(rust_level == 2){
-        ret_val = QObject::tr("Very Rusty");
+        ret_val = QObject::trUtf8("Very Rusty");
     }else if(rust_level == 1){
-        ret_val = QObject::tr("Rusty");
+        ret_val = QObject::trUtf8("Rusty");
     }else{
-        ret_val = QObject::tr("No Rust");
+        ret_val = QObject::trUtf8("No Rust");
     }
     return ret_val;
 }

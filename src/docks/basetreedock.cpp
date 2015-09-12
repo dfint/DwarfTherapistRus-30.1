@@ -52,7 +52,7 @@ BaseTreeDock::BaseTreeDock(QString window_title, QString object_name, bool requi
     m_tree_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     QHBoxLayout *s = new QHBoxLayout();
-    QLabel *lbl_search = new QLabel(tr("Search"),this);
+    QLabel *lbl_search = new QLabel(trUtf8("Search"),this);
     s->addWidget(lbl_search);
     m_le_search = new QLineEdit(this);
     m_le_search->setObjectName("le_search");
@@ -69,7 +69,7 @@ BaseTreeDock::BaseTreeDock(QString window_title, QString object_name, bool requi
 
     l->addLayout(s);
 
-    QPushButton *btn = new QPushButton(tr("Clear Filter"),this);
+    QPushButton *btn = new QPushButton(trUtf8("Clear Filter"),this);
     w->layout()->addWidget(m_tree_view);
     w->layout()->addWidget(btn);
 

@@ -269,7 +269,7 @@ bool DFInstanceLinux::find_running_copy(bool connect_anyway) {
     if (count) { //found it
         if (count > 1) {
             str_pids.sort();
-            m_pid = QInputDialog::getItem(0, tr("Warning"),tr("Multiple Dwarf Fortress processes found, please choose the process to use."),str_pids,str_pids.count()-1,false).toInt();
+            m_pid = QInputDialog::getItem(0, trUtf8("Warning"),trUtf8("Multiple Dwarf Fortress processes found, please choose the process to use."),str_pids,str_pids.count()-1,false).toInt();
         } else {
             m_pid = str_pids.at(0).toInt();
         }
@@ -278,8 +278,8 @@ bool DFInstanceLinux::find_running_copy(bool connect_anyway) {
 
         TRACE << "USING PID:" << m_pid;
     } else {
-        QMessageBox::warning(0, tr("Warning"),
-                             tr("Unable to locate a running copy of Dwarf "
+        QMessageBox::warning(0, trUtf8("Warning"),
+                             trUtf8("Unable to locate a running copy of Dwarf "
                                 "Fortress, are you sure it's running?"));
         LOGW << "can't find running copy";
         m_is_ok = false;

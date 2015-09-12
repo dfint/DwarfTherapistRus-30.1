@@ -221,8 +221,8 @@ QPair<int, QString> Caste::get_attribute_descriptor_info(ATTRIBUTES_TYPE id, int
 
     //only append the caste's name to our playable race (don't do this for tame animals in the fort)
     if(DT->multiple_castes && m_race->race_id() == m_df->dwarf_race_id()){
-        ret.second == "" ? ret.second = QObject::tr("Average") : ret.second;
-        ret.second = QObject::tr("%1 for a %2.").arg(ret.second).arg(m_name);
+        ret.second == "" ? ret.second = QObject::trUtf8("Average") : ret.second;
+        ret.second = QObject::trUtf8("%1 for a %2.").arg(ret.second).arg(m_name);
     }
 
     return ret;
@@ -253,7 +253,7 @@ QString Caste::description(){
         QString list = m_bonuses.join(", ");
         list = list.replace(list.lastIndexOf(","),2," and ");
 
-        return tr("%1 These %2 gain a significant xp bonus for <b>%3</b>.")
+        return trUtf8("%1 These %2 gain a significant xp bonus for <b>%3</b>.")
                 .arg(m_description)
                 .arg(m_race->plural_name())
                 .arg(list);

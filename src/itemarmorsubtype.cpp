@@ -43,19 +43,19 @@ QString ItemArmorSubtype::get_layer_name(){
     switch(m_layer){
     case 0:
     {
-        return tr("Under");
+        return trUtf8("Under");
     }break;
     case 1:
     {
-        return tr("Over");
+        return trUtf8("Over");
     }break;
     case 2:
     {
-        return tr("Armor");
+        return trUtf8("Armor");
     }break;
     case 3:
     {
-        return tr("Cover");
+        return trUtf8("Cover");
     }break;
     default:
         return "";

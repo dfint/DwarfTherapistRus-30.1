@@ -25,10 +25,10 @@ THE SOFTWARE.
 #include "healthcategory.h"
 
 HealthLegendDock::HealthLegendDock(QWidget *parent, Qt::WindowFlags flags)
-    : BaseTreeDock(tr("Health Legend"),"dock_health_legend",false,parent, flags)
+    : BaseTreeDock(trUtf8("Health Legend"),"dock_health_legend",false,parent, flags)
 {
     m_tree_view->setColumnCount(2);
-    m_tree_view->setHeaderLabels(QStringList() << tr("Title/Abbrev") << tr("Description"));
+    m_tree_view->setHeaderLabels(QStringList() << trUtf8("Title/Abbrev") << trUtf8("Description"));
 }
 
 void HealthLegendDock::build_tree(){

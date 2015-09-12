@@ -73,8 +73,8 @@ void ViewEditorDialog::configure_ui(QObject *setter){
         }
         init_cell_colors(vc->get_colors(),set->get_colors(),bg_color);
 
-        title = tr("Column Title");
-        window_title = tr("Edit Column");
+        title = trUtf8("Column Title");
+        window_title = trUtf8("Edit Column");
         name = vc->title();
 
         connect(ui->cb_override, SIGNAL(toggled(bool)), ui->background_widget, SLOT(setEnabled(bool)));
@@ -93,8 +93,8 @@ void ViewEditorDialog::configure_ui(QObject *setter){
             bg_color = vcs->bg_color();
             init_cell_colors(vcs->get_colors(),vcs->get_colors()->get_default_colors(),bg_color);
 
-            title = tr("Set Name");
-            window_title = tr("Edit Set");
+            title = trUtf8("Set Name");
+            window_title = trUtf8("Edit Set");
             name = vcs->name();
 
             //always allow setting the sets bg color
@@ -113,7 +113,7 @@ void ViewEditorDialog::configure_ui(QObject *setter){
 
     ui->lbl_title->setText(title);
     ui->le_title->setText(name);
-    ui->cb_override_cell_colors->setText(tr("Override default cell colors"));
+    ui->cb_override_cell_colors->setText(trUtf8("Override default cell colors"));
 
     if(width >= 0){
         ui->sb_width->setValue(width);
@@ -127,7 +127,7 @@ void ViewEditorDialog::configure_ui(QObject *setter){
 
 void ViewEditorDialog::init_cell_colors(CellColors *cc, CellColors *defaults, QColor bg_color){
     int minWidth = 150;
-    m_col_bg = new CustomColor(tr("Background"),tr("Background color of the column."),"background", bg_color, this);
+    m_col_bg = new CustomColor(trUtf8("Background"),trUtf8("Background color of the column."),"background", bg_color, this);
     m_col_bg->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
     m_col_bg->setMinimumWidth(minWidth);
     ui->v_layout_bg->addWidget(m_col_bg);

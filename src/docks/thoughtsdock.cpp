@@ -30,10 +30,10 @@ THE SOFTWARE.
 #include "emotiongroup.h"
 
 ThoughtsDock::ThoughtsDock(QWidget *parent, Qt::WindowFlags flags)
-    : BaseTreeDock(tr("Emotions"),"dock_thoughts",true,parent,flags)
+    : BaseTreeDock(trUtf8("Emotions"),"dock_thoughts",true,parent,flags)
 {
     m_tree_view->setColumnCount(3);
-    m_tree_view->setHeaderLabels(QStringList() << tr("Thought/Emotion") << tr("Strength") << tr("Count"));
+    m_tree_view->setHeaderLabels(QStringList() << trUtf8("Thought/Emotion") << trUtf8("Strength") << trUtf8("Count"));
     m_tree_view->setItemDelegate(new ThoughtsItemDelegate());
 }
 
@@ -50,15 +50,15 @@ void ThoughtsDock::build_tree(){
         QStringList stress_desc;
 
         if(stress_count > 0)
-            stress_desc.append(tr("%1 felt negative emotions which added to their stress.").arg(stress_count));
+            stress_desc.append(trUtf8("%1 felt negative emotions which added to their stress.").arg(stress_count));
         if(unaffected_count > 0)
-            stress_desc.append(tr("%1 were unaffected.").arg(unaffected_count));
+            stress_desc.append(trUtf8("%1 were unaffected.").arg(unaffected_count));
         if(eustress_count > 0)
-            stress_desc.append(tr("%1 felt positive emotions which reduced stress.").arg(eustress_count));
+            stress_desc.append(trUtf8("%1 felt positive emotions which reduced stress.").arg(eustress_count));
 
         tooltip = QString("<center><h4>%1</h4></center>%2<br/><br/>%3")
                 .arg(capitalize(t->title()))
-                .arg(tr("Felt ... ") + t->desc())
+                .arg(trUtf8("Felt ... ") + t->desc())
                 .arg(stress_desc.join("<br/><br/>"));
 
         SortableTreeItem* thought_node = new SortableTreeItem();
@@ -89,7 +89,7 @@ void ThoughtsDock::build_tree(){
                 tooltip = QString("<center><h4><font color=%1>%2</font></h4></center>%3%4")
                         .arg(e->get_color().name())
                         .arg(e->get_name())
-                        .arg(ec.count != ec.unit_ids.count() ? tr("This circumstance occurred %1 times among %2 citizens.<br/><br/>").arg(ec.count).arg(ec.unit_ids.count()) : "")
+                        .arg(ec.count != ec.unit_ids.count() ? trUtf8("This circumstance occurred %1 times among %2 citizens.<br/><br/>").arg(ec.count).arg(ec.unit_ids.count()) : "")
                         .arg(unit_names.join(unit_names.size() < 20 ? "<br/>" : ", "));
 
                 emotion_node->setData(0, Qt::UserRole, e_type);

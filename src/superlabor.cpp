@@ -110,21 +110,21 @@ bool SuperLabor::is_valid() {
 
     QString proposed_name = ui->name_edit->text().trimmed();
     if (proposed_name.isEmpty()) {
-        QMessageBox::warning(m_dialog, tr("Naming Error!"),
-                             tr("You must enter a name for this Super Labor!"));
+        QMessageBox::warning(m_dialog, trUtf8("Naming Error!"),
+                             trUtf8("You must enter a name for this Super Labor!"));
         return false;
     }
     foreach(SuperLabor *sl, DT->get_super_labors()){
         if(sl != this && sl->get_name() == proposed_name){
-            QMessageBox::warning(m_dialog, tr("Duplicate Name!"),
-                                 tr("A Super Labor with this name already exists!"));
+            QMessageBox::warning(m_dialog, trUtf8("Duplicate Name!"),
+                                 trUtf8("A Super Labor with this name already exists!"));
             return false;
         }
     }
     foreach(CustomProfession *cp, DT->get_custom_professions()){
         if(cp->get_name() == proposed_name){
-            QMessageBox::warning(m_dialog, tr("Duplicate Name!"),
-                                 tr("A Custom Profession with this name already exists!"));
+            QMessageBox::warning(m_dialog, trUtf8("Duplicate Name!"),
+                                 trUtf8("A Custom Profession with this name already exists!"));
             return false;
         }
     }

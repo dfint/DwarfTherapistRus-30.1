@@ -199,7 +199,7 @@ void ScriptDialog::apply_pressed() {
     ui->lbl_save_status->clear();
     if(script_is_valid()){
         emit test_script(ui->script_edit->toPlainText());
-        ui->lbl_save_status->setText(tr("Script has been applied but hasn't been saved."));
+        ui->lbl_save_status->setText(trUtf8("Script has been applied but hasn't been saved."));
     }
 }
 
@@ -217,13 +217,13 @@ bool ScriptDialog::script_is_valid(){
         if(!ret.isBool()){
             QString err_msg;
             if(ret.isError()) {
-                err_msg = tr("<font color=red>%1: %2<br/>%3</font>")
+                err_msg = trUtf8("<font color=red>%1: %2<br/>%3</font>")
                                  .arg(ret.property("name").toString())
                                  .arg(ret.property("message").toString())
                                  .arg(ret.property("stack").toString().replace("\n", "<br/>"));
             }else{
                 m_engine.globalObject().setProperty("__internal_script_return_value_check", ret);
-                err_msg = tr("<font color=red>Script returned %1 instead of boolean</font>")
+                err_msg = trUtf8("<font color=red>Script returned %1 instead of boolean</font>")
                                  .arg(m_engine.evaluate(QString("typeof __internal_scripte_return_value_check")).toString());
 #if QT_VERSION < 0x050000
                 m_engine.globalObject().setProperty("__internal_script_return_value_check", QScriptValue());
@@ -255,7 +255,7 @@ void ScriptDialog::save_pressed() {
         foreach(QString script_name, s->childKeys()){
             if(m_name==script_name){
                 answer = QMessageBox::question(0,"Confirm Replace",
-                                               tr("A script with this name already exists and will be overwritten. Continue?"),
+                                               trUtf8("A script with this name already exists and will be overwritten. Continue?"),
                                                QMessageBox::Yes,QMessageBox::No);
                 break;
             }
@@ -264,7 +264,7 @@ void ScriptDialog::save_pressed() {
     }
 
     if(answer == QMessageBox::No){
-        ui->lbl_save_status->setText(tr("Save cancelled."));
+        ui->lbl_save_status->setText(trUtf8("Save cancelled."));
         return;
     }
 
@@ -274,7 +274,7 @@ void ScriptDialog::save_pressed() {
     s->setValue(QString("filter_scripts/%1").arg(m_name), ui->script_edit->toPlainText());
     emit scripts_changed();
 
-    ui->lbl_save_status->setText(tr("Script saved successfully!"));
+    ui->lbl_save_status->setText(trUtf8("Script saved successfully!"));
 }
 
 void ScriptDialog::close_pressed(){

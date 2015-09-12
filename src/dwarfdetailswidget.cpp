@@ -179,7 +179,7 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
     ui->lbl_gender->setToolTip(d->get_gender_orient_desc());
 
     ui->lbl_dwarf_name->setText(d->nice_name());
-    ui->lbl_dwarf_name->setToolTip(tr("Name: %1").arg(ui->lbl_dwarf_name->text()));
+    ui->lbl_dwarf_name->setToolTip(trUtf8("Name: %1").arg(ui->lbl_dwarf_name->text()));
 
     ui->lbl_age->setText(d->get_age_formatted());
     ui->lbl_age->setToolTip(d->get_migration_desc());
@@ -187,17 +187,17 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
     QString trans_name = d->translated_name();
     ui->lbl_translated_name->setText(QString("%1").arg(trans_name.isEmpty() ? "" : "(" + trans_name + ")"));
     if(!trans_name.isEmpty())
-        ui->lbl_translated_name->setToolTip(tr("Translated Name: %1").arg(trans_name));
+        ui->lbl_translated_name->setToolTip(trUtf8("Translated Name: %1").arg(trans_name));
 
     ui->lbl_profession->setText(QString("%2 %1").arg(embedPixmap(d->profession_icon())).arg(d->profession()));
-    ui->lbl_profession->setToolTip(tr("Profession: %1").arg(ui->lbl_profession->text()));
+    ui->lbl_profession->setToolTip(trUtf8("Profession: %1").arg(ui->lbl_profession->text()));
 
     if(d->noble_position().isEmpty()){
         ui->lbl_noble_position->hide();
         ui->lbl_noble->hide();
     }
     else{
-        ui->lbl_noble->setText(tr("<b>Noble Position%1</b>").arg(d->noble_position().contains(",") ? "s" : ""));
+        ui->lbl_noble->setText(trUtf8("<b>Noble Position%1</b>").arg(d->noble_position().contains(",") ? "s" : ""));
         ui->lbl_noble_position->setText(d->noble_position());
         ui->lbl_noble_position->show();
         ui->lbl_noble->show();
@@ -207,7 +207,7 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
     if(d->artifact_name().isEmpty()){
         ui->lbl_artifact->hide();
     }else{
-        ui->lbl_artifact->setText(tr("Creator of '%1'").arg(d->artifact_name()));
+        ui->lbl_artifact->setText(trUtf8("Creator of '%1'").arg(d->artifact_name()));
         ui->lbl_artifact->show();
     }
 
@@ -215,14 +215,14 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
         ui->lbl_squad_name->hide();
     }
     else{
-        ui->lbl_squad_name->setText(tr("<b>Member of Squad <i>'%1'</i></b>").arg(d->squad_name()));
+        ui->lbl_squad_name->setText(trUtf8("<b>Member of Squad <i>'%1'</i></b>").arg(d->squad_name()));
         ui->lbl_squad_name->show();
     }
 
     if(!DT->multiple_castes){
         ui->lbl_caste->hide();
     }else{
-        ui->lbl_caste->setText(tr("<b>Caste: %1</b>").arg(d->caste_name()));
+        ui->lbl_caste->setText(trUtf8("<b>Caste: %1</b>").arg(d->caste_name()));
         ui->lbl_caste->show();
         ui->lbl_caste->setToolTip(d->caste_desc());
     }
@@ -230,20 +230,20 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
     ui->lbl_artifact->setToolTip(ui->lbl_artifact->text());
 
     ui->lbl_current_job->setText(QString("%1").arg(d->current_job()));
-    ui->lbl_current_job->setToolTip(tr("Job ID: %1").arg(QString::number(d->current_job_id())));
+    ui->lbl_current_job->setToolTip(trUtf8("Job ID: %1").arg(QString::number(d->current_job_id())));
 
     GameDataReader *gdr = GameDataReader::ptr();
 
     ui->lbl_happiness->setText(QString("%1").arg(d->get_happiness_desc()));
     if(d->in_stressed_mood()){
-        ui->lbl_happiness_title->setText(tr("Happiness:%1").arg(embedPixmap(QPixmap(":img/exclamation-red-frame.png"))));
+        ui->lbl_happiness_title->setText(trUtf8("Happiness:%1").arg(embedPixmap(QPixmap(":img/exclamation-red-frame.png"))));
         QString desc = QString("<center><b>%1</b><br/>%2</center>")
                 .arg(gdr->get_mood_name(d->current_mood(),true))
                 .arg(gdr->get_mood_desc(d->current_mood(),true));
         ui->lbl_happiness_title->setToolTip(desc);
         ui->lbl_happiness->setToolTip(QString("%1<br/>%2").arg(desc).arg(d->get_emotions_desc()));
     }else{
-        ui->lbl_happiness_title->setText(tr("Happiness: "));
+        ui->lbl_happiness_title->setText(trUtf8("Happiness: "));
         ui->lbl_happiness_title->setToolTip("");
         ui->lbl_happiness->setToolTip(d->get_emotions_desc());
     }
@@ -286,17 +286,17 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
             ui->tw_skills->setRowHeight(real_count, 18);
 
             QTableWidgetItem *item_skill = new QTableWidgetItem(s.name());
-            tooltip = tr("<center><h4>%1</h4></center>").arg(s.name());
+            tooltip = trUtf8("<center><h4>%1</h4></center>").arg(s.name());
             if(s.id()==d->highest_moodable().id()){
                 if(d->had_mood()){
                     item_skill->setForeground(color_mood_had);
                     item_skill->setFont(bold_item_font);
-                    tooltip.append(tr("<p>Has already had a mood!</p>"));
+                    tooltip.append(trUtf8("<p>Has already had a mood!</p>"));
                 }
                 else{
                     item_skill->setForeground(color_mood_high);
                     item_skill->setFont(bold_item_font);
-                    tooltip.append(tr("<p>This is the highest moodable skill.</p>"));
+                    tooltip.append(trUtf8("<p>This is the highest moodable skill.</p>"));
                 }
             }
             item_skill->setToolTip(tooltip);
@@ -326,7 +326,7 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
             item_bonus->setData(Qt::UserRole, bonus_xp);
             item_bonus->setTextAlignment(Qt::AlignHCenter);
             if(bonus_xp != 0)
-                item_bonus->setToolTip(tr("Receives %1% <b>%2</b> experience than normal. (RAW: %3%)")
+                item_bonus->setToolTip(trUtf8("Receives %1% <b>%2</b> experience than normal. (RAW: %3%)")
                                        .arg(abs(bonus_xp))
                                        .arg(bonus_xp > 0 ? "more" : "less")
                                        .arg(raw_bonus_xp));
@@ -374,9 +374,9 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
 
         if(a.syndrome_names().count() > 0){
             attribute_name->setForeground(Attribute::color_affected_by_syns());
-            tooltip = tr("<span><center><h4>%1</h4></center>%2</span>").arg(a.get_name()).arg(a.get_syndrome_desc());
+            tooltip = trUtf8("<span><center><h4>%1</h4></center>%2</span>").arg(a.get_name()).arg(a.get_syndrome_desc());
         }else{
-            tooltip = tr("<span><center><h4>%1</h4></center></span>").arg(a.get_name());
+            tooltip = trUtf8("<span><center><h4>%1</h4></center></span>").arg(a.get_name());
         }
         attribute_name->setToolTip(tooltip);
 
@@ -384,7 +384,7 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
         attribute_max->setTextAlignment(Qt::AlignHCenter);
         attribute_max->setText(QString::number(a.max()));
         attribute_max->setData(Qt::UserRole, a.max());
-        attribute_max->setToolTip(QString("%1 (%2)").arg((int)a.max()).arg(tr("This is the maximum attainable value.")));
+        attribute_max->setToolTip(QString("%1 (%2)").arg((int)a.max()).arg(trUtf8("This is the maximum attainable value.")));
 
         //don't show the 'average for a <caste>' in the details pane
         QString lvl_msg;
@@ -475,7 +475,7 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
         ui->tw_roles->setRowHeight(0, 18);
 
         QTableWidgetItem *role_name = new QTableWidgetItem(name);
-        role_name->setToolTip(tr("<center><h4>%1</h4></center>").arg(name));
+        role_name->setToolTip(trUtf8("<center><h4>%1</h4></center>").arg(name));
         sortableNumericTableWidgetItem *role_rating = new sortableNumericTableWidgetItem();
         role_rating->setText(QString::number(val,'f',2)+"%");
         role_rating->setData(Qt::UserRole,max - i);
@@ -507,7 +507,7 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
         ui->tw_prefs->setRowHeight(0, 18);
 
         QTableWidgetItem *pref_type = new QTableWidgetItem(name);
-        pref_type->setToolTip(tr("<center><h4>%1</h4></center>").arg(name));
+        pref_type->setToolTip(trUtf8("<center><h4>%1</h4></center>").arg(name));
         QTableWidgetItem *pref_values = new QTableWidgetItem(prefs);
 
         ui->tw_prefs->setItem(0, 0, pref_type);
@@ -522,16 +522,16 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
     if(!dHealth.isEmpty()){
         //3 main parent nodes for treatment, status and wounds
         QTreeWidgetItem *statuses = new QTreeWidgetItem;
-        statuses->setData(0, Qt::UserRole, tr("Status"));
-        statuses->setText(0,  tr("Status"));
+        statuses->setData(0, Qt::UserRole, trUtf8("Status"));
+        statuses->setText(0,  trUtf8("Status"));
 
         QTreeWidgetItem *treatments = new QTreeWidgetItem;
-        treatments->setData(0, Qt::UserRole, tr("Treatments"));
-        treatments->setText(0,  tr("Treatments"));
+        treatments->setData(0, Qt::UserRole, trUtf8("Treatments"));
+        treatments->setText(0,  trUtf8("Treatments"));
 
         QTreeWidgetItem *wounds = new QTreeWidgetItem;
-        wounds->setData(0, Qt::UserRole, tr("Wounds"));
-        wounds->setText(0,  tr("Wounds"));
+        wounds->setData(0, Qt::UserRole, trUtf8("Wounds"));
+        wounds->setText(0,  trUtf8("Wounds"));
 
         //add the treatments
         QHash<eHealth::H_INFO, QList<HealthInfo*> > t_info = dHealth.get_treatment_info();
@@ -601,8 +601,8 @@ void DwarfDetailsWidget::show_dwarf(Dwarf *d) {
     }
     if(ui->tw_health->topLevelItemCount() <= 0){
         QTreeWidgetItem *noIssues = new QTreeWidgetItem;
-        noIssues->setData(0, Qt::UserRole, tr("No Health Issues."));
-        noIssues->setText(0,  tr("No Health Issues."));
+        noIssues->setData(0, Qt::UserRole, trUtf8("No Health Issues."));
+        noIssues->setText(0,  trUtf8("No Health Issues."));
         ui->tw_health->addTopLevelItem(noIssues);
         noIssues->setFirstColumnSpanned(true);
     }
@@ -626,7 +626,7 @@ void DwarfDetailsWidget::add_belief_row(int belief_id, Dwarf *d, bool is_cultura
     QColor col = Trait::belief_color;
     if(is_cultural){
         col = color_low;
-        name.append(QString("*<h5 style=\"margin:0px;\">%1</h5>").arg(tr("This is a conflicting cultural belief.")));
+        name.append(QString("*<h5 style=\"margin:0px;\">%1</h5>").arg(trUtf8("This is a conflicting cultural belief.")));
     }
     add_personality_row(name,val,desc,tooltip,col);
 }
@@ -636,7 +636,7 @@ void DwarfDetailsWidget::add_personality_row(QString title, int raw_value, QStri
     ui->tw_traits->setRowHeight(0, 18);
 
     QTableWidgetItem *trait_name = new QTableWidgetItem(title.mid(0,title.indexOf("<")));
-    trait_name->setToolTip(tr("<center><h4 style=\"margin:0px;\">%1</h4></center>").arg(title));
+    trait_name->setToolTip(trUtf8("<center><h4 style=\"margin:0px;\">%1</h4></center>").arg(title));
 
     QTableWidgetItem *trait_raw = new QTableWidgetItem;
     trait_raw->setTextAlignment(Qt::AlignHCenter);

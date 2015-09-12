@@ -128,13 +128,13 @@ Dwarf::Dwarf(DFInstance *df, const uint &addr, QObject *parent)
     // setup context actions
 #ifdef QT_DEBUG
     m_actions_memory.clear();
-    QAction *dump_mem = new QAction(tr("Dump Memory..."), this);
+    QAction *dump_mem = new QAction(trUtf8("Dump Memory..."), this);
     connect(dump_mem, SIGNAL(triggered()), SLOT(dump_memory()));
     m_actions_memory << dump_mem;
-    QAction *dump_mem_to_file = new QAction(tr("Dump Memory To File"), this);
+    QAction *dump_mem_to_file = new QAction(trUtf8("Dump Memory To File"), this);
     connect(dump_mem_to_file, SIGNAL(triggered()), SLOT(dump_memory_to_file()));
     m_actions_memory << dump_mem_to_file;
-    QAction *copy_address_to_clipboard = new QAction(tr("Copy Address to Clipboard"), this);
+    QAction *copy_address_to_clipboard = new QAction(trUtf8("Copy Address to Clipboard"), this);
     connect(copy_address_to_clipboard, SIGNAL(triggered()),SLOT(copy_address_to_clipboard()));
     m_actions_memory << copy_address_to_clipboard;
 #endif
@@ -764,9 +764,9 @@ void Dwarf::build_names() {
             creature_name = caste_name();
             //for adult animals, check their profession for training and adjust the name accordingly
             if (m_raw_profession == 99) //trained war
-                creature_name = tr("War ") + m_race->name();
+                creature_name = trUtf8("War ") + m_race->name();
             else if (m_raw_profession == 98) //trained hunt
-                creature_name = tr("Hunting ") + m_race->name();
+                creature_name = trUtf8("Hunting ") + m_race->name();
         }else{
             creature_name = race_name();
         }
@@ -776,7 +776,7 @@ void Dwarf::build_names() {
             m_nice_name = creature_name;
             m_translated_name = "";
         }else{
-            m_nice_name = tr("%1 (%2)").arg(creature_name).arg(m_nice_name);
+            m_nice_name = trUtf8("%1 (%2)").arg(creature_name).arg(m_nice_name);
         }
     }
     // uncomment to put address at front of name
@@ -814,7 +814,7 @@ void Dwarf::read_profession() {
     VIRTADDR addr = m_address + m_mem->dwarf_offset("profession");
     m_raw_profession = m_df->read_byte(addr);
     Profession *p = GameDataReader::ptr()->get_profession(m_raw_profession);
-    QString prof_name = tr("Unknown Profession %1").arg(m_raw_profession);
+    QString prof_name = trUtf8("Unknown Profession %1").arg(m_raw_profession);
     if (p) {
         m_can_set_labors = p->can_assign_labors();
         if(!m_is_baby && DT->labor_cheats_allowed()){
@@ -822,7 +822,7 @@ void Dwarf::read_profession() {
         }
         prof_name = p->name(is_male());
     } else {
-        LOGE << tr("Read unknown profession with id '%1' for dwarf '%2'").arg(m_raw_profession).arg(m_nice_name);
+        LOGE << trUtf8("Read unknown profession with id '%1' for dwarf '%2'").arg(m_raw_profession).arg(m_nice_name);
         m_can_set_labors = false;
     }
     if (!m_custom_profession.isEmpty()) {
@@ -833,12 +833,12 @@ void Dwarf::read_profession() {
 
     if(is_animal()){
         if(m_raw_profession == 102 && is_adult())
-            m_profession = tr("Adult"); //adult animals have a profession of peasant by default, just use adult
+            m_profession = trUtf8("Adult"); //adult animals have a profession of peasant by default, just use adult
         else if(m_is_child){
-            m_profession = tr("Child");
+            m_profession = trUtf8("Child");
             m_raw_profession = 103;
         }else if(m_is_baby){
-            m_profession = tr("Baby");
+            m_profession = trUtf8("Baby");
             m_raw_profession = 104;
         }
     }
@@ -991,9 +991,9 @@ void Dwarf::read_preferences(){
     //add a special preference (actually a misc trait) for like outdoors
     if(has_state(STATE_OUTDOORS)){
         int val = state_value(STATE_OUTDOORS);
-        QString pref = tr("Doesn't mind being outdoors");
+        QString pref = trUtf8("Doesn't mind being outdoors");
         if(val == 2)
-            pref = tr("Likes working outdoors");
+            pref = trUtf8("Likes working outdoors");
 
         p = new Preference(LIKE_OUTDOORS,pref,this);
         p->add_flag(999);
@@ -1028,9 +1028,9 @@ void Dwarf::read_preferences(){
                     }else if(pType == LIKE_FOOD){
                         consume.append(pref_name);
                     }else if(pType == LIKE_COLOR){
-                        likes.append(tr("the color ").append(pref_name));
+                        likes.append(trUtf8("the color ").append(pref_name));
                     }else if(pType == LIKE_SHAPE){
-                        likes.append(tr("the shape of ").append(pref_name));
+                        likes.append(trUtf8("the shape of ").append(pref_name));
                     }else if(pType == HATE_CREATURE){
                         hates.append(pref_name);
                     }else{
@@ -1042,13 +1042,13 @@ void Dwarf::read_preferences(){
         }
     }
     if(build_tooltip){
-        m_pref_tooltip = tr("<b>Preferences: </b>");
+        m_pref_tooltip = trUtf8("<b>Preferences: </b>");
         if(likes.count()>0)
-            m_pref_tooltip.append(tr("Likes ")).append(formatList(likes)).append(". ");
+            m_pref_tooltip.append(trUtf8("Likes ")).append(formatList(likes)).append(". ");
         if(consume.count()>0)
-            m_pref_tooltip.append(tr("Prefers to consume ")).append(formatList(consume)).append(". ");
+            m_pref_tooltip.append(trUtf8("Prefers to consume ")).append(formatList(consume)).append(". ");
         if(hates.count()>0)
-            m_pref_tooltip.append(tr("Hates ")).append(formatList(hates)).append(". ");
+            m_pref_tooltip.append(trUtf8("Hates ")).append(formatList(hates)).append(". ");
         if(other.count()>0)
             m_pref_tooltip.append(formatList(other)).append(". ");
         m_pref_tooltip = m_pref_tooltip.trimmed();
@@ -1079,7 +1079,7 @@ void Dwarf::read_syndromes(){
                 //older version without the necessary offset, use a generic name if it seems like a werecurse
                 is_curse = true;
                 m_curse_type = eCurse::WEREBEAST;
-                m_curse_name = tr("Werebeast");
+                m_curse_name = trUtf8("Werebeast");
             }
         }
 
@@ -1163,7 +1163,7 @@ QString Dwarf::get_syndrome_names(bool include_buffs, bool include_sick) {
         if((include_buffs && !s.is_sickness()) || (include_sick && s.is_sickness())){
             QString syn = s.display_name(show_name,show_class);
             //            if(!s.syn_effects().isEmpty())
-            //                syn.append(tr("(%1)").arg(s.syn_effects()));
+            //                syn.append(trUtf8("(%1)").arg(s.syn_effects()));
             names.append(syn);
         }
     }
@@ -1235,21 +1235,21 @@ void Dwarf::read_current_job() {
             }
 
         } else {
-            m_current_job = tr("Unknown job");
+            m_current_job = trUtf8("Unknown job");
         }
 
     } else {
         if(active_military()){
-            m_current_job = tr("Soldier");
+            m_current_job = trUtf8("Soldier");
             m_current_job_id = -1;
         }else{
             m_is_on_break = has_state(STATE_ON_BREAK);
-            m_current_job = m_is_on_break ? tr("On Break") : tr("No Job");
+            m_current_job = m_is_on_break ? trUtf8("On Break") : trUtf8("No Job");
             if(m_is_on_break){
                 m_current_job_id = -2;
             }else{
                 if(get_flag_value(FLAG_CAGED)){
-                    m_current_job = tr("Caged");
+                    m_current_job = trUtf8("Caged");
                     m_current_job_id = -4;
                 }else{
                     m_current_job_id = -3;
@@ -1358,13 +1358,13 @@ QString Dwarf::race_name(bool base, bool plural_name) {
 
 QString Dwarf::happiness_name(DWARF_HAPPINESS happiness) {
     switch(happiness) {
-    case DH_MISERABLE: return tr("Miserable");
-    case DH_VERY_UNHAPPY: return tr("Very Unhappy");
-    case DH_UNHAPPY: return tr("Unhappy");
-    case DH_FINE: return tr("Fine");
-    case DH_CONTENT: return tr("Quite Content");
-    case DH_HAPPY: return tr("Happy");
-    case DH_ECSTATIC: return tr("Ecstatic");
+    case DH_MISERABLE: return trUtf8("Miserable");
+    case DH_VERY_UNHAPPY: return trUtf8("Very Unhappy");
+    case DH_UNHAPPY: return trUtf8("Unhappy");
+    case DH_FINE: return trUtf8("Fine");
+    case DH_CONTENT: return trUtf8("Quite Content");
+    case DH_HAPPY: return trUtf8("Happy");
+    case DH_ECSTATIC: return trUtf8("Ecstatic");
     default: return "UNKNOWN";
     }
 }
@@ -1584,7 +1584,7 @@ void Dwarf::read_inventory(){
     }else{
         m_coverage_ratings.insert(PANTS,0.0f);
         m_missing_counts.insert(PANTS,1);
-        title = tr("Legs Uncovered!");
+        title = trUtf8("Legs Uncovered!");
         process_inv_item(Item::uncovered_group_name(),new Item(PANTS,title,this));
         m_equip_warnings.insert(qMakePair(title,-1),1);
     }
@@ -1593,7 +1593,7 @@ void Dwarf::read_inventory(){
     }else{
         m_coverage_ratings.insert(ARMOR,0);
         m_missing_counts.insert(ARMOR,1);
-        title = tr("Torso Uncovered!");
+        title = trUtf8("Torso Uncovered!");
         process_inv_item(Item::uncovered_group_name(),new Item(ARMOR,title,this));
         m_equip_warnings.insert(qMakePair(title,-1),1);
     }
@@ -1603,7 +1603,7 @@ void Dwarf::read_inventory(){
     if(limb_count > 0)
         foot_coverage = shoes_count / limb_count * 100.0f;
     if(foot_coverage < 100.0f){
-        title = tr("Feet Uncovered!");
+        title = trUtf8("Feet Uncovered!");
         process_inv_item(Item::uncovered_group_name(),new Item(SHOES,title,this));
         int count = limb_count - shoes_count;
         m_missing_counts.insert(SHOES,count);
@@ -1736,7 +1736,7 @@ void Dwarf::read_skills() {
 }
 
 void Dwarf::read_emotions(VIRTADDR personality_base){
-    QString pronoun = (m_gender_info.gender == SEX_M ? tr("he") : tr("she"));
+    QString pronoun = (m_gender_info.gender == SEX_M ? trUtf8("he") : trUtf8("she"));
     //read list of circumstances and emotions, group and build desc
     int offset = m_mem->soul_detail("emotions");
     if(offset != -1){
@@ -1814,14 +1814,14 @@ void Dwarf::read_emotions(VIRTADDR personality_base){
         }
         QStringList dated_emotions;
         if(weekly_emotions.size() > 0){
-            QString duration_plural = (max_weeks == 4 ? tr("month") : tr("weeks"));
-            dated_emotions.append(tr("Within the last%1%2 %3 felt ")
+            QString duration_plural = (max_weeks == 4 ? trUtf8("month") : trUtf8("weeks"));
+            dated_emotions.append(trUtf8("Within the last%1%2 %3 felt ")
                                   .arg(max_weeks > 1 && max_weeks < 4 ? QString(" %1 ").arg(max_weeks)  : " ")
-                                  .arg(max_weeks > 1 ? duration_plural : tr("week"))
+                                  .arg(max_weeks > 1 ? duration_plural : trUtf8("week"))
                                   .arg(pronoun).append(formatList(weekly_emotions)));
         }
         if(seasonal_emotions.size() > 0)
-            dated_emotions.append(tr("Within the last season %1 felt ").arg(pronoun).append(formatList(seasonal_emotions)));
+            dated_emotions.append(trUtf8("Within the last season %1 felt ").arg(pronoun).append(formatList(seasonal_emotions)));
         m_emotions_desc =  dated_emotions.join(".<br/><br/>");
     }
 
@@ -1836,13 +1836,13 @@ void Dwarf::read_emotions(VIRTADDR personality_base){
     QString stress_desc = "";
     if (m_stress_level >= 500000){
         m_happiness = DH_MISERABLE;
-        stress_desc = tr(" is utterly harrowed by the nightmare that is their tragic life. ");
+        stress_desc = trUtf8(" is utterly harrowed by the nightmare that is their tragic life. ");
     }else if (m_stress_level >= 250000){
         m_happiness = DH_VERY_UNHAPPY;
-        stress_desc = tr(" is haggard and drawn due to the tremendous stresses placed on them. ");
+        stress_desc = trUtf8(" is haggard and drawn due to the tremendous stresses placed on them. ");
     }else if (m_stress_level >= 100000){
         m_happiness = DH_UNHAPPY;
-        stress_desc = tr(" is under a great deal of stress. ");
+        stress_desc = trUtf8(" is under a great deal of stress. ");
     }else if (m_stress_level > -100000){
         m_happiness = DH_FINE;
     }else if (m_stress_level > -250000){
@@ -1854,7 +1854,7 @@ void Dwarf::read_emotions(VIRTADDR personality_base){
     }
     //check for catatonic, it changes the stress desc
     if(m_mood_id == MT_TRAUMA){
-        stress_desc = tr(" has been overthrown by the stresses of day-to-day living. ");
+        stress_desc = trUtf8(" has been overthrown by the stresses of day-to-day living. ");
     }
     if(!stress_desc.trimmed().isEmpty()){
         m_emotions_desc.prepend("<b>" + capitalize(pronoun + stress_desc) + "</b>");
@@ -2103,9 +2103,9 @@ short Dwarf::labor_rating(int labor_id) {
 
 QString Dwarf::get_age_formatted(){
     if(m_is_baby){
-        return QString::number(m_age_in_months).append(tr(" Month").append(m_age_in_months == 1 ? "" : "s").append(tr(" Old")));
+        return QString::number(m_age_in_months).append(trUtf8(" Month").append(m_age_in_months == 1 ? "" : "s").append(trUtf8(" Old")));
     }else{
-        return QString::number(m_age).append(tr(" Year").append(m_age == 1 ? "" : "s").append(tr(" Old")));
+        return QString::number(m_age).append(trUtf8(" Year").append(m_age == 1 ? "" : "s").append(trUtf8(" Old")));
     }
 }
 
@@ -2390,15 +2390,15 @@ QTreeWidgetItem *Dwarf::get_pending_changes_tree() {
     d_item->setText(0, QString("%1 (%2)").arg(nice_name()).arg(pending_changes()));
     d_item->setData(0, Qt::UserRole, id());
 
-    build_pending_flag_node(0,tr("Cage"),FLAG_CAGED,d_item);
-    build_pending_flag_node(1,tr("Butcher"),FLAG_BUTCHER,d_item);
-    build_pending_flag_node(2,tr("Geld"),FLAG_GELD,d_item);
+    build_pending_flag_node(0,trUtf8("Cage"),FLAG_CAGED,d_item);
+    build_pending_flag_node(1,trUtf8("Butcher"),FLAG_BUTCHER,d_item);
+    build_pending_flag_node(2,trUtf8("Geld"),FLAG_GELD,d_item);
 
     if (m_pending_nick_name != m_nick_name) {
         QTreeWidgetItem *i = new QTreeWidgetItem(d_item);
         QString nick = m_pending_nick_name;
-        i->setText(0, nick.isEmpty() ? tr("Nickname reset to default")
-                                     : tr("Nickname changed to %1").arg(nick));
+        i->setText(0, nick.isEmpty() ? trUtf8("Nickname reset to default")
+                                     : trUtf8("Nickname changed to %1").arg(nick));
         i->setIcon(0, QIcon(":img/book--pencil.png"));
         i->setToolTip(0, i->text(0));
         i->setData(0, Qt::UserRole, id());
@@ -2406,8 +2406,8 @@ QTreeWidgetItem *Dwarf::get_pending_changes_tree() {
     if (m_pending_custom_profession != m_custom_profession) {
         QTreeWidgetItem *i = new QTreeWidgetItem(d_item);
         QString prof = m_pending_custom_profession;
-        i->setText(0, prof.isEmpty() ? tr("Profession reset to default")
-                                     : tr("Profession changed to %1").arg(prof));
+        i->setText(0, prof.isEmpty() ? trUtf8("Profession reset to default")
+                                     : trUtf8("Profession changed to %1").arg(prof));
         i->setIcon(0, QIcon(":img/book--pencil.png"));
         i->setToolTip(0, i->text(0));
         i->setData(0, Qt::UserRole, id());
@@ -2417,10 +2417,10 @@ QTreeWidgetItem *Dwarf::get_pending_changes_tree() {
         QString title = "";
         QString icn = "plus-circle.png";
         if(m_pending_squad_id < 0 && m_df->get_squad(m_squad_id) != 0){
-            title = tr("Remove from squad %1").arg(m_df->get_squad(m_squad_id)->name());
+            title = trUtf8("Remove from squad %1").arg(m_df->get_squad(m_squad_id)->name());
             icn = "minus-circle.png";
         }else{
-            title = tr("Assign to squad %1").arg(m_pending_squad_name);
+            title = trUtf8("Assign to squad %1").arg(m_pending_squad_name);
         }
         i->setText(0,title);
         i->setIcon(0, QIcon(QString(":img/%1").arg(icn)));
@@ -2452,7 +2452,7 @@ void Dwarf::build_pending_flag_node(int index, QString title, UNIT_FLAGS flag, Q
         QString msg = title;
         if(!get_flag_value(flag)){
             icon_path = ":img/minus-circle.png";
-            msg = tr("Cancel %1").arg(title);
+            msg = trUtf8("Cancel %1").arg(title);
         }
         i->setIcon(0, QIcon(icon_path));
         i->setText(0, msg);
@@ -2543,7 +2543,7 @@ QString Dwarf::tooltip_text() {
         if(!sorted_roles.isEmpty() && max_roles > 0 && s->value("tooltip_show_roles",true).toBool()){
             roles_summary.append("<ol style=\"margin-top:0px; margin-bottom:0px;\">");
             for(int i = 0; i < max_roles; i++){
-                roles_summary += tr("<li>%1  (%2%)</li>").arg(sorted_roles.at(i).name)
+                roles_summary += trUtf8("<li>%1  (%2%)</li>").arg(sorted_roles.at(i).name)
                         .arg(QString::number(sorted_roles.at(i).rating,'f',2));
             }
             roles_summary.append("</ol>");
@@ -2554,67 +2554,67 @@ QString Dwarf::tooltip_text() {
     QStringList tt;
     QString title;
     if(s->value("tooltip_show_icons",true).toBool()){
-        title += tr("<center><b><h3 style=\"margin:0;\"><img src='%1'> %2 %3</h3><h4 style=\"margin:0;\">%4</h4></b></center>")
+        title += trUtf8("<center><b><h3 style=\"margin:0;\"><img src='%1'> %2 %3</h3><h4 style=\"margin:0;\">%4</h4></b></center>")
                 .arg(m_icn_gender).arg(m_nice_name).arg(embedPixmap(m_icn_prof))
                 .arg(m_translated_name.isEmpty() ? "" : "(" + m_translated_name + ")");
     }else{
-        title += tr("<center><b><h3 style=\"margin:0;\">%1</h3><h4 style=\"margin:0;\">%2</h4></b></center>")
+        title += trUtf8("<center><b><h3 style=\"margin:0;\">%1</h3><h4 style=\"margin:0;\">%2</h4></b></center>")
                 .arg(m_nice_name).arg(m_translated_name.isEmpty() ? "" : "(" + m_translated_name + ")");
     }
 
     if(!m_is_animal && s->value("tooltip_show_artifact",true).toBool() && !m_artifact_name.isEmpty())
-        title.append(tr("<center><i><h5 style=\"margin:0;\">Creator of '%2'</h5></i></center>").arg(m_artifact_name));
+        title.append(trUtf8("<center><i><h5 style=\"margin:0;\">Creator of '%2'</h5></i></center>").arg(m_artifact_name));
 
     tt.append(title);
 
     if(s->value("tooltip_show_caste",true).toBool())
-        tt.append(tr("<b>Caste:</b> %1").arg(caste_name()));
+        tt.append(trUtf8("<b>Caste:</b> %1").arg(caste_name()));
 
     if(m_is_animal || s->value("tooltip_show_age",true).toBool())
-        tt.append(tr("<b>Age:</b> %1").arg(get_age_formatted()));
+        tt.append(trUtf8("<b>Age:</b> %1").arg(get_age_formatted()));
 
     if(m_is_animal || s->value("tooltip_show_size",true).toBool())
-        tt.append(tr("<b>Size:</b> %1cm<sup>3</sup>").arg(QLocale(QLocale::system()).toString(m_body_size * 10)));
+        tt.append(trUtf8("<b>Size:</b> %1cm<sup>3</sup>").arg(QLocale(QLocale::system()).toString(m_body_size * 10)));
 
     if(!m_is_animal && s->value("tooltip_show_noble",true).toBool())
-        tt.append(tr("<b>Profession:</b> %1").arg(profession()));
+        tt.append(trUtf8("<b>Profession:</b> %1").arg(profession()));
 
     if(!m_is_animal && m_pending_squad_id > -1 && s->value("tooltip_show_squad",true).toBool())
-        tt.append(tr("<b>Squad:</b> %1").arg(m_pending_squad_name));
+        tt.append(trUtf8("<b>Squad:</b> %1").arg(m_pending_squad_name));
 
     if(!m_is_animal && m_noble_position != "" && s->value("tooltip_show_noble",true).toBool())
-        tt.append(tr("<b>Noble Position%1:</b> %2").arg(m_noble_position.indexOf(",") > 0 ? "s" : "").arg(m_noble_position));
+        tt.append(trUtf8("<b>Noble Position%1:</b> %2").arg(m_noble_position.indexOf(",") > 0 ? "s" : "").arg(m_noble_position));
 
     if(!m_is_animal && s->value("tooltip_show_happiness",true).toBool()){
-        tt.append(tr("<b>Happiness:</b> %1").arg(m_happiness_desc));
+        tt.append(trUtf8("<b>Happiness:</b> %1").arg(m_happiness_desc));
         if(m_stressed_mood)
-            tt.append(tr("<b>Mood: </b>%1").arg(gdr->get_mood_desc(m_mood_id,true)));
+            tt.append(trUtf8("<b>Mood: </b>%1").arg(gdr->get_mood_desc(m_mood_id,true)));
     }
 
     if(s->value("tooltip_show_orientation",false).toBool())
-        tt.append(tr("<b>Gender/Orientation</b> %1").arg(m_gender_info.full_desc));
+        tt.append(trUtf8("<b>Gender/Orientation</b> %1").arg(m_gender_info.full_desc));
 
     if(!m_is_animal && !m_emotions_desc.isEmpty() && s->value("tooltip_show_thoughts",true).toBool())
-        tt.append(tr("<p style=\"margin:0px;\">%1</p>").arg(m_emotions_desc));
+        tt.append(trUtf8("<p style=\"margin:0px;\">%1</p>").arg(m_emotions_desc));
 
     if(!skill_summary.isEmpty())
-        tt.append(tr("<h4 style=\"margin:0px;\"><b>Skills:</b></h4><ul style=\"margin:0px;\">%1</ul>").arg(skill_summary));
+        tt.append(trUtf8("<h4 style=\"margin:0px;\"><b>Skills:</b></h4><ul style=\"margin:0px;\">%1</ul>").arg(skill_summary));
 
     if(!m_is_animal && s->value("tooltip_show_mood",false).toBool())
-        tt.append(tr("<b>Highest Moodable Skill:</b> %1")
+        tt.append(trUtf8("<b>Highest Moodable Skill:</b> %1")
                   .arg(gdr->get_skill_name(m_highest_moodable_skill, true)));
 
     if(!personality_summary.isEmpty())
-        tt.append(tr("<p style=\"margin:0px;\"><b>Personality:</b> %1</p>").arg(personality_summary));
+        tt.append(trUtf8("<p style=\"margin:0px;\"><b>Personality:</b> %1</p>").arg(personality_summary));
 
     if(!m_pref_tooltip.isEmpty())
-        tt.append(tr("<p style=\"margin:0px;\">%1</p>").arg(m_pref_tooltip));
+        tt.append(trUtf8("<p style=\"margin:0px;\">%1</p>").arg(m_pref_tooltip));
 
     if(!roles_summary.isEmpty())
-        tt.append(tr("<h4 style=\"margin:0px;\"><b>Top %1 Roles:</b></h4>%2").arg(max_roles).arg(roles_summary));
+        tt.append(trUtf8("<h4 style=\"margin:0px;\"><b>Top %1 Roles:</b></h4>%2").arg(max_roles).arg(roles_summary));
 
     if(m_is_animal)
-        tt.append(tr("<p style=\"margin:0px;\"><b>Trained Level:</b> %1</p>").arg(get_animal_trained_descriptor(m_animal_type)));
+        tt.append(trUtf8("<p style=\"margin:0px;\"><b>Trained Level:</b> %1</p>").arg(get_animal_trained_descriptor(m_animal_type)));
 
     if(s->value("tooltip_show_health",false).toBool() && (!m_is_animal || (m_is_animal && s->value("animal_health",false).toBool()))){
 
@@ -2626,7 +2626,7 @@ QString Dwarf::tooltip_text() {
 
         QStringList treatments = m_unit_health.get_treatment_summary(colors,symbols);
         if(treatments.size() > 0)
-            health_info.append(tr("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(tr("Treatment")).arg(treatments.join(", ")));
+            health_info.append(trUtf8("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(trUtf8("Treatment")).arg(treatments.join(", ")));
 
         //combine statuses and wounds so it's more compact for the toolip
         QStringList status_wound_summary = m_unit_health.get_status_summary(colors, symbols);
@@ -2641,7 +2641,7 @@ QString Dwarf::tooltip_text() {
             }
 
             qSort(status_wound_summary);
-            health_info.append(tr("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(tr("Health Issues")).arg(status_wound_summary.join(", ")));
+            health_info.append(trUtf8("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(trUtf8("Health Issues")).arg(status_wound_summary.join(", ")));
         }
 
         if(!health_info.isEmpty())
@@ -2653,26 +2653,26 @@ QString Dwarf::tooltip_text() {
         QString ailments = get_syndrome_names(false,true);
 
         if(!buffs.isEmpty())
-            tt.append(tr("<b>Buffs:</b> %1<br/>").arg(buffs));
+            tt.append(trUtf8("<b>Buffs:</b> %1<br/>").arg(buffs));
         if(!ailments.isEmpty())
-            tt.append(tr("<b>Ailments:</b> %1<br/>").arg(ailments));
+            tt.append(trUtf8("<b>Ailments:</b> %1<br/>").arg(ailments));
     }
 
 
     if(s->value("tooltip_show_caste_desc",true).toBool() && caste_desc() != "")
-        tt.append(tr("%1").arg(caste_desc()));
+        tt.append(trUtf8("%1").arg(caste_desc()));
 
     if(s->value("highlight_cursed", false).toBool() && m_curse_name != ""){
         QString curse_text = "";
-        curse_text = tr("<br/><b>Curse: </b>A <b><i>%1</i></b>")
+        curse_text = trUtf8("<br/><b>Curse: </b>A <b><i>%1</i></b>")
                 .arg(capitalizeEach(m_curse_name));
         //if we have an assumed identity, show it
         if(m_nice_name != m_true_name && !m_true_name.isEmpty()){
-            curse_text.append(tr(" by the name of %1, ").arg(m_true_name));
+            curse_text.append(trUtf8(" by the name of %1, ").arg(m_true_name));
             if(m_true_birth_year > 0){
-                curse_text.append(tr("born in the year %1.").arg(m_true_birth_year));
+                curse_text.append(trUtf8("born in the year %1.").arg(m_true_birth_year));
             }else{
-                curse_text.append(tr("born %1 years before the Age of Myth.").arg(abs(m_true_birth_year)));
+                curse_text.append(trUtf8("born %1 years before the Age of Myth.").arg(abs(m_true_birth_year)));
             }
         }
         tt.append(curse_text);
@@ -2722,13 +2722,13 @@ void Dwarf::dump_memory_to_file() {
         m_df->read_raw(m_address, 0xb90, data);
         f->write(m_df->pprint(data).toLatin1());
         f->close();
-        QMessageBox::information(DT->get_main_window(), tr("Dumped"),
-                                 tr("%1 has been dumped to %2")
+        QMessageBox::information(DT->get_main_window(), trUtf8("Dumped"),
+                                 trUtf8("%1 has been dumped to %2")
                                  .arg(nice_name())
                                  .arg(d.absoluteFilePath(filename)));
     } else {
-        QMessageBox::warning(DT->get_main_window(), tr("Unable to Dump Dwarf"),
-                             tr("Could not write new file in log directory! "
+        QMessageBox::warning(DT->get_main_window(), trUtf8("Unable to Dump Dwarf"),
+                             trUtf8("Could not write new file in log directory! "
                                 "(%1)").arg(f->errorString()));
     }
     f->deleteLater();

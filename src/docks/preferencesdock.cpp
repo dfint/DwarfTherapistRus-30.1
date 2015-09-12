@@ -37,7 +37,7 @@ THE SOFTWARE.
 PreferencesDock::PreferencesDock(QWidget *parent, Qt::WindowFlags flags)
     : BaseDock(parent, flags)
 {
-    setWindowTitle(tr("Preferences"));
+    setWindowTitle(trUtf8("Preferences"));
     setObjectName("dock_preferences");
     setFeatures(QDockWidget::AllDockWidgetFeatures);
     setAllowedAreas(Qt::AllDockWidgetAreas);

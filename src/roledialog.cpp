@@ -170,7 +170,7 @@ void roleDialog::load_role(QString role_name){
     load_role_data();
 
     //refresh status tip info for weights
-    QString stat = tr("This weight is the importance of %1 relative to %2, %3 and %4. A higher weight gives more value. The current default is %5.");
+    QString stat = trUtf8("This weight is the importance of %1 relative to %2, %3 and %4. A higher weight gives more value. The current default is %5.");
     ui->dsb_attributes_weight->setStatusTip(stat.arg("attributes").arg("traits").arg("skills").arg("preferences")
                                             .arg(DT->user_settings()->value("options/default_attributes_weight",1.0).toString()));
     ui->dsb_skills_weight->setStatusTip(stat.arg("skills").arg("attributes").arg("traits").arg("preferences")
@@ -418,7 +418,7 @@ void roleDialog::draw_attribute_context_menu(const QPoint &p) {
     QMenu *m = new QMenu("Add Attribute",this);
     QModelIndex idx = ui->tw_attributes->indexAt(p);
     if (idx.isValid()) { // context on a row
-        m->addAction(QIcon(":img/minus-circle.png"), tr("Remove Selected"), this, SLOT(remove_attribute()));
+        m->addAction(QIcon(":img/minus-circle.png"), trUtf8("Remove Selected"), this, SLOT(remove_attribute()));
         m->addSeparator();
     }
     QAction *a;
@@ -430,7 +430,7 @@ void roleDialog::draw_attribute_context_menu(const QPoint &p) {
         if(!m_role->attributes.contains(att_pair.second.toLatin1().toLower())){
             a = m->addAction(tr(att_pair.second.toLatin1()), this, SLOT(add_attribute()));
             a->setData(att_pair.second.toLatin1());
-            a->setToolTip(tr("Include %1 as an aspect for this role.").arg(att_pair.second));
+            a->setToolTip(trUtf8("Include %1 as an aspect for this role.").arg(att_pair.second));
         }
     }
 
@@ -457,7 +457,7 @@ void roleDialog::draw_skill_context_menu(const QPoint &p) {
     QMenu *m = new QMenu("Add Skill",this);
     QModelIndex idx = ui->tw_skills->indexAt(p);
     if (idx.isValid()) { // context on a row
-        m->addAction(QIcon(":img/minus-circle.png"), tr("Remove Selected"), this, SLOT(remove_skill()));
+        m->addAction(QIcon(":img/minus-circle.png"), trUtf8("Remove Selected"), this, SLOT(remove_skill()));
         m->addSeparator();
     }
     QAction *a;
@@ -471,7 +471,7 @@ void roleDialog::draw_skill_context_menu(const QPoint &p) {
             QMenu *menu_to_use = cmh.find_menu(m,skill_pair.second);
             a = menu_to_use->addAction(skill_pair.second, this, SLOT(add_skill()));
             a->setData(skill_pair.first);
-            a->setToolTip(tr("Include %1 (ID %2) as an aspect for this role.)").arg(skill_pair.second).arg(skill_pair.first));
+            a->setToolTip(trUtf8("Include %1 (ID %2) as an aspect for this role.)").arg(skill_pair.second).arg(skill_pair.first));
         }
     }
 
@@ -498,7 +498,7 @@ void roleDialog::draw_trait_context_menu(const QPoint &p) {
     QMenu *m = new QMenu("Add Trait",this);
     QModelIndex idx = ui->tw_traits->indexAt(p);
     if (idx.isValid()) { // context on a row
-        m->addAction(QIcon(":img/minus-circle.png"), tr("Remove Selected"), this, SLOT(remove_trait()));
+        m->addAction(QIcon(":img/minus-circle.png"), trUtf8("Remove Selected"), this, SLOT(remove_trait()));
         m->addSeparator();
     }
     QAction *a;
@@ -513,7 +513,7 @@ void roleDialog::draw_trait_context_menu(const QPoint &p) {
             QMenu *menu_to_use = cmh.find_menu(m,t->get_name());
             a = menu_to_use->addAction(t->get_name(), this, SLOT(add_trait()));
             a->setData(trait_pair.first);
-            a->setToolTip(tr("Include %1 (ID %2) as an aspect for this role.").arg(t->get_name()).arg(trait_pair.first));
+            a->setToolTip(trUtf8("Include %1 (ID %2) as an aspect for this role.").arg(t->get_name()).arg(trait_pair.first));
         }
     }
 
@@ -539,7 +539,7 @@ void roleDialog::draw_prefs_context_menu(const QPoint &p) {
     QMenu *m = new QMenu("",this);
     QModelIndex idx = ui->tw_prefs->indexAt(p);
     if (idx.isValid()) { // context on a row
-        m->addAction(QIcon(":img/minus-circle.png"), tr("Remove Selected"), this, SLOT(remove_pref()));
+        m->addAction(QIcon(":img/minus-circle.png"), trUtf8("Remove Selected"), this, SLOT(remove_pref()));
         m->addSeparator();
     }
     m->exec(ui->tw_prefs->viewport()->mapToGlobal(p));
@@ -565,8 +565,8 @@ void roleDialog::copy_pressed(){
 
     if(ui->tw_attributes->rowCount()>0 || ui->tw_traits->rowCount()>0 || ui->tw_skills->rowCount()>0 || ui->tw_prefs->rowCount()>0){
         answer = QMessageBox::question(
-                    0, tr("Confirm Copy"),
-                    tr("Copying this role will replace all current aspects with the selected role's aspects. Continue?"),
+                    0, trUtf8("Confirm Copy"),
+                    trUtf8("Copying this role will replace all current aspects with the selected role's aspects. Continue?"),
                     QMessageBox::Yes | QMessageBox::No);
     }
 
@@ -730,12 +730,12 @@ void roleDialog::load_plant_prefs(QVector<Plant*> plants){
 void roleDialog::load_items(){
     QList<int> flags;
     flags << IS_CLOTHING;
-    add_general_node(tr("Clothing (Any)"),LIKE_ITEM,flags,m_general_equip);
+    add_general_node(trUtf8("Clothing (Any)"),LIKE_ITEM,flags,m_general_equip);
     flags << IS_ARMOR;
-    add_general_node(tr("Armor (Any)"),LIKE_ITEM,flags,m_general_equip);
+    add_general_node(trUtf8("Armor (Any)"),LIKE_ITEM,flags,m_general_equip);
 
     flags << IS_TRADE_GOOD;
-    add_general_node(tr("Trade Goods"),LIKE_ITEM,flags,m_general_item);
+    add_general_node(trUtf8("Trade Goods"),LIKE_ITEM,flags,m_general_item);
 
     //setup a list of item exclusions. these are item types that are not found in item preferences
     //weapons are also ignored because we'll handle them manually to split them into ranged and melee categories
@@ -830,7 +830,7 @@ void roleDialog::load_items(){
 }
 
 void roleDialog::add_general_creature_node(const QString suffix, QList<int> &flags, QTreeWidgetItem **parent_node){
-    QString title = tr("Creatures (%1)").arg(suffix);
+    QString title = trUtf8("Creatures (%1)").arg(suffix);
     *parent_node = init_parent_node(title);
 
     Preference *p = new Preference(LIKE_CREATURE, NONE,this);
@@ -846,31 +846,31 @@ void roleDialog::load_creatures(){
     //add general categories for groups of creatures
     QList<int> flags;
     flags << HATEABLE;
-    add_general_creature_node(tr("Hateable"),flags,&m_hateable);
+    add_general_creature_node(trUtf8("Hateable"),flags,&m_hateable);
 
     flags << VERMIN_FISH;
-    add_general_creature_node(tr("Fish Extracts"),flags,&m_extracts_fish);
+    add_general_creature_node(trUtf8("Fish Extracts"),flags,&m_extracts_fish);
 
     flags << TRAINABLE_HUNTING << TRAINABLE_WAR;
-    add_general_creature_node(tr("Trainable"),flags,&m_trainable);
+    add_general_creature_node(trUtf8("Trainable"),flags,&m_trainable);
 
     flags << MILKABLE;
-    add_general_creature_node(tr("Milkable"),flags,&m_milkable);
+    add_general_creature_node(trUtf8("Milkable"),flags,&m_milkable);
 
     flags << FISHABLE;
-    add_general_creature_node(tr("Fishable"),flags,&m_fishable);
+    add_general_creature_node(trUtf8("Fishable"),flags,&m_fishable);
 
     flags << SHEARABLE;
-    add_general_creature_node(tr("Shearable"),flags,&m_shearable);
+    add_general_creature_node(trUtf8("Shearable"),flags,&m_shearable);
 
     flags << HAS_EXTRACTS;
-    add_general_creature_node(tr("Extracts"),flags,&m_extracts);
+    add_general_creature_node(trUtf8("Extracts"),flags,&m_extracts);
 
     flags << BUTCHERABLE;
-    add_general_creature_node(tr("Butcherable"),flags,&m_butcher);
+    add_general_creature_node(trUtf8("Butcherable"),flags,&m_butcher);
 
     flags << DOMESTIC;
-    add_general_creature_node(tr("Domestic"),flags,&m_domestic);
+    add_general_creature_node(trUtf8("Domestic"),flags,&m_domestic);
 
     foreach(Race *r, m_df->get_races()){
         if(r->flags().has_flag(WAGON))
@@ -916,8 +916,8 @@ void roleDialog::load_creatures(){
 void roleDialog::load_weapons(){
     Preference *p;
     //add parent categories
-    QTreeWidgetItem *melee = init_parent_node(tr("Weapons (Melee)"));
-    QTreeWidgetItem *ranged = init_parent_node(tr("Weapons (Ranged)"));
+    QTreeWidgetItem *melee = init_parent_node(trUtf8("Weapons (Melee)"));
+    QTreeWidgetItem *ranged = init_parent_node(trUtf8("Weapons (Ranged)"));
 
     //add category to general items
     QList<int> flags;
@@ -941,36 +941,36 @@ void roleDialog::load_weapons(){
 void roleDialog::build_pref_tree(){
     ui->treePrefs->setSortingEnabled(false);
     //setup general categories
-    m_general_item = init_parent_node(tr("~General Items"));
-    m_general_equip = init_parent_node(tr("~General Equipment"));
-    m_general_material = init_parent_node(tr("~General Materials"));
-    m_general_creature = init_parent_node(tr("~General Creatures"));
-    m_general_trade_good = init_parent_node(tr("~General Trade Goods"));
-    m_general_other = init_parent_node(tr("~General Other"));
-    m_general_plant_tree = init_parent_node(tr("~General Plants & Trees"));
+    m_general_item = init_parent_node(trUtf8("~General Items"));
+    m_general_equip = init_parent_node(trUtf8("~General Equipment"));
+    m_general_material = init_parent_node(trUtf8("~General Materials"));
+    m_general_creature = init_parent_node(trUtf8("~General Creatures"));
+    m_general_trade_good = init_parent_node(trUtf8("~General Trade Goods"));
+    m_general_other = init_parent_node(trUtf8("~General Other"));
+    m_general_plant_tree = init_parent_node(trUtf8("~General Plants & Trees"));
 
     //setup other groups
-    m_gems = init_parent_node(tr("Gems"));
-    m_glass = init_parent_node(tr("Glass & Crystals"));
-    m_metals = init_parent_node(tr("Metals"));
-    m_stone = init_parent_node(tr("Stone & Ores"));
-    m_wood = init_parent_node(tr("Wood"));
-    m_glazes_wares = init_parent_node(tr("Glazes & Stoneware"));
-    m_plants = init_parent_node(tr("Plants"));
-    m_plants_alcohol = init_parent_node(tr("Plants (Alcohol)"));
-    m_plants_crops = init_parent_node(tr("Plants (Crops)"));
-    m_plants_crops_plantable = init_parent_node(tr("Plants (Crops Plantable)"));
-    m_plants_mill = init_parent_node(tr("Plants (Mill)"));
-    m_plants_extract = init_parent_node(tr("Plants (Extracts)"));
-    m_trees = init_parent_node(tr("Trees"));
-    m_fabrics = init_parent_node(tr("Fabrics & Dyes"));
-    m_creatures = init_parent_node(tr("Creatures (Other)"));
+    m_gems = init_parent_node(trUtf8("Gems"));
+    m_glass = init_parent_node(trUtf8("Glass & Crystals"));
+    m_metals = init_parent_node(trUtf8("Metals"));
+    m_stone = init_parent_node(trUtf8("Stone & Ores"));
+    m_wood = init_parent_node(trUtf8("Wood"));
+    m_glazes_wares = init_parent_node(trUtf8("Glazes & Stoneware"));
+    m_plants = init_parent_node(trUtf8("Plants"));
+    m_plants_alcohol = init_parent_node(trUtf8("Plants (Alcohol)"));
+    m_plants_crops = init_parent_node(trUtf8("Plants (Crops)"));
+    m_plants_crops_plantable = init_parent_node(trUtf8("Plants (Crops Plantable)"));
+    m_plants_mill = init_parent_node(trUtf8("Plants (Mill)"));
+    m_plants_extract = init_parent_node(trUtf8("Plants (Extracts)"));
+    m_trees = init_parent_node(trUtf8("Trees"));
+    m_fabrics = init_parent_node(trUtf8("Fabrics & Dyes"));
+    m_creatures = init_parent_node(trUtf8("Creatures (Other)"));
 
 
     //also add trees to general category. don't need a flag as trees is a pref category
     Preference *p_trees = new Preference(LIKE_TREE,NONE,this);
     //p_trees->add_flag(77); //is tree flag
-    p_trees->set_name(tr("Trees"));
+    p_trees->set_name(trUtf8("Trees"));
     add_pref_to_tree(m_general_plant_tree, p_trees);
 
     //any material types that we want to add to the general category section go here
@@ -985,27 +985,27 @@ void roleDialog::build_pref_tree(){
 
     //general category for plants used for alcohol
     flags << P_DRINK;
-    add_general_node(tr("Plants (Alcohol)"),LIKE_PLANT,flags,m_general_plant_tree);
+    add_general_node(trUtf8("Plants (Alcohol)"),LIKE_PLANT,flags,m_general_plant_tree);
 
     //general category for crops plant or gather
     flags << P_CROP;
-    add_general_node(tr("Plants (Crops)"),LIKE_PLANT,flags,m_general_plant_tree);
+    add_general_node(trUtf8("Plants (Crops)"),LIKE_PLANT,flags,m_general_plant_tree);
 
     //general category for plantable crops
     flags << P_CROP << P_SEED;
-    add_general_node(tr("Plants (Crops Plantable)"),LIKE_PLANT,flags,m_general_plant_tree);
+    add_general_node(trUtf8("Plants (Crops Plantable)"),LIKE_PLANT,flags,m_general_plant_tree);
 
     //general category for millable plants
     flags << P_MILL;
-    add_general_node(tr("Plants (Millable)"),LIKE_PLANT,flags,m_general_plant_tree);
+    add_general_node(trUtf8("Plants (Millable)"),LIKE_PLANT,flags,m_general_plant_tree);
 
     //general category for plants used for processing/threshing
     flags << P_HAS_EXTRACTS;
-    add_general_node(tr("Plants (Extracts)"),LIKE_PLANT,flags,m_general_plant_tree);
+    add_general_node(trUtf8("Plants (Extracts)"),LIKE_PLANT,flags,m_general_plant_tree);
 
     //special custom preference for outdoors
     flags << 999;
-    add_general_node(tr("Outdoors"),LIKE_OUTDOORS,flags,m_general_other);
+    add_general_node(trUtf8("Outdoors"),LIKE_OUTDOORS,flags,m_general_other);
 
     load_material_prefs(m_df->get_inorganic_materials());
     load_material_prefs(m_df->get_base_materials());
@@ -1026,9 +1026,9 @@ void roleDialog::build_pref_tree(){
         }
 
         if(parent->childCount() > 0){
-            parent->setText(0, tr("%1 (%2)").arg(parent->text(0)).arg(QString::number(parent->childCount())));
+            parent->setText(0, trUtf8("%1 (%2)").arg(parent->text(0)).arg(QString::number(parent->childCount())));
         }else{
-            parent->setText(0, tr("%1").arg(parent->text(0)));
+            parent->setText(0, trUtf8("%1").arg(parent->text(0)));
         }
 
         ui->treePrefs->addTopLevelItem(parent);
@@ -1140,13 +1140,13 @@ void roleDialog::calc_new_role(){
         if(!ret.isNumber()){
             QString err_msg;
             if(ret.isError()) {
-                err_msg = tr("<font color=red>%1: %2<br/>%3</font>")
+                err_msg = trUtf8("<font color=red>%1: %2<br/>%3</font>")
                         .arg(ret.property("name").toString())
                         .arg(ret.property("message").toString())
                         .arg(ret.property("stack").toString().replace("\n", "<br/>"));
             }else{
                 m_engine.globalObject().setProperty("__internal_role_return_value_check", ret);
-                err_msg = tr("<font color=red>Script returned %1 instead of number</font>")
+                err_msg = trUtf8("<font color=red>Script returned %1 instead of number</font>")
                         .arg(m_engine.evaluate(QString("typeof __internal_role_return_value_check")).toString());
 #if QT_VERSION < 0x050000
                 m_engine.globalObject().setProperty("__internal_role_return_value_check", QScriptValue());

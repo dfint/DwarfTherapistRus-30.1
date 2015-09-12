@@ -210,17 +210,17 @@ void RotatedHeader::contextMenuEvent(QContextMenuEvent *evt) {
     if (idx == 0) { //name header
         m->addAction("Sort by..");
         m->addSeparator();
-        m->addAction(QIcon(":img/sort-number.png"), tr("Age Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_AGE_ASC);
-        m->addAction(QIcon(":img/sort-number-descending.png"),tr("Age Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_AGE_DESC);
+        m->addAction(QIcon(":img/sort-number.png"), trUtf8("Age Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_AGE_ASC);
+        m->addAction(QIcon(":img/sort-number-descending.png"),trUtf8("Age Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_AGE_DESC);
         m->addSeparator();
-        m->addAction(QIcon(":img/sort-number.png"), tr("Body Size Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_SIZE_ASC);
-        m->addAction(QIcon(":img/sort-number-descending.png"),tr("Body Size Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_SIZE_DESC);
+        m->addAction(QIcon(":img/sort-number.png"), trUtf8("Body Size Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_SIZE_ASC);
+        m->addAction(QIcon(":img/sort-number-descending.png"),trUtf8("Body Size Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_SIZE_DESC);
         m->addSeparator();
-        m->addAction(QIcon(":img/sort-number.png"),tr("ID Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_ID_ASC);
-        m->addAction(QIcon(":img/sort-number-descending.png"),tr("ID Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_ID_DESC);
+        m->addAction(QIcon(":img/sort-number.png"),trUtf8("ID Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_ID_ASC);
+        m->addAction(QIcon(":img/sort-number-descending.png"),trUtf8("ID Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_ID_DESC);
         m->addSeparator();
-        m->addAction(QIcon(":img/sort-alphabet.png"),tr("Name Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_NAME_ASC);
-        m->addAction(QIcon(":img/sort-alphabet-descending.png"),tr("Name Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_NAME_DESC);
+        m->addAction(QIcon(":img/sort-alphabet.png"),trUtf8("Name Ascending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_NAME_ASC);
+        m->addAction(QIcon(":img/sort-alphabet-descending.png"),trUtf8("Name Descending"), this, SLOT(sort_action()))->setData(DwarfModelProxy::DSR_NAME_DESC);
     }
     m->exec(viewport()->mapToGlobal(evt->pos()));
 }
@@ -229,7 +229,7 @@ void RotatedHeader::sort_action() {
     QAction *sender = qobject_cast<QAction*>(QObject::sender());
     Qt::SortOrder order;
     DwarfModelProxy::DWARF_SORT_ROLE role = static_cast<DwarfModelProxy::DWARF_SORT_ROLE>(sender->data().toInt());
-    if(sender->text().toLower().contains(tr("desc")))
+    if(sender->text().toLower().contains(trUtf8("desc")))
         order = Qt::DescendingOrder;
     else
         order = Qt::AscendingOrder;

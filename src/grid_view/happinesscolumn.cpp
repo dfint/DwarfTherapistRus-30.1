@@ -52,7 +52,7 @@ QStandardItem *HappinessColumn::build_cell(Dwarf *d) {
     QString pixmap_name = ":img/question-frame.png";
     QString stressed_mood_desc = "";
     if(d->in_stressed_mood()){
-        stressed_mood_desc = tr("<br/>Mood: %1").arg(GameDataReader::ptr()->get_mood_desc(d->current_mood(),true));
+        stressed_mood_desc = trUtf8("<br/>Mood: %1").arg(GameDataReader::ptr()->get_mood_desc(d->current_mood(),true));
         pixmap_name = QString(":img/exclamation-red-frame.png");
     }else{
         pixmap_name = QString(":happiness/%1.png").arg(Dwarf::happiness_name(d->get_happiness()));
@@ -66,7 +66,7 @@ QStandardItem *HappinessColumn::build_cell(Dwarf *d) {
     QString tooltip = QString("<center><h3>%1</h3><h4>%2<br/>%3%4</h4></center><p>%5</p>%6")
             .arg(m_title)
             .arg(Dwarf::happiness_name(d->get_happiness()))
-            .arg(tr("Stress Level: ") + formatNumber(d->get_raw_happiness()))
+            .arg(trUtf8("Stress Level: ") + formatNumber(d->get_raw_happiness()))
             .arg(stressed_mood_desc)
             .arg(d->get_emotions_desc())
             .arg(tooltip_name_footer(d));
@@ -87,17 +87,17 @@ QStandardItem *HappinessColumn::build_aggregate(const QString &group_name, const
             d_stressed = d;
         }
     }
-    QString name = tr("Nobody");
+    QString name = trUtf8("Nobody");
     DWARF_HAPPINESS highest = DH_FINE;
     if(d_stressed){
         name = d_stressed->nice_name();
         highest = d_stressed->get_happiness();
     }
-    item->setToolTip(tr("<center><h3>%1</h3>Lowest Happiness in group:<br/><b>%2 (%3)</b><br/>%4</center>")
+    item->setToolTip(trUtf8("<center><h3>%1</h3>Lowest Happiness in group:<br/><b>%2 (%3)</b><br/>%4</center>")
                      .arg(m_title)
                      .arg(name)
                      .arg(Dwarf::happiness_name(highest))
-                     .arg(tr("Stress Level: ") + formatNumber(stress)));
+                     .arg(trUtf8("Stress Level: ") + formatNumber(stress)));
     item->setData(highest,DwarfModel::DR_STATE);
     return item;
 }

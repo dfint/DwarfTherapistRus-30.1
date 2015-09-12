@@ -169,7 +169,7 @@ int CustomProfession::show_builder_dialog(QWidget *parent) {
     connect(ui->cb_roles,SIGNAL(currentIndexChanged(int)),this,SLOT(role_changed(int)),Qt::UniqueConnection);
 
     //add font color chooser
-    m_font_custom_color = new CustomColor("",tr("The color of the text drawn over the icon."),"text_color", Qt::black, 0);
+    m_font_custom_color = new CustomColor("",trUtf8("The color of the text drawn over the icon."),"text_color", Qt::black, 0);
     m_font_custom_color->set_color(m_font_color);
     m_font_custom_color->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
     ui->hLayoutText->insertWidget(3,m_font_custom_color);
@@ -181,7 +181,7 @@ int CustomProfession::show_builder_dialog(QWidget *parent) {
     connect(ui->chk_mask,SIGNAL(clicked(bool)),this,SLOT(mask_changed(bool)));
 
     //add background color chooser
-    m_bg_custom_color = new CustomColor("",tr("The background color of the icon."), "bg_color", Qt::transparent, 0);
+    m_bg_custom_color = new CustomColor("",trUtf8("The background color of the icon."), "bg_color", Qt::transparent, 0);
     m_bg_custom_color->set_color(m_bg_color);
     connect(m_bg_custom_color, SIGNAL(color_changed(QString,QColor)), this, SLOT(color_selected(QString,QColor)));
     m_bg_custom_color->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
@@ -210,7 +210,7 @@ int CustomProfession::show_builder_dialog(QWidget *parent) {
         m_dialog->setSizeGripEnabled(false);
         m_dialog->layout()->setSizeConstraint(QLayout::SetFixedSize);
         //change the window name
-        m_dialog->setWindowTitle(tr("Custom Icon"));
+        m_dialog->setWindowTitle(trUtf8("Custom Icon"));
     }
 
     refresh_icon();
@@ -243,27 +243,27 @@ bool CustomProfession::is_valid() {
     if(m_prof_id < 0){
         QString proposed_name = ui->name_edit->text().trimmed();
         if (proposed_name.isEmpty()) {
-            QMessageBox::warning(m_dialog, tr("Naming Error!"),
-                                 tr("You must enter a name for this Custom Profession!"));
+            QMessageBox::warning(m_dialog, trUtf8("Naming Error!"),
+                                 trUtf8("You must enter a name for this Custom Profession!"));
             return false;
         }
         foreach(CustomProfession *cp, DT->get_custom_professions()){
             if(cp != this && cp->get_name() == proposed_name){
-                QMessageBox::warning(m_dialog, tr("Duplicate Name!"),
-                                     tr("A Custom Profession with this name already exists!"));
+                QMessageBox::warning(m_dialog, trUtf8("Duplicate Name!"),
+                                     trUtf8("A Custom Profession with this name already exists!"));
                 return false;
             }
         }
         foreach(SuperLabor *sl, DT->get_super_labors()){
             if(sl->get_name() == proposed_name){
-                QMessageBox::warning(m_dialog, tr("Duplicate Name!"),
-                                     tr("A Super Labor with this name already exists!"));
+                QMessageBox::warning(m_dialog, trUtf8("Duplicate Name!"),
+                                     trUtf8("A Super Labor with this name already exists!"));
                 return false;
             }
         }
     }else{
         //inform the user that the new icons won't be shown until the next read
-        QMessageBox::information(m_dialog,tr("Read Required"),tr("The new profession icon has been saved and will be shown after the next read."));
+        QMessageBox::information(m_dialog,trUtf8("Read Required"),trUtf8("The new profession icon has been saved and will be shown after the next read."));
     }
     return true;
 }
@@ -314,9 +314,9 @@ void CustomProfession::refresh_icon(){
     else
         m_dialog->setWindowIcon(QIcon(":img/hammer.png"));
     if(m_icon_path == "" || m_icon_id <= -1)
-        ui->lbl_icon->setText(tr("None"));
+        ui->lbl_icon->setText(trUtf8("None"));
     else{
-        ui->lbl_icon->setText(tr(""));
+        ui->lbl_icon->setText(trUtf8(""));
         ui->lbl_icon->setPixmap(QPixmap(m_icon_path));
     }
 }

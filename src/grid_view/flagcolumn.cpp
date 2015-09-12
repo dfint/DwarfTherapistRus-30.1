@@ -77,29 +77,29 @@ QStandardItem *FlagColumn::build_cell(Dwarf *d) {
     ViewColumn::CELL_STATE state  = STATE_TOGGLE;
     if(m_bit_pos == FLAG_BUTCHER){
         if(d->is_pet()){
-            info_msg = tr("<b>Pets cannot be slaughtered!</b>");
+            info_msg = trUtf8("<b>Pets cannot be slaughtered!</b>");
             state = STATE_DISABLED;
         }else if(!d->get_caste() || !d->get_caste()->flags().has_flag(BUTCHERABLE)){
-            info_msg = tr("<b>This caste cannot be slaughtered!</b>");
+            info_msg = trUtf8("<b>This caste cannot be slaughtered!</b>");
             state = STATE_DISABLED;
         }else if(rating == 1){
-            info_msg = tr("<b>This creature has been marked for slaughter.</b>");
+            info_msg = trUtf8("<b>This creature has been marked for slaughter.</b>");
             state = STATE_PENDING;
         }else{
             state = STATE_TOGGLE;
         }
     }else if(m_bit_pos == FLAG_GELD){
         if(d->get_gender() != Dwarf::SEX_M){
-            info_msg = tr("<b>Only males can be gelded!</b>");
+            info_msg = trUtf8("<b>Only males can be gelded!</b>");
             state = STATE_DISABLED;
         }else if(d->has_health_issue(42,0)){
-            info_msg = tr("<b>This creature has already been gelded!</b>");
+            info_msg = trUtf8("<b>This creature has already been gelded!</b>");
             state = STATE_ACTIVE;
         }else if(rating == 1){
-            info_msg = tr("<b>This creature has been marked for gelding.</b>");
+            info_msg = trUtf8("<b>This creature has been marked for gelding.</b>");
             state = STATE_PENDING;
         }else if(!d->get_caste()->is_geldable()){ //check last as it's the most expensive
-            info_msg = tr("<b>This caste is not geldable!</b>");
+            info_msg = trUtf8("<b>This caste is not geldable!</b>");
             state = STATE_DISABLED;
         }else{
             state = STATE_TOGGLE;

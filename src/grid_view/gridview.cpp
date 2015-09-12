@@ -118,7 +118,7 @@ GridView *GridView::read_from_ini(QSettings &s, QObject *parent) {
     ret_val->set_active(s.value("active", true).toBool());
     ret_val->set_show_animals(s.value("animals",false).toBool());
     //support old views before the animal flag was available
-    if(!ret_val->show_animals() && ret_val->name().contains(tr("animal"),Qt::CaseInsensitive))
+    if(!ret_val->show_animals() && ret_val->name().contains(trUtf8("animal"),Qt::CaseInsensitive))
         ret_val->set_show_animals(true);
 
     int total_sets = s.beginReadArray("sets");

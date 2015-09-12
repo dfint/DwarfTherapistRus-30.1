@@ -67,11 +67,11 @@ QStandardItem *BeliefColumn::build_cell(Dwarf *d) {
     if (b){
         infos << b->level_message(raw_value);
     }else{
-        infos << tr("Unknown belief");
+        infos << trUtf8("Unknown belief");
     }
 
     if(!d->belief_is_active(m_id)){
-        infos << tr("Not an active belief for this dwarf.");
+        infos << trUtf8("Not an active belief for this dwarf.");
         display_value = 50; //hide inactive beliefs
     }
 
@@ -80,7 +80,7 @@ QStandardItem *BeliefColumn::build_cell(Dwarf *d) {
     if(b){
         all_trait_conflicts = b->get_trait_conflicts().count();
         if(all_trait_conflicts > 0){
-            infos << tr("<br/>This belief can conflict with %1").arg(b->trait_conflict_names());
+            infos << trUtf8("<br/>This belief can conflict with %1").arg(b->trait_conflict_names());
         }
     }
 

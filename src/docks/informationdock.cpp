@@ -30,7 +30,7 @@ InformationDock::InformationDock(QWidget *parent, Qt::WindowFlags flags)
     , te_info(new QTextEdit(this))
 {
     setObjectName("dock_information");
-    setWindowTitle(tr("Information"));
+    setWindowTitle(trUtf8("Information"));
     QWidget *main_widget = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout(main_widget);
     main_widget->setLayout(layout);

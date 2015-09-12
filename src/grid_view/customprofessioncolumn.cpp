@@ -64,7 +64,7 @@ QStandardItem *CustomProfessionColumn::build_cell(Dwarf *d) {
         item->setData(-1, DwarfModel::DR_RATING);
         item->setData(-1, DwarfModel::DR_DISPLAY_RATING);
         item->setData(-1,DwarfModel::DR_LABORS);
-        item->setToolTip(tr("Unknown custom profession."));
+        item->setToolTip(trUtf8("Unknown custom profession."));
         return item;
     }else{
         //build a custom title
@@ -76,9 +76,9 @@ QStandardItem *CustomProfessionColumn::build_cell(Dwarf *d) {
             if(cp->has_icon())
                 prof_title.append(cp->get_embedded_pixmap()).append(" ");
             if(d->profession() == cp_name){
-                prof_title.append(tr("<font color=%1>%2</font>").arg(ml->active_labor_color().name()).arg(cp_name));
+                prof_title.append(trUtf8("<font color=%1>%2</font>").arg(ml->active_labor_color().name()).arg(cp_name));
             }else{
-                prof_title.append(tr("%1").arg(cp_name));
+                prof_title.append(trUtf8("%1").arg(cp_name));
             }
             prof_title.append("</center>");
         }

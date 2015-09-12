@@ -266,7 +266,7 @@ QTreeWidgetItem *Squad::get_pending_changes_tree() {
     s_item->setData(0, Qt::UserRole, m_id);
     if (m_pending_name != m_name) {
         QTreeWidgetItem *i = new QTreeWidgetItem(s_item);
-        i->setText(0, tr("Rename squad %1 to %2").arg(m_name).arg(m_pending_name));
+        i->setText(0, trUtf8("Rename squad %1 to %2").arg(m_name).arg(m_pending_name));
         i->setIcon(0, QIcon(":img/book--pencil.png"));
         i->setToolTip(0, i->text(0));
         i->setData(0, Qt::UserRole, -1);

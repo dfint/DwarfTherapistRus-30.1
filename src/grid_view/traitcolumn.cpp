@@ -62,15 +62,15 @@ QStandardItem *TraitColumn::build_cell(Dwarf *d) {
     if (m_trait){
         infos << m_trait->level_message(raw_value).append(m_trait->belief_conficts_msgs(raw_value,d->trait_conflicts(m_trait_id)));
     }else{
-        infos << tr("Unknown trait");
+        infos << trUtf8("Unknown trait");
     }
 
     if(raw_value < 0){
-        infos << tr("This unit doesn't have this trait!");
+        infos << trUtf8("This unit doesn't have this trait!");
     }
 
     if (d->trait_is_active(m_trait_id)==false)
-        infos << tr("Not an active trait for this dwarf.");
+        infos << trUtf8("Not an active trait for this dwarf.");
 
     int conflicting_belief_count = 0;
     if (m_trait){
@@ -79,7 +79,7 @@ QStandardItem *TraitColumn::build_cell(Dwarf *d) {
 
         conflicting_belief_count = m_trait->get_conflicting_beliefs().count();
         if(conflicting_belief_count > 0){
-            infos << tr("<br/>This trait can conflict with %1").arg(m_trait->belief_conflicts_names());
+            infos << trUtf8("<br/>This trait can conflict with %1").arg(m_trait->belief_conflicts_names());
         }
         if(m_trait->valued_inversely()){
             infos << Trait::inverted_message;
@@ -104,7 +104,7 @@ QStandardItem *TraitColumn::build_cell(Dwarf *d) {
 
     QString tooltip = QString("<center><h3>%1</h3> %2</center><br/>%3<br/>%4")
             .arg(m_title)
-            .arg(tr("<b>Raw Value: %1</b>").arg(raw_value))
+            .arg(trUtf8("<b>Raw Value: %1</b>").arg(raw_value))
             .arg(infos.join("<br/>"))
             .arg(tooltip_name_footer(d));
     item->setToolTip(tooltip);

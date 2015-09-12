@@ -84,7 +84,7 @@ void HistFigure::read_kills(){
             if(r){
                 ki.creature = r->name(ki.count).toLower();
                 if(race_id < 0){
-                    ki.creature.prepend(tr("undead "));
+                    ki.creature.prepend(trUtf8("undead "));
                 }
             }
             m_other_kills.append(ki);
@@ -144,7 +144,7 @@ int HistFigure::kill_count(bool notable){
 QStringList HistFigure::notable_kills(){
     if(m_notable_kill_list.count() <= 0 && kill_count(true) > 0){
         foreach(kill_info ki, m_notable_kills){
-            m_notable_kill_list.append(tr("%2 the %1, d.%3").arg(ki.creature).arg(ki.name).arg(ki.year));
+            m_notable_kill_list.append(trUtf8("%2 the %1, d.%3").arg(ki.creature).arg(ki.name).arg(ki.year));
         }
     }
     return m_notable_kill_list;
@@ -152,7 +152,7 @@ QStringList HistFigure::notable_kills(){
 QStringList HistFigure::other_kills(){
     if(m_other_kill_list.count() <= 0 && kill_count(false) > 0){
         foreach(kill_info ki, m_other_kills){
-            m_other_kill_list.append(tr("%1 %2").arg(ki.count).arg(ki.creature));
+            m_other_kill_list.append(trUtf8("%1 %2").arg(ki.count).arg(ki.creature));
         }
     }
     return m_other_kill_list;
@@ -165,19 +165,19 @@ QString HistFigure::formatted_summary(bool show_no_kills, bool space_notable){
         int count = kill_count(true);
         if(count > 0){
             QString sep = (space_notable ? "<br/>" : ", ");
-            kill_lists.append(tr("<b>%1Notable Kill%2:</b> %3")
+            kill_lists.append(trUtf8("<b>%1Notable Kill%2:</b> %3")
                               .arg(count > 1 ? QString::number(count)+" " : "").arg(count > 1 ? "s" : "")
                               .arg(notable_kills().join(sep)));
         }
         count = kill_count();
         if(count > 0){
-            kill_lists.append(tr("<b>%1Kill%2:</b> %3")
+            kill_lists.append(trUtf8("<b>%1Kill%2:</b> %3")
                               .arg(count > 1 ? QString::number(count)+" " : "").arg(count > 1 ? "s" : "")
                               .arg(other_kills().join(", ")));
         }
         kill_summary.append(kill_lists.join("<br/><br/>"));
     }else if (show_no_kills){
-        kill_summary.append(tr("No Kills"));
+        kill_summary.append(trUtf8("No Kills"));
     }
     kill_summary.append("</p>");
     return kill_summary;

@@ -109,13 +109,13 @@ static inline QString formatList(QStringList values){
         last_msg = values.takeLast();
     ret_val = values.join(", ");
     if(!last_msg.isEmpty()){
-        ret_val.append(QObject::tr(" and ") + last_msg);
+        ret_val.append(QObject::trUtf8(" and ") + last_msg);
     }
     return ret_val;
 }
 
 static inline QString formatNumber(double value) {
-    QString suffixes(QObject::tr("kMGT"));
+    QString suffixes(QObject::trUtf8("kMGT"));
     for(int idx = suffixes.length(); idx > 0; idx--){
         double unit = pow(1000,idx);
         if(abs(value) >= unit)

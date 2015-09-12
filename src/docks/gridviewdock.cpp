@@ -62,7 +62,7 @@ void GridViewDock::draw_views() {
     QStringList view_names;
     foreach(GridView *v, m_manager->views()) {
         //exclude the built in weapons view from being copied as the columns are currently custom groups
-        if(!v->is_custom() && v->name() == tr("Weapons"))
+        if(!v->is_custom() && v->name() == trUtf8("Weapons"))
             continue;
         view_names << v->name();
     }
@@ -73,7 +73,7 @@ void GridViewDock::draw_views() {
                 QListWidgetItem *item = new QListWidgetItem(v->name(),ui->list_views);
                 if (!v->is_custom()) {
                     item->setForeground(Qt::gray);
-                    item->setToolTip(tr("Built-in View. Copy this view to customize it."));
+                    item->setToolTip(trUtf8("Built-in View. Copy this view to customize it."));
                 }
             }
         }
@@ -99,16 +99,16 @@ void GridViewDock::draw_list_context_menu(const QPoint &pos) {
     short res = current_view_is_custom();
     if (res > -1) {
         if ((bool)res){
-            m.addAction(QIcon(":/img/table--pencil.png"), tr("Edit..."),
+            m.addAction(QIcon(":/img/table--pencil.png"), trUtf8("Edit..."),
                         this, SLOT(edit_view()));
-            m.addAction(QIcon(":/img/table--minus.png"), tr("Delete..."),
+            m.addAction(QIcon(":/img/table--minus.png"), trUtf8("Delete..."),
                         this, SLOT(delete_view()));
         }else{
-            m.addAction(QIcon(":/img/tables.png"), tr("Copy..."),
+            m.addAction(QIcon(":/img/tables.png"), trUtf8("Copy..."),
                         this, SLOT(copy_view()));
         }
     } else { // whitespace
-        m.addAction(QIcon(":img/table--plus.png"), tr("Add New GridView"),
+        m.addAction(QIcon(":img/table--plus.png"), trUtf8("Add New GridView"),
                     this, SLOT(add_new_view()));
     }
     m.exec(ui->list_views->mapToGlobal(pos));
@@ -188,8 +188,8 @@ void GridViewDock::delete_view() {
         return;
 
     int answer = QMessageBox::question(
-                0, tr("Delete View"),
-                tr("Deleting '%1' will permanently delete it from disk. <h1>Really "
+                0, trUtf8("Delete View"),
+                trUtf8("Deleting '%1' will permanently delete it from disk. <h1>Really "
                    "delete '%1'?</h1><h2>There is no undo!</h2>").arg(view->name()),
                 QMessageBox::Yes | QMessageBox::No);
     if (answer == QMessageBox::Yes) {

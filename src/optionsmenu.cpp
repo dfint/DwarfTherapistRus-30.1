@@ -44,82 +44,82 @@ OptionsMenu::OptionsMenu(QWidget *parent)
     ui->setupUi(this);
 
     m_general_colors
-            << new CustomColor(tr("Skill"),
-                               tr("The color of the growing skill indicator box inside a cell. Is not used when auto-contrast is enabled."),
+            << new CustomColor(trUtf8("Skill"),
+                               trUtf8("The color of the growing skill indicator box inside a cell. Is not used when auto-contrast is enabled."),
                                "skill", QColor(170,170,170,170), this)
 
-            << new CustomColor(tr("Active Cell"),
-                               tr("Color shown for a cell when the action (labor, geld,etc) is active."),
+            << new CustomColor(trUtf8("Active Cell"),
+                               trUtf8("Color shown for a cell when the action (labor, geld,etc) is active."),
                                "active_labor", QColor(0x7878B3), this)
-            << new CustomColor(tr("Pending Cell"),
-                               tr("Color shown for a cell when the action has been flagged to be set to active, but it hasn't happened yet."),
+            << new CustomColor(trUtf8("Pending Cell"),
+                               trUtf8("Color shown for a cell when the action has been flagged to be set to active, but it hasn't happened yet."),
                                "pending_color", QColor(203,174,40), this)
-            << new CustomColor(tr("Disabled Cell"),
-                               tr("Color shown for a cell where the action (butcher, geld, labors, etc.) cannot be toggled."),
+            << new CustomColor(trUtf8("Disabled Cell"),
+                               trUtf8("Color shown for a cell where the action (butcher, geld, labors, etc.) cannot be toggled."),
                                "disabled_color", QColor(187,34,34,125), this)
 
-            << new CustomColor(tr("Active Group Cell"),
-                               tr("Color shown on an aggregate cell if <b>all</b> dwarves have this labor enabled."),
+            << new CustomColor(trUtf8("Active Group Cell"),
+                               trUtf8("Color shown on an aggregate cell if <b>all</b> dwarves have this labor enabled."),
                                "active_group", QColor(0x33FF33), this)
-            << new CustomColor(tr("Inactive Group Cell"),
-                               tr("Color shown on an aggregate cell if <b>none</b> of the dwarves have this labor enabled."),
+            << new CustomColor(trUtf8("Inactive Group Cell"),
+                               trUtf8("Color shown on an aggregate cell if <b>none</b> of the dwarves have this labor enabled."),
                                "inactive_group", QColor(0,0,0,32), this)
-            << new CustomColor(tr("Partial Group Cell"),
-                               tr("Color shown on an aggregate cell if <b>some</b> of the dwarves have this labor enabled."),
+            << new CustomColor(trUtf8("Partial Group Cell"),
+                               trUtf8("Color shown on an aggregate cell if <b>some</b> of the dwarves have this labor enabled."),
                                "partial_group", QColor(0,0,0,96), this)
-            << new CustomColor(tr("Selection Guides"),
-                               tr("Color of the lines around cells when a row and/or column are selected."),
+            << new CustomColor(trUtf8("Selection Guides"),
+                               trUtf8("Color of the lines around cells when a row and/or column are selected."),
                                "guides", QColor(0x0099FF), this)
-            << new CustomColor(tr("Main Border"),
-                               tr("Color of cell borders"),
+            << new CustomColor(trUtf8("Main Border"),
+                               trUtf8("Color of cell borders"),
                                "border", QColor(0xd9d9d9), this)
-            << new CustomColor(tr("Dirty Cell Indicator"),
-                               tr("Border color of a cell that has pending changes. Set to main border color to disable this."),
+            << new CustomColor(trUtf8("Dirty Cell Indicator"),
+                               trUtf8("Border color of a cell that has pending changes. Set to main border color to disable this."),
                                "dirty_border", QColor(0xFF6600), this)
-            << new CustomColor(tr("Highest Moodable Skill"),
-                               tr("Border color of a labor or skill cell for the highest moodable skill which hasn't been used. This is only applied if the option to highlight mood cells is enabled."),
+            << new CustomColor(trUtf8("Highest Moodable Skill"),
+                               trUtf8("Border color of a labor or skill cell for the highest moodable skill which hasn't been used. This is only applied if the option to highlight mood cells is enabled."),
                                "highest_mood_border", QColor(0x32cd32), this)
-            << new CustomColor(tr("Mood Finished"),
-                               tr("Border color of a labor or skill cell for the highest moodable skill which has already been finished. This is only applied if the option to highlight mood cells is enabled."),
+            << new CustomColor(trUtf8("Mood Finished"),
+                               trUtf8("Border color of a labor or skill cell for the highest moodable skill which has already been finished. This is only applied if the option to highlight mood cells is enabled."),
                                "had_mood_border", QColor(0x696969), this);
 
     m_happiness_colors
-            << new CustomColor(tr("Ecstatic"), tr("Color shown in happiness columns when a dwarf is <b>ecstatic</b>."),
+            << new CustomColor(trUtf8("Ecstatic"), trUtf8("Color shown in happiness columns when a dwarf is <b>ecstatic</b>."),
                                QString("happiness/%1").arg(static_cast<int>(DH_ECSTATIC)), QColor(0x00FF00), this)
-            << new CustomColor(tr("Happy"), tr("Color shown in happiness columns when a dwarf is <b>happy</b>."),
+            << new CustomColor(trUtf8("Happy"), trUtf8("Color shown in happiness columns when a dwarf is <b>happy</b>."),
                                QString("happiness/%1").arg(static_cast<int>(DH_HAPPY)), QColor(0x71cc09), this)
-            << new CustomColor(tr("Content"), tr("Color shown in happiness columns when a dwarf is <b>quite content</b>."),
+            << new CustomColor(trUtf8("Content"), trUtf8("Color shown in happiness columns when a dwarf is <b>quite content</b>."),
                                QString("happiness/%1").arg(static_cast<int>(DH_CONTENT)), QColor(0xDDDD00), this)
-            << new CustomColor(tr("Fine"), tr("Color shown in happiness columns when a dwarf is <b>fine</b>."),
+            << new CustomColor(trUtf8("Fine"), trUtf8("Color shown in happiness columns when a dwarf is <b>fine</b>."),
                                QString("happiness/%1").arg(static_cast<int>(DH_FINE)), QColor(0xe7e2ab), this)
-            << new CustomColor(tr("Unhappy"), tr("Color shown in happiness columns when a dwarf is <b>unhappy</b>."),
+            << new CustomColor(trUtf8("Unhappy"), trUtf8("Color shown in happiness columns when a dwarf is <b>unhappy</b>."),
                                QString("happiness/%1").arg(static_cast<int>(DH_UNHAPPY)), QColor(0xffaa00), this)
-            << new CustomColor(tr("Very Unhappy"), tr("Color shown in happiness columns when a dwarf is <b>very unhappy</b>."),
+            << new CustomColor(trUtf8("Very Unhappy"), trUtf8("Color shown in happiness columns when a dwarf is <b>very unhappy</b>."),
                                QString("happiness/%1").arg(static_cast<int>(DH_VERY_UNHAPPY)), QColor(0xCC0000), this)
-            << new CustomColor(tr("Miserable"), tr("Color shown in happiness columns when a dwarf is <b>miserable.</b>"),
+            << new CustomColor(trUtf8("Miserable"), trUtf8("Color shown in happiness columns when a dwarf is <b>miserable.</b>"),
                                QString("happiness/%1").arg(static_cast<int>(DH_MISERABLE)), QColor(0xFF0000), this);
 
     QList<QPair<QString,QString> > noble_color_desc;
-    noble_color_desc << qMakePair(tr("Bookkeeper"),tr("Highlight color for the bookkeeper."));
-    noble_color_desc << qMakePair(tr("Broker"),tr("Highlight color for the broker."));
-    noble_color_desc << qMakePair(tr("Champions"),tr("Highlight color for champions."));
-    noble_color_desc << qMakePair(tr("Chief Medical"),tr("Highlight color for the chief medical dwarf."));
-    noble_color_desc << qMakePair(tr("Hammerer"),tr("Highlight color for the hammerer."));
-    noble_color_desc << qMakePair(tr("Law (Guards, Sherrif)"),tr("Highlight color for the captain of the guard and sherrif."));
-    noble_color_desc << qMakePair(tr("Leader && Mayor"),tr("Highlight color for the expedition leaders and mayors."));
-    noble_color_desc << qMakePair(tr("Manager"),tr("Highlight color for the managers."));
-    noble_color_desc << qMakePair(tr("Militia"),tr("Highlight color for the militia commander, militia captains, lieutenants and generals."));
-    noble_color_desc << qMakePair(tr("Monarch"),tr("Highlight color for kings, queens, emperors and empresses."));
-    noble_color_desc << qMakePair(tr("Royalty (Baron, Duchess, etc.)"),tr("Highlight color for barons, baronesses, dukes, duchesses, counts, countesses, lords and ladies."));
-    noble_color_desc << qMakePair(tr("Religious (Priests, Druids)"),tr("Highlight color for high priests, priests and druids."));
-    noble_color_desc << qMakePair(tr("Multiple"),tr("Highlight color when holding multiple positions, or unknown positions."));
+    noble_color_desc << qMakePair(trUtf8("Bookkeeper"),trUtf8("Highlight color for the bookkeeper."));
+    noble_color_desc << qMakePair(trUtf8("Broker"),trUtf8("Highlight color for the broker."));
+    noble_color_desc << qMakePair(trUtf8("Champions"),trUtf8("Highlight color for champions."));
+    noble_color_desc << qMakePair(trUtf8("Chief Medical"),trUtf8("Highlight color for the chief medical dwarf."));
+    noble_color_desc << qMakePair(trUtf8("Hammerer"),trUtf8("Highlight color for the hammerer."));
+    noble_color_desc << qMakePair(trUtf8("Law (Guards, Sherrif)"),trUtf8("Highlight color for the captain of the guard and sherrif."));
+    noble_color_desc << qMakePair(trUtf8("Leader && Mayor"),trUtf8("Highlight color for the expedition leaders and mayors."));
+    noble_color_desc << qMakePair(trUtf8("Manager"),trUtf8("Highlight color for the managers."));
+    noble_color_desc << qMakePair(trUtf8("Militia"),trUtf8("Highlight color for the militia commander, militia captains, lieutenants and generals."));
+    noble_color_desc << qMakePair(trUtf8("Monarch"),trUtf8("Highlight color for kings, queens, emperors and empresses."));
+    noble_color_desc << qMakePair(trUtf8("Royalty (Baron, Duchess, etc.)"),trUtf8("Highlight color for barons, baronesses, dukes, duchesses, counts, countesses, lords and ladies."));
+    noble_color_desc << qMakePair(trUtf8("Religious (Priests, Druids)"),trUtf8("Highlight color for high priests, priests and druids."));
+    noble_color_desc << qMakePair(trUtf8("Multiple"),trUtf8("Highlight color when holding multiple positions, or unknown positions."));
     QPair<QString,QString> nc_pair;
     foreach(nc_pair, noble_color_desc){
         FortressEntity::NOBLE_COLORS nc_type = FortressEntity::get_color_type(nc_pair.second);
         m_noble_colors << new CustomColor(nc_pair.first,nc_pair.second,QString("nobles/%1").arg((int)nc_type),FortressEntity::get_default_color(nc_type),this);
     }
 
-    m_curse_color = new CustomColor(tr("Cursed"),tr("Cursed creatures will be highlighted with this color."),
+    m_curse_color = new CustomColor(trUtf8("Cursed"),trUtf8("Cursed creatures will be highlighted with this color."),
                                     "cursed",FortressEntity::get_default_color(FortressEntity::CURSED),this);
 
     int spacing = 4;
@@ -158,11 +158,11 @@ OptionsMenu::OptionsMenu(QWidget *parent)
     ui->cb_skill_drawing_method->addItem("Growing Fill", UberDelegate::SDM_GROWING_FILL);
     ui->cb_skill_drawing_method->addItem("Text", UberDelegate::SDM_NUMERIC);
 
-    ui->cb_thought_time->addItem(tr("only the last week's"),1);
-    ui->cb_thought_time->addItem(tr("the last 2 weeks'"),2);
-    ui->cb_thought_time->addItem(tr("the last 3 weeks'"),3);
-    ui->cb_thought_time->addItem(tr("the last month's"),4);
-    ui->cb_thought_time->addItem(tr("all"),-1);
+    ui->cb_thought_time->addItem(trUtf8("only the last week's"),1);
+    ui->cb_thought_time->addItem(trUtf8("the last 2 weeks'"),2);
+    ui->cb_thought_time->addItem(trUtf8("the last 3 weeks'"),3);
+    ui->cb_thought_time->addItem(trUtf8("the last month's"),4);
+    ui->cb_thought_time->addItem(trUtf8("all"),-1);
 
     connect(ui->btn_restore_defaults, SIGNAL(pressed()), this, SLOT(restore_defaults()));
 
@@ -523,8 +523,8 @@ void OptionsMenu::accept() {
     emit settings_changed();
     QDialog::accept();
     int answer = QMessageBox::question(
-                0, tr("Apply Options"),
-                tr("Would you like to apply the new options now (Read Data)?"),
+                0, trUtf8("Apply Options"),
+                trUtf8("Would you like to apply the new options now (Read Data)?"),
                 QMessageBox::Yes | QMessageBox::No);
     if (answer == QMessageBox::Yes)
         DT->get_main_window()->read_dwarves();
@@ -678,7 +678,7 @@ void OptionsMenu::set_skill_drawing_method(const UberDelegate::SKILL_DRAWING_MET
 void OptionsMenu::tab_index_changed(int index){
     if(index == ui->tabWidget->indexOf(ui->tab_roles)){
         int max_roles = GameDataReader::ptr()->get_roles().count();
-        QString max_text = tr(" (max %1)").arg(max_roles);
+        QString max_text = trUtf8(" (max %1)").arg(max_roles);
 
         ui->lbl_pane_roles_max->setText(max_text);
         ui->sb_roles_pane->setMaximum(max_roles);

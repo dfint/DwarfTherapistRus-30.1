@@ -144,7 +144,7 @@ void DwarfModel::update_header_info(int id, COLUMN_TYPE type){
 void DwarfModel::draw_headers(){
     int start_col = 1;
     QStandardItem *name_col = new QStandardItem();
-    name_col->setToolTip(tr("Right click to sort."));
+    name_col->setToolTip(trUtf8("Right click to sort."));
     setHorizontalHeaderItem(0, name_col);
     emit clear_spacers();
 
@@ -195,21 +195,21 @@ QString DwarfModel::build_col_tooltip(ViewColumn *col){
     QString title = col->title();
     //the weapon column has a list of weapons as the title, but we'll include that after the generic title below
     if(col->type() == CT_WEAPON)
-        title = tr("Weapon");
+        title = trUtf8("Weapon");
 
-    tooltip.append(tr("<center><h4 style=\"margin:0;\">%1</h4></center>").arg(title));
+    tooltip.append(trUtf8("<center><h4 style=\"margin:0;\">%1</h4></center>").arg(title));
 
     //add any additional column information here
     if(col->type()==CT_LABOR){
         LaborColumn *l = static_cast<LaborColumn*>(col);
         l->update_count(); //tell this column to update it's count
-        tooltip.append(tr("%1 have this labor enabled.</br>").arg(QString::number(col->count())));
+        tooltip.append(trUtf8("%1 have this labor enabled.</br>").arg(QString::number(col->count())));
     }else if(col->type() == CT_WEAPON){
         tooltip.append(col->title());
     }
 
     if(col->get_sortable_types().count() > 0)
-        tooltip.append(tr("Right click to change sort method."));
+        tooltip.append(trUtf8("Right click to change sort method."));
 
     return tooltip.join("<br/>");
 }
@@ -240,7 +240,7 @@ void DwarfModel::build_rows() {
     GameDataReader *gdr = GameDataReader::ptr();
 
     if(only_animals)
-        race_name = tr("Animals");
+        race_name = trUtf8("Animals");
     else if(m_df){
         Race* r = m_df->get_race(m_df->dwarf_race_id());
         if(r)
@@ -267,7 +267,7 @@ void DwarfModel::build_rows() {
                         m_grouped_dwarves[d->get_age_formatted()].append(d);
                     }else{
                         int base = (age / 10) * 10;
-                        QString age_range = tr("%1 - %2 Years").arg(base)
+                        QString age_range = trUtf8("%1 - %2 Years").arg(base)
                                 .arg(base + 9);
                         m_grouped_dwarves[age_range].append(d);
                     }
@@ -278,8 +278,8 @@ void DwarfModel::build_rows() {
                 //strip off the underscores, male and female parts of the tag to group genders together
                 QString tag = d->caste_tag();
                 tag.replace("_", " ");
-                tag.replace(tr("FEMALE")," ");
-                tag.replace(tr("MALE")," ");
+                tag.replace(trUtf8("FEMALE")," ");
+                tag.replace(trUtf8("MALE")," ");
                 if(tag.trimmed().isEmpty())
                     tag = race_name;
                 m_grouped_dwarves[capitalizeEach(tag.toLower())].append(d);
@@ -287,9 +287,9 @@ void DwarfModel::build_rows() {
                 m_grouped_dwarves[capitalizeEach(d->race_name(true,true))].append(d);
             }else if(m_group_by == GB_HAS_NICKNAME){
                 if (d->nickname().isEmpty()) {
-                    m_grouped_dwarves[tr("No Nickname")].append(d);
+                    m_grouped_dwarves[trUtf8("No Nickname")].append(d);
                 } else {
-                    m_grouped_dwarves[tr("Has Nickname")].append(d);
+                    m_grouped_dwarves[trUtf8("Has Nickname")].append(d);
                 }
             }else if(m_group_by == GB_HEALTH && (m_animal_health || (!m_animal_health && !d->is_animal()))){
                 int treatments = d->get_unit_health().get_treatment_summary(false,false).count();
@@ -298,11 +298,11 @@ void DwarfModel::build_rows() {
 
                 bool critical_wounds = d->get_unit_health().has_critical_wounds();
                 if(critical_wounds){
-                    m_grouped_dwarves[tr("Critical Health Issues")].append(d);
+                    m_grouped_dwarves[trUtf8("Critical Health Issues")].append(d);
                 }else if(treatments || statuses || wounds){
-                    m_grouped_dwarves[tr("Minor Health Issues")].append(d);
+                    m_grouped_dwarves[trUtf8("Minor Health Issues")].append(d);
                 }else{
-                    m_grouped_dwarves[tr("No Health Issues")].append(d);
+                    m_grouped_dwarves[trUtf8("No Health Issues")].append(d);
                 }
             }else{
                 if(only_animals && d->is_animal())
@@ -331,13 +331,13 @@ void DwarfModel::build_rows() {
                             legendary_skills++;
                     }
                     if (legendary_skills)
-                        m_grouped_dwarves[tr("Legends")].append(d);
+                        m_grouped_dwarves[trUtf8("Legends")].append(d);
                     else
-                        m_grouped_dwarves[tr("Losers")].append(d);
+                        m_grouped_dwarves[trUtf8("Losers")].append(d);
                 }else if(m_group_by == GB_HAPPINESS){
                     m_grouped_dwarves[d->happiness_name(d->get_happiness())].append(d);
                 }else if(m_group_by == GB_GOALS){
-                    m_grouped_dwarves[tr("%1 Goals Realized").arg(d->goals_realized())].append(d);
+                    m_grouped_dwarves[trUtf8("%1 Goals Realized").arg(d->goals_realized())].append(d);
                 }else if(m_group_by == GB_SKILL_RUST){
                     m_grouped_dwarves[Skill::get_rust_level_desc(d->rust_level())].append(d);
                 }else if(m_group_by == GB_CURRENT_JOB){
@@ -349,17 +349,17 @@ void DwarfModel::build_rows() {
                     m_grouped_dwarves[job_desc.replace(" ??","")].append(d);
                 }else if(m_group_by == GB_MILITARY_STATUS){
                     if (d->is_baby() || d->is_child()) {
-                        m_grouped_dwarves[tr("Juveniles")].append(d);
+                        m_grouped_dwarves[trUtf8("Juveniles")].append(d);
                     } else if (d->active_military() && !d->can_set_labors()) { //master level military elites
-                        m_grouped_dwarves[tr("Champions")].append(d);
+                        m_grouped_dwarves[trUtf8("Champions")].append(d);
                     } else if (!d->noble_position().isEmpty()) {
-                        m_grouped_dwarves[tr("Nobles")].append(d);
+                        m_grouped_dwarves[trUtf8("Nobles")].append(d);
                     } else if (d->active_military()) {
-                        m_grouped_dwarves[tr("Military (On Duty)")].append(d);
+                        m_grouped_dwarves[trUtf8("Military (On Duty)")].append(d);
                     } else if (d->squad_id() > -1){
-                        m_grouped_dwarves[tr("Military (Off Duty)")].append(d);
+                        m_grouped_dwarves[trUtf8("Military (Off Duty)")].append(d);
                     }else {
-                        m_grouped_dwarves[tr("Can Activate")].append(d);
+                        m_grouped_dwarves[trUtf8("Can Activate")].append(d);
                     }
                 }else if(m_group_by == GB_HIGHEST_MOODABLE){
                     Skill highest = d->highest_moodable();
@@ -376,15 +376,15 @@ void DwarfModel::build_rows() {
                     QString level = gdr->get_skill_level_name(highest.capped_level());
                     m_grouped_dwarves[level].append(d);
                 }else if(m_group_by == GB_TOTAL_SKILL_LEVELS){
-                    m_grouped_dwarves[tr("Levels: %1").arg(d->total_skill_levels())]
+                    m_grouped_dwarves[trUtf8("Levels: %1").arg(d->total_skill_levels())]
                             .append(d);
                 }else if(m_group_by == GB_ASSIGNED_LABORS || m_group_by == GB_ASSIGNED_SKILLED_LABORS){
                     bool include_hauling = (m_group_by == GB_ASSIGNED_LABORS);
-                    m_grouped_dwarves[tr("%1 Assigned Labors")
+                    m_grouped_dwarves[trUtf8("%1 Assigned Labors")
                             .arg(d->total_assigned_labors(include_hauling))].append(d);
                 }else if(m_group_by == GB_SQUAD){
                     if(d->squad_name().isEmpty()) {
-                        m_grouped_dwarves[tr("No Squad")].append(d);
+                        m_grouped_dwarves[trUtf8("No Squad")].append(d);
                     } else {
                         m_grouped_dwarves[d->squad_name()].append(d);
                     }
@@ -473,7 +473,7 @@ void DwarfModel::build_row(const QString &key) {
                     title = QString("%1 (%2)").arg(key).arg(squad_count);
                     agg_first_col->setText(title);
                     if(squad_count != m_grouped_dwarves.value(key).size()){
-                        agg_first_col->setToolTip(tr("The count may be different as Dwarf Fortress keeps missing, dead dwarves in squads until they're found."));
+                        agg_first_col->setToolTip(trUtf8("The count may be different as Dwarf Fortress keeps missing, dead dwarves in squads until they're found."));
                         agg_first_col->setIcon(QIcon(":img/exclamation-red-frame.png"));
                     }
                     agg_first_col->setData(squad_id, DR_SORT_VALUE);

@@ -70,11 +70,11 @@ QStandardItem *HealthColumn::build_cell(Dwarf *d) {
 
     QStringList treatments = dHealth.get_treatment_summary(apply_color,use_symbols);
     if(treatments.size() > 0)
-        health_summary.append(tr("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(tr("Treatment")).arg(treatments.join(", ")));
+        health_summary.append(trUtf8("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(trUtf8("Treatment")).arg(treatments.join(", ")));
 
     QStringList statuses = dHealth.get_status_summary(apply_color,use_symbols);
     if(statuses.size() > 0)
-        health_summary.append(tr("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(tr("Status")).arg(statuses.join(", ")));
+        health_summary.append(trUtf8("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(trUtf8("Status")).arg(statuses.join(", ")));
 
     QMap<QString,QStringList> wound_details = dHealth.get_wound_summary(apply_color,use_symbols);
     if(wound_details.size() > 0){
@@ -87,11 +87,11 @@ QStandardItem *HealthColumn::build_cell(Dwarf *d) {
                  wnd_sum.append("</li></ul></li>");
             }
         }
-        health_summary.append(tr("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(tr("Wounds")).arg(wnd_sum));
+        health_summary.append(trUtf8("<h4 style=\"margin:0px;\"><b>%1:</b></h4><ul style=\"margin:0px;\">%2</ul>").arg(trUtf8("Wounds")).arg(wnd_sum));
     }
 
     if(health_summary.trimmed().isEmpty())
-         health_summary = tr("<b>No Issues.</b>");
+         health_summary = trUtf8("<b>No Issues.</b>");
 
     //get a list of the symbols for this category
     QString symbols = dHealth.get_all_category_desc(m_id,true,true).join(", ");

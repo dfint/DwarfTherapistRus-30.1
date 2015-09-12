@@ -40,14 +40,14 @@ SkillLegendDock::SkillLegendDock(QWidget *parent, Qt::WindowFlags flags)
     : BaseDock(parent, flags)
 {
     setObjectName("dock_skill_legend");
-    setWindowTitle(tr("Skill Legend"));
+    setWindowTitle(trUtf8("Skill Legend"));
     QWidget *main_widget = new QWidget(this);
         QVBoxLayout *layout = new QVBoxLayout(main_widget);
     main_widget->setLayout(layout);
 
     QHBoxLayout *l_type = new QHBoxLayout();
     QLabel *lbl_type = new QLabel(this);
-    lbl_type->setText(tr("Drawing Method:"));
+    lbl_type->setText(trUtf8("Drawing Method:"));
     l_type->addWidget(lbl_type);
     QComboBox *cmb_type = new QComboBox(this);
     for(int i = 0; i < UberDelegate::SDM_TOTAL_METHODS; ++i) {

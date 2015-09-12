@@ -218,7 +218,7 @@ void GridViewDialog::add_set() {
         }
     }
 
-    ViewColumnSet *set = new ViewColumnSet(tr("New Set %1").arg(highest_new_set_number + 1), m_manager);
+    ViewColumnSet *set = new ViewColumnSet(trUtf8("New Set %1").arg(highest_new_set_number + 1), m_manager);
     m_pending_view->add_set(set);
     draw_sets();
     ui->list_sets->selectionModel()->select(m_set_model->index(m_pending_view->sets().count()-1,0), QItemSelectionModel::SelectCurrent);
@@ -273,11 +273,11 @@ void GridViewDialog::draw_set_context_menu(const QPoint &p) {
     QMenu m(this);
     QModelIndex idx = ui->list_sets->indexAt(p);
     if (idx.isValid()) {
-        m.addAction(QIcon(":img/table--pencil.png"), tr("Edit..."), this, SLOT(edit_set()));
-        m.addAction(QIcon(":img/minus-circle.png"), tr("Remove"), this, SLOT(remove_set()));
+        m.addAction(QIcon(":img/table--pencil.png"), trUtf8("Edit..."), this, SLOT(edit_set()));
+        m.addAction(QIcon(":img/minus-circle.png"), trUtf8("Remove"), this, SLOT(remove_set()));
         m_temp_set = idx.row();
     } else {
-        m.addAction(tr("Add New Set"), this, SLOT(add_set()));
+        m.addAction(trUtf8("Add New Set"), this, SLOT(add_set()));
     }
     m.exec(ui->list_sets->viewport()->mapToGlobal(p));
 }
@@ -341,15 +341,15 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
     QMenu *m = new QMenu(this);
     QModelIndex idx = ui->list_columns->indexAt(p);
     if (idx.isValid()) { // context on a column
-        m->addAction(QIcon(":img/pencil.png"), tr("Edit Selected"), this, SLOT(edit_column()));
-        m->addAction(QIcon(":img/minus-circle.png"), tr("Remove Selected"), this, SLOT(remove_column()));
+        m->addAction(QIcon(":img/pencil.png"), trUtf8("Edit Selected"), this, SLOT(edit_column()));
+        m->addAction(QIcon(":img/minus-circle.png"), trUtf8("Remove Selected"), this, SLOT(remove_column()));
         m->addSeparator();
         m_temp_col = idx.row();
     } //else { // in whitespace
 
     if (!m_active_set) { // can't do much without a parent for our cols
-        QMessageBox::warning(this, tr("No Set Selected"),
-                             tr("Please select an existing set on the left side pane before "
+        QMessageBox::warning(this, trUtf8("No Set Selected"),
+                             trUtf8("Please select an existing set on the left side pane before "
                                 "attempting to modify columns. If there are no sets yet, "
                                 "create one first."));
         return;
@@ -362,7 +362,7 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
     GameDataReader *gdr = GameDataReader::ptr();
 
     //ATTRIBUTE
-    QMenu *m_attr = m_cmh->create_title_menu(m, tr("Attribute"),"");
+    QMenu *m_attr = m_cmh->create_title_menu(m, trUtf8("Attribute"),"");
     QList<QPair<ATTRIBUTES_TYPE, QString> > atts = gdr->get_ordered_attribute_names();
     QPair<ATTRIBUTES_TYPE, QString> att_pair;
     foreach(att_pair, atts){
@@ -371,7 +371,7 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
     }
 
     //BELIEFS
-    QMenu *m_belief = m_cmh->create_title_menu(m, tr("Belief"),tr("Belief columns show a read-only display of a dwarf's score in a particular Belief."));
+    QMenu *m_belief = m_cmh->create_title_menu(m, trUtf8("Belief"),trUtf8("Belief columns show a read-only display of a dwarf's score in a particular Belief."));
     m_cmh->add_sub_menus(m_belief,2);
     QList<QPair<int, QString> > beliefs = gdr->get_ordered_beliefs();
     QPair<int, QString> b_pair;
@@ -379,15 +379,15 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
         QMenu *menu_to_use = m_cmh->find_menu(m_belief,b_pair.second);
         QAction *a = menu_to_use->addAction(b_pair.second, this, SLOT(add_belief_column()));
         a->setData(b_pair.first);
-        a->setToolTip(tr("Add a column for Belief %1 (ID%2)").arg(b_pair.second).arg(b_pair.first));
+        a->setToolTip(trUtf8("Add a column for Belief %1 (ID%2)").arg(b_pair.second).arg(b_pair.first));
     }
 
     //CURRENT JOB
-    a = m->addAction(tr("Current Job"), this, SLOT(add_idle_column()));
-    a->setToolTip(tr("Adds a single column that shows a the current idle state for a dwarf."));
+    a = m->addAction(trUtf8("Current Job"), this, SLOT(add_idle_column()));
+    a->setToolTip(trUtf8("Adds a single column that shows a the current idle state for a dwarf."));
 
     //CUSTOM PROFESSIONS
-    QMenu *m_custom_profs = m_cmh->create_title_menu(m,tr("Custom Profession"),tr("Columns which can apply or remove a custom profession and its labors."));
+    QMenu *m_custom_profs = m_cmh->create_title_menu(m,trUtf8("Custom Profession"),trUtf8("Columns which can apply or remove a custom profession and its labors."));
     m_cmh->add_sub_menus(m_custom_profs,2);
     foreach(CustomProfession *cp, DT->get_custom_professions()){
             QMenu *menu_to_use = m_cmh->find_menu(m_custom_profs,cp->get_name());
@@ -396,16 +396,16 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
     }
 
     //EQUIPMENT
-    a = m->addAction(tr("Equipment"), this, SLOT(add_equipment_column()));
-    a->setToolTip(tr("Adds a color coded column that shows if a dwarf is fully clothed. Also shows all equipment in the tooltip grouped by body part."));
+    a = m->addAction(trUtf8("Equipment"), this, SLOT(add_equipment_column()));
+    a->setToolTip(trUtf8("Adds a color coded column that shows if a dwarf is fully clothed. Also shows all equipment in the tooltip grouped by body part."));
 
     //HAPPINESS
-    a = m->addAction(tr("Happiness"), this, SLOT(add_happiness_column()));
-    a->setToolTip(tr("Adds a single column that shows a color-coded happiness indicator for "
+    a = m->addAction(trUtf8("Happiness"), this, SLOT(add_happiness_column()));
+    a->setToolTip(trUtf8("Adds a single column that shows a color-coded happiness indicator for "
                      "each dwarf. You can customize the colors used in the options menu."));
 
     //HEALTH
-    QMenu *m_health = m_cmh->create_title_menu(m,tr("Health Column"),tr("Health columns will show various information about status, treatment and wounds."));
+    QMenu *m_health = m_cmh->create_title_menu(m,trUtf8("Health Column"),trUtf8("Health columns will show various information about status, treatment and wounds."));
     m_cmh->add_sub_menus(m_health,4);
     QList<QPair<eHealth::H_INFO,QString> > cat_names = UnitHealth::ordered_category_names();
     QPair<eHealth::H_INFO,QString> health_pair;
@@ -414,18 +414,18 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
         QMenu *menu_to_use = m_cmh->find_menu(m_health,name);
         QAction *a = menu_to_use->addAction(name,this,SLOT(add_health_column()));
         a->setData(health_pair.first);
-        a->setToolTip(tr("Add a column for %1").arg(name));
+        a->setToolTip(trUtf8("Add a column for %1").arg(name));
     }
 
     //INVENTORY
-    QMenu *m_inventory = m_cmh->create_title_menu(m,tr("Inventory"),tr("Shows the currently equipped inventory of a particular item category."));
+    QMenu *m_inventory = m_cmh->create_title_menu(m,trUtf8("Inventory"),trUtf8("Shows the currently equipped inventory of a particular item category."));
     QList<ITEM_TYPE> item_cats;
     item_cats << AMMO << ARMOR << SHOES << GLOVES << HELM << PANTS << SHIELD << BACKPACK << FLASK << QUIVER << WEAPON;
     foreach(ITEM_TYPE itype, item_cats){
         QString name = Item::get_item_name_plural(itype);
         QAction *a = m_inventory->addAction(name.replace("&","&&"),this,SLOT(add_equipment_column()));
         a->setData(itype);
-        a->setToolTip(tr("Add a column for %1").arg(name));
+        a->setToolTip(trUtf8("Add a column for %1").arg(name));
     }
     item_cats.clear();
     m_inventory->addSeparator();
@@ -434,33 +434,33 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
         QString name = Item::get_item_name_plural(itype);
         QAction *a = m_inventory->addAction(name.replace("&","&&"),this,SLOT(add_equipment_column()));
         a->setData(itype);
-        a->setToolTip(tr("Add a column for %1").arg(name));
+        a->setToolTip(trUtf8("Add a column for %1").arg(name));
     }
 
     //KILLS
-    a = m->addAction(tr("Kills"), this, SLOT(add_kills_column()));
-    a->setToolTip(tr("Adds a single column that shows a unit's kills."));
+    a = m->addAction(trUtf8("Kills"), this, SLOT(add_kills_column()));
+    a->setToolTip(trUtf8("Adds a single column that shows a unit's kills."));
 
     //LABOUR
-    QMenu *m_labor = m_cmh->create_title_menu(m,tr("Labor"),tr("Labor columns function as toggle switches for individual labors on a dwarf."));
+    QMenu *m_labor = m_cmh->create_title_menu(m,trUtf8("Labor"),trUtf8("Labor columns function as toggle switches for individual labors on a dwarf."));
     m_cmh->add_sub_menus(m_labor,5);
     foreach(Labor *l, gdr->get_ordered_labors()) {
         QMenu *menu_to_use = m_cmh->find_menu(m_labor,l->name);
         QAction *a = menu_to_use->addAction(l->name, this, SLOT(add_labor_column()));
         a->setData(l->labor_id);
-        a->setToolTip(tr("Add a column for labor %1 (ID%2)").arg(l->name).arg(l->labor_id));
+        a->setToolTip(trUtf8("Add a column for labor %1 (ID%2)").arg(l->name).arg(l->labor_id));
     }
 
     //MOODABLE SKILL
-    a = m->addAction(tr("Moodable Skill"), this, SLOT(add_highest_moodable_column()));
-    a->setToolTip(tr("Adds a single column that shows an icon representing a dwarf's highest moodable skill."));
+    a = m->addAction(trUtf8("Moodable Skill"), this, SLOT(add_highest_moodable_column()));
+    a->setToolTip(trUtf8("Adds a single column that shows an icon representing a dwarf's highest moodable skill."));
 
     //PROFESSION
-    a = m->addAction(tr("Profession"), this, SLOT(add_profession_column()));
-    a->setToolTip(tr("Adds a single column that shows an icon representing a dwarf's profession."));
+    a = m->addAction(trUtf8("Profession"), this, SLOT(add_profession_column()));
+    a->setToolTip(trUtf8("Adds a single column that shows an icon representing a dwarf's profession."));
 
     //ROLES
-    QMenu *m_roles = m_cmh->create_title_menu(m,tr("Role"),tr("Role columns will show how well a dwarf can fill a particular role."));
+    QMenu *m_roles = m_cmh->create_title_menu(m,trUtf8("Role"),trUtf8("Role columns will show how well a dwarf can fill a particular role."));
     m_cmh->add_sub_menus(m_roles,gdr->get_ordered_roles().count() / 20);
     QList<QPair<QString, Role*> > roles = gdr->get_ordered_roles();
     QPair<QString, Role*> role_pair;
@@ -469,26 +469,26 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
         QMenu *menu_to_use = m_cmh->find_menu(m_roles,r->name());
         QAction *a = menu_to_use->addAction(r->name(), this, SLOT(add_role_column()));
         a->setData(role_pair.first);
-        a->setToolTip(tr("Add a column for role %1 (ID%2)").arg(r->name()).arg(role_pair.first));
+        a->setToolTip(trUtf8("Add a column for role %1 (ID%2)").arg(r->name()).arg(role_pair.first));
     }
 
     //SKILL
-    QMenu *m_skill = m_cmh->create_title_menu(m,tr("Skill"), tr("Skill columns function as a read-only display of a dwarf's skill in a particular area."));
+    QMenu *m_skill = m_cmh->create_title_menu(m,trUtf8("Skill"), trUtf8("Skill columns function as a read-only display of a dwarf's skill in a particular area."));
     m_cmh->add_sub_menus(m_skill,gdr->get_ordered_skills().count() / 15);
     QPair<int, QString> skill_pair;
     foreach(skill_pair, gdr->get_ordered_skills()) {
         QMenu *menu_to_use = m_cmh->find_menu(m_skill,skill_pair.second);
         QAction *a = menu_to_use->addAction(skill_pair.second, this, SLOT(add_skill_column()));
         a->setData(skill_pair.first);
-        a->setToolTip(tr("Add a column for skill %1 (ID%2)").arg(skill_pair.second).arg(skill_pair.first));
+        a->setToolTip(trUtf8("Add a column for skill %1 (ID%2)").arg(skill_pair.second).arg(skill_pair.first));
     }
 
     //SPACER
     a = m->addAction("Spacer", this, SLOT(add_spacer_column()));
-    a->setToolTip(tr("Adds a non-selectable spacer to this set. You can set a custom width and color on spacer columns."));
+    a->setToolTip(trUtf8("Adds a non-selectable spacer to this set. You can set a custom width and color on spacer columns."));
 
     //SUPER LABORS
-    QMenu *m_super_labors = m_cmh->create_title_menu(m,tr("Super Labor"),tr("Columns which toggle multiple labors at a time."));
+    QMenu *m_super_labors = m_cmh->create_title_menu(m,trUtf8("Super Labor"),trUtf8("Columns which toggle multiple labors at a time."));
     m_cmh->add_sub_menus(m_super_labors,2);
     foreach(SuperLabor *sl, DT->get_super_labors()) {
         QMenu *menu_to_use = m_cmh->find_menu(m_super_labors,sl->get_name());
@@ -498,10 +498,10 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
 
     //TRAINED (animals)
     a = m->addAction("Trained Level", this, SLOT(add_trained_column()));
-    a->setToolTip(tr("Adds a column showing the trained level of an animal."));
+    a->setToolTip(trUtf8("Adds a column showing the trained level of an animal."));
 
     //TRAIT
-    QMenu *m_trait = m_cmh->create_title_menu(m, tr("Trait"),tr("Trait columns show a read-only display of a dwarf's score in a particular trait."));
+    QMenu *m_trait = m_cmh->create_title_menu(m, trUtf8("Trait"),trUtf8("Trait columns show a read-only display of a dwarf's score in a particular trait."));
     m_cmh->add_sub_menus(m_trait,2);
     QList<QPair<int, Trait*> > traits = gdr->get_ordered_traits();
     QPair<int, Trait*> trait_pair;
@@ -510,19 +510,19 @@ void GridViewDialog::draw_column_context_menu(const QPoint &p) {
         QMenu *menu_to_use = m_cmh->find_menu(m_trait,t->get_name());
         QAction *a = menu_to_use->addAction(t->get_name(), this, SLOT(add_trait_column()));
         a->setData(trait_pair.first);
-        a->setToolTip(tr("Add a column for trait %1 (ID%2)").arg(t->get_name()).arg(trait_pair.first));
+        a->setToolTip(trUtf8("Add a column for trait %1 (ID%2)").arg(t->get_name()).arg(trait_pair.first));
     }
 
     //WEAPONS
-    QMenu *m_weapon = m_cmh->create_title_menu(m, tr("Weapon"),
-                                        tr("Weapon columns will show an indicator of whether the dwarf can wield the weapon with one hand, two hands or not at all."));
+    QMenu *m_weapon = m_cmh->create_title_menu(m, trUtf8("Weapon"),
+                                        trUtf8("Weapon columns will show an indicator of whether the dwarf can wield the weapon with one hand, two hands or not at all."));
     m_cmh->add_sub_menus(m_weapon,DT->get_DFInstance()->get_ordered_weapon_defs().count() / 15);
     foreach(ItemWeaponSubtype *w, DT->get_DFInstance()->get_ordered_weapon_defs().values()) {
         QString title = w->name_plural(); //allow adding every type
         QMenu *menu_to_use = m_cmh->find_menu(m_weapon,title);
         QAction *a = menu_to_use->addAction(title, this, SLOT(add_weapon_column()));
         a->setData(w->subType());
-        a->setToolTip(tr("Add a column for weapon %1").arg(title));
+        a->setToolTip(trUtf8("Add a column for weapon %1").arg(title));
     }
 
 
@@ -540,7 +540,7 @@ void GridViewDialog::add_spacer_column() {
     if (!m_active_set)
         return;
 
-    new SpacerColumn(tr("SPACER"), m_active_set, m_active_set);
+    new SpacerColumn(trUtf8("SPACER"), m_active_set, m_active_set);
     draw_columns_for_set(m_active_set);
 }
 
@@ -548,7 +548,7 @@ void GridViewDialog::add_trained_column(){
     if (!m_active_set)
         return;
 
-    new TrainedColumn(tr("Training"),m_active_set, m_active_set);
+    new TrainedColumn(trUtf8("Training"),m_active_set, m_active_set);
     draw_columns_for_set(m_active_set);
 }
 
@@ -556,7 +556,7 @@ void GridViewDialog::add_kills_column(){
     if (!m_active_set)
         return;
 
-    new UnitKillsColumn(tr("Kills"),m_active_set, m_active_set);
+    new UnitKillsColumn(trUtf8("Kills"),m_active_set, m_active_set);
     draw_columns_for_set(m_active_set);
 }
 
@@ -570,7 +570,7 @@ void GridViewDialog::add_equipment_column(){
         QString name = a->text();
         new ItemTypeColumn(name.replace("&&","&"),itype,m_active_set,m_active_set);
     }else{
-        new EquipmentColumn(tr("Equipment"),m_active_set, m_active_set);
+        new EquipmentColumn(trUtf8("Equipment"),m_active_set, m_active_set);
     }
     draw_columns_for_set(m_active_set);
 }
@@ -578,14 +578,14 @@ void GridViewDialog::add_equipment_column(){
 void GridViewDialog::add_happiness_column() {
     if (!m_active_set)
         return;
-    new HappinessColumn(tr("Happiness"), m_active_set, m_active_set);
+    new HappinessColumn(trUtf8("Happiness"), m_active_set, m_active_set);
     draw_columns_for_set(m_active_set);
 }
 
 void GridViewDialog::add_idle_column() {
     if (!m_active_set)
         return;
-    new CurrentJobColumn(tr("Current Job"), m_active_set, m_active_set);
+    new CurrentJobColumn(trUtf8("Current Job"), m_active_set, m_active_set);
     draw_columns_for_set(m_active_set);
 }
 
@@ -596,7 +596,7 @@ void GridViewDialog::add_labor_column() {
     int labor_id = a->data().toInt();
     Labor *l = GameDataReader::ptr()->get_labor(labor_id);
     if (!l) {
-        LOGE << tr("Failed to get a labor with id %1!").arg(labor_id);
+        LOGE << trUtf8("Failed to get a labor with id %1!").arg(labor_id);
         return;
     }
     new LaborColumn(l->name, l->labor_id, l->skill_id, m_active_set, m_active_set);
@@ -610,7 +610,7 @@ void GridViewDialog::add_super_labor_column() {
     QString name = a->data().toString();
     SuperLabor *sl = DT->get_super_labor(name);
     if (!sl) {
-        LOGE << tr("Failed to find super labor %1!").arg(name);
+        LOGE << trUtf8("Failed to find super labor %1!").arg(name);
         return;
     }
     new SuperLaborColumn(name,name,m_active_set,m_active_set);
@@ -624,7 +624,7 @@ void GridViewDialog::add_custom_prof_column() {
     QString name = a->data().toString();
     CustomProfession *cp = DT->get_custom_profession(name);
     if (!cp) {
-        LOGE << tr("Failed to find custom profession %1!").arg(name);
+        LOGE << trUtf8("Failed to find custom profession %1!").arg(name);
         return;
     }
     new CustomProfessionColumn(name,name,m_active_set,m_active_set);
@@ -700,26 +700,26 @@ void GridViewDialog::add_health_column(){
 void GridViewDialog::add_profession_column(){
     if (!m_active_set)
         return;
-    new ProfessionColumn(tr("Profession"), m_active_set, m_active_set);
+    new ProfessionColumn(trUtf8("Profession"), m_active_set, m_active_set);
     draw_columns_for_set(m_active_set);
 }
 
 void GridViewDialog::add_highest_moodable_column(){
     if (!m_active_set)
         return;
-    new HighestMoodColumn(tr("Moodable Skill"), m_active_set, m_active_set);
+    new HighestMoodColumn(trUtf8("Moodable Skill"), m_active_set, m_active_set);
     draw_columns_for_set(m_active_set);
 }
 
 void GridViewDialog::accept() {
     if (ui->le_name->text().isEmpty()) {
-        QMessageBox::warning(this, tr("Empty Name"), tr("Cannot save a view with no name!"));
+        QMessageBox::warning(this, trUtf8("Empty Name"), trUtf8("Cannot save a view with no name!"));
         return;
     } else if (m_manager->get_view(ui->le_name->text())) {
         // this name exists
         if (!m_is_editing || (m_is_editing && m_original_name != ui->le_name->text())) {
-            QMessageBox m(QMessageBox::Question, tr("Overwrite View?"),
-                tr("There is already a view named <b>%1</b><h3>Do you want to overwrite it?</h3>").arg(ui->le_name->text()),
+            QMessageBox m(QMessageBox::Question, trUtf8("Overwrite View?"),
+                trUtf8("There is already a view named <b>%1</b><h3>Do you want to overwrite it?</h3>").arg(ui->le_name->text()),
                 QMessageBox::Yes | QMessageBox::No, 0);
             if (m.exec() == QMessageBox::Yes) {
                 return QDialog::accept();

@@ -33,12 +33,12 @@ LogManager::LogManager(QObject *parent)
     : QObject(parent)
 {
     // setup names for the logging levels
-    m_level_names[LL_TRACE] = tr("TRACE");
-    m_level_names[LL_DEBUG] = tr("DEBUG");
-    m_level_names[LL_INFO] = tr("INFO");
-    m_level_names[LL_WARN] = tr("WARNING");
-    m_level_names[LL_ERROR] = tr("ERROR");
-    m_level_names[LL_FATAL] = tr("FATAL");
+    m_level_names[LL_TRACE] = trUtf8("TRACE");
+    m_level_names[LL_DEBUG] = trUtf8("DEBUG");
+    m_level_names[LL_INFO] = trUtf8("INFO");
+    m_level_names[LL_WARN] = trUtf8("WARNING");
+    m_level_names[LL_ERROR] = trUtf8("ERROR");
+    m_level_names[LL_FATAL] = trUtf8("FATAL");
 }
 
 TruncatingFileLogger *LogManager::add_logger(const QString &path) {

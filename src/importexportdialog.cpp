@@ -68,21 +68,21 @@ bool ImportExportDialog::setup_for_profession_export() {
     QString default_path = QString("%1/%2")
         .arg(_get_dir(QStandardPaths::DesktopLocation))
         .arg("custom_professions.dtp");
-    m_path = QFileDialog::getSaveFileName(this, tr("Choose a file to export to"),	default_path,
+    m_path = QFileDialog::getSaveFileName(this, trUtf8("Choose a file to export to"),	default_path,
         "Dwarf Therapist Profession Exports (*.dtp);;All Files (*.*)");
     if (m_path.isEmpty())
         return false; //cancelled
     LOGI << "exporting custom professions to:" << m_path;
 
-    setWindowTitle(tr("Export Custom Professions"));
-    ui->buttonBox->addButton(tr("Export Selected"), QDialogButtonBox::YesRole);
+    setWindowTitle(trUtf8("Export Custom Professions"));
+    ui->buttonBox->addButton(trUtf8("Export Selected"), QDialogButtonBox::YesRole);
     Version v;
     QDateTime t = QDateTime::currentDateTime();
     ui->lbl_file_path->setText(m_path);
     ui->lbl_version->setText(v.to_string());
     ui->lbl_export_time->setText(t.toString());
     foreach(CustomProfession *cp, DT->get_custom_professions()) {
-        QString title = tr("%1 (%2 labors)").arg(cp->get_name()).arg(cp->get_enabled_labors().size());
+        QString title = trUtf8("%1 (%2 labors)").arg(cp->get_name()).arg(cp->get_enabled_labors().size());
         QListWidgetItem *i = new QListWidgetItem(title, ui->list_professions);
         i->setData(Qt::UserRole, cp->get_name());
         i->setData(Qt::UserRole+1, false); // not conflicting as far as we know
@@ -96,14 +96,14 @@ bool ImportExportDialog::setup_for_profession_export() {
 bool ImportExportDialog::setup_for_profession_import() {
     m_mode = MODE_IMPORT_PROFESSIONS;
     QString default_path = QString("%1/%2").arg(_get_dir(QStandardPaths::DesktopLocation)).arg("custom_professions.dtp");
-    m_path = QFileDialog::getOpenFileName(this, tr("Choose a file to import"), default_path,
+    m_path = QFileDialog::getOpenFileName(this, trUtf8("Choose a file to import"), default_path,
         "Dwarf Therapist Profession Exports (*.dtp);;All Files (*.*)");
     if (m_path.isEmpty())
         return false; //cancelled
     LOGI << "importing custom professions from:" << m_path;
 
-    setWindowTitle(tr("Import Custom Professions"));
-    ui->buttonBox->addButton(tr("Import Selected"), QDialogButtonBox::YesRole);
+    setWindowTitle(trUtf8("Import Custom Professions"));
+    ui->buttonBox->addButton(trUtf8("Import Selected"), QDialogButtonBox::YesRole);
 
     QSettings s(m_path, QSettings::IniFormat);
 
@@ -127,7 +127,7 @@ bool ImportExportDialog::setup_for_profession_import() {
     ui->lbl_export_time->setText(t.toString());
     ui->lbl_professions_count->setText(QString::number(m_profs.size()));
     foreach(CustomProfession *cp, m_profs) {
-        QString title = tr("%1 (%2 labors)").arg(cp->get_name())
+        QString title = trUtf8("%1 (%2 labors)").arg(cp->get_name())
                         .arg(cp->get_enabled_labors().size());
         QListWidgetItem *i = new QListWidgetItem(title, ui->list_professions);
         i->setData(Qt::UserRole, cp->get_name());
@@ -141,7 +141,7 @@ bool ImportExportDialog::setup_for_profession_import() {
             if (l) {
                 labor_name = l->name;
             } else {
-                LOGE << tr("custom profession lists labor_id %1, which is "
+                LOGE << trUtf8("custom profession lists labor_id %1, which is "
                             "unrecognized!").arg(labor_id);
             }
             tooltip += QString("<li>%1</li>").arg(labor_name);
@@ -156,7 +156,7 @@ bool ImportExportDialog::setup_for_profession_import() {
             i->setText(i->text() + " CONFLICT");
             i->setCheckState(Qt::Unchecked);
             i->setFlags(Qt::NoItemFlags);
-            i->setToolTip(tr("You already have a custom profession with this name!"));
+            i->setToolTip(trUtf8("You already have a custom profession with this name!"));
         }
     }
     return true;
@@ -167,19 +167,19 @@ bool ImportExportDialog::setup_for_gridview_export() {
     QString default_path = QString("%1/%2")
         .arg(_get_dir(QStandardPaths::DesktopLocation))
         .arg("gridviews.dtg");
-    m_path = QFileDialog::getSaveFileName(this, tr("Choose a file to export to"),
+    m_path = QFileDialog::getSaveFileName(this, trUtf8("Choose a file to export to"),
         default_path,  "Dwarf Therapist Grid View Exports (*.dtg);;All Files (*.*)");
     if (m_path.isEmpty())
         return false; //cancelled
     LOGI << "exporting grid views to:" << m_path;
-    setWindowTitle(tr("Export Grid Views"));
-    ui->buttonBox->addButton(tr("Export Selected"), QDialogButtonBox::YesRole);
+    setWindowTitle(trUtf8("Export Grid Views"));
+    ui->buttonBox->addButton(trUtf8("Export Selected"), QDialogButtonBox::YesRole);
     Version v;
     QDateTime t = QDateTime::currentDateTime();
     ui->lbl_file_path->setText(m_path);
     ui->lbl_version->setText(v.to_string());
     ui->lbl_export_time->setText(t.toString());
-    ui->lbl_total_title->setText(tr("Total Views"));
+    ui->lbl_total_title->setText(trUtf8("Total Views"));
 
     foreach(GridView *gv, DT->get_main_window()->get_view_manager()->views()) {
         QListWidgetItem *i = new QListWidgetItem(gv->name(), ui->list_professions);
@@ -197,12 +197,12 @@ bool ImportExportDialog::setup_for_gridview_import() {
     QString default_path = QString("%1/%2")
         .arg(_get_dir(QStandardPaths::DesktopLocation))
         .arg("gridviews.dtg");
-    m_path = QFileDialog::getOpenFileName(this, tr("Choose a file to import"),
+    m_path = QFileDialog::getOpenFileName(this, trUtf8("Choose a file to import"),
         default_path,  "Dwarf Therapist Grid View Exports (*.dtg);;All Files (*.*)");
     LOGI << "importing grid views from:" << m_path;
 
-    setWindowTitle(tr("Import Grid Views"));
-    ui->buttonBox->addButton(tr("Import Selected"), QDialogButtonBox::YesRole);
+    setWindowTitle(trUtf8("Import Grid Views"));
+    ui->buttonBox->addButton(trUtf8("Import Selected"), QDialogButtonBox::YesRole);
 
     QSettings s(m_path, QSettings::IniFormat);
 
@@ -225,7 +225,7 @@ bool ImportExportDialog::setup_for_gridview_import() {
     ui->lbl_version->setText(file_version.to_string());
     ui->lbl_export_time->setText(t.toString());
     ui->lbl_professions_count->setText(QString::number(m_views.size()));
-    ui->lbl_total_title->setText(tr("Total Views"));
+    ui->lbl_total_title->setText(trUtf8("Total Views"));
 
     foreach(GridView *gv, m_views) {
         QListWidgetItem *i = new QListWidgetItem(gv->name(), ui->list_professions);
@@ -249,7 +249,7 @@ bool ImportExportDialog::setup_for_gridview_import() {
             i->setText(i->text() + " CONFLICT");
             i->setCheckState(Qt::Unchecked);
             i->setFlags(Qt::NoItemFlags);
-            i->setToolTip(tr("You already have a grid view with this name!"));
+            i->setToolTip(trUtf8("You already have a grid view with this name!"));
         }
     }
     return true;
@@ -262,20 +262,20 @@ bool ImportExportDialog::setup_for_role_export() {
     QString default_path = QString("%1/%2")
         .arg(_get_dir(QStandardPaths::DesktopLocation))
         .arg("custom_roles.dtp");
-    m_path = QFileDialog::getSaveFileName(this, tr("Choose a file to export to"),	default_path,
+    m_path = QFileDialog::getSaveFileName(this, trUtf8("Choose a file to export to"),	default_path,
         "Dwarf Therapist Roles Exports (*.dtp);;All Files (*.*)");
     if (m_path.isEmpty())
         return false; //cancelled
     LOGI << "exporting custom roles to:" << m_path;
 
-    setWindowTitle(tr("Export Custom Roles"));
-    ui->buttonBox->addButton(tr("Export Selected"), QDialogButtonBox::YesRole);
+    setWindowTitle(trUtf8("Export Custom Roles"));
+    ui->buttonBox->addButton(trUtf8("Export Selected"), QDialogButtonBox::YesRole);
     Version v;
     QDateTime t = QDateTime::currentDateTime();
     ui->lbl_file_path->setText(m_path);
     ui->lbl_version->setText(v.to_string());
     ui->lbl_export_time->setText(t.toString());
-    ui->lbl_total_title->setText(tr("Total Roles"));
+    ui->lbl_total_title->setText(trUtf8("Total Roles"));
 
     foreach(Role *r, GameDataReader::ptr()->get_roles()){
         if(r->is_custom()){
@@ -294,14 +294,14 @@ bool ImportExportDialog::setup_for_role_export() {
 bool ImportExportDialog::setup_for_role_import() {
     m_mode = MODE_IMPORT_ROLES;
     QString default_path = QString("%1/%2").arg(_get_dir(QStandardPaths::DesktopLocation)).arg("custom_roles.dtp");
-    m_path = QFileDialog::getOpenFileName(this, tr("Choose a file to import"), default_path,
+    m_path = QFileDialog::getOpenFileName(this, trUtf8("Choose a file to import"), default_path,
         "Dwarf Therapist Roles Imports (*.dtp);;All Files (*.*)");
     if (m_path.isEmpty())
         return false; //cancelled
     LOGI << "importing custom roles from:" << m_path;
 
-    setWindowTitle(tr("Import Custom Roles"));
-    ui->buttonBox->addButton(tr("Import Selected"), QDialogButtonBox::YesRole);
+    setWindowTitle(trUtf8("Import Custom Roles"));
+    ui->buttonBox->addButton(trUtf8("Import Selected"), QDialogButtonBox::YesRole);
 
     QSettings s(m_path, QSettings::IniFormat);
 
@@ -324,7 +324,7 @@ bool ImportExportDialog::setup_for_role_import() {
     ui->lbl_version->setText(file_version.to_string());
     ui->lbl_export_time->setText(t.toString());
     ui->lbl_professions_count->setText(QString::number(m_roles.size()));
-    ui->lbl_total_title->setText(tr("Total Roles"));
+    ui->lbl_total_title->setText(trUtf8("Total Roles"));
     foreach(Role *r, m_roles) {
         QString title = QString("%1").arg(r->name());
         QListWidgetItem *i = new QListWidgetItem(title, ui->list_professions);
@@ -338,10 +338,10 @@ bool ImportExportDialog::setup_for_role_import() {
         if(rCheck && rCheck->is_custom()){
             i->setTextColor(Qt::red);
             i->setData(Qt::UserRole+1, true); // conflicting flag
-            i->setText(tr("%1 (%2!)").arg(i->text()).arg(tr("CONFLICT")));
+            i->setText(trUtf8("%1 (%2!)").arg(i->text()).arg(trUtf8("CONFLICT")));
             i->setCheckState(Qt::Unchecked);
             i->setFlags(Qt::NoItemFlags);
-            i->setToolTip(tr("You already have a custom role with this name!"));
+            i->setToolTip(trUtf8("You already have a custom role with this name!"));
         }
     }
     return true;
@@ -432,7 +432,7 @@ void ImportExportDialog::accept() {
         import_selected_roles();
         break;
     default:
-        QMessageBox::warning(this, tr("Oh no!"), tr("Unknown import/export type!"));
+        QMessageBox::warning(this, trUtf8("Oh no!"), trUtf8("Unknown import/export type!"));
         return;
     }
     return QDialog::accept();
@@ -464,8 +464,8 @@ void ImportExportDialog::export_selected_roles() {
     s.endArray();
     s.sync();
     if (exported)
-        QMessageBox::information(this, tr("Export Successful"),
-            tr("Exported %n custom role(s)", "", exported));
+        QMessageBox::information(this, trUtf8("Export Successful"),
+            trUtf8("Exported %n custom role(s)", "", exported));
     m_roles.clear();
 }
 
@@ -489,7 +489,7 @@ void ImportExportDialog::export_selected_professions() {
     s.endArray();
     s.sync();
     if (exported)
-        QMessageBox::information(this, tr("Export Successful"),tr("Exported %n custom profession(s)", "", exported));
+        QMessageBox::information(this, trUtf8("Export Successful"),trUtf8("Exported %n custom profession(s)", "", exported));
     m_profs.clear();
 }
 
@@ -505,8 +505,8 @@ void ImportExportDialog::import_selected_roles(){
     DT->get_main_window()->write_custom_roles();
     DT->get_main_window()->refresh_roles_data();
     if(imported)
-        QMessageBox::information(this, tr("Import Successful"),
-            tr("Imported %n custom role(s)", "", imported));
+        QMessageBox::information(this, trUtf8("Import Successful"),
+            trUtf8("Imported %n custom role(s)", "", imported));
 
     m_roles.clear();
 }
@@ -515,8 +515,8 @@ void ImportExportDialog::import_selected_professions() {
     int imported = m_profs.count();
     DT->add_custom_professions(m_profs);
     if (imported)
-        QMessageBox::information(this, tr("Import Successful"),
-            tr("Imported %n custom profession(s)", "", imported));
+        QMessageBox::information(this, trUtf8("Import Successful"),
+            trUtf8("Imported %n custom profession(s)", "", imported));
 
     m_profs.clear();
 }
@@ -541,8 +541,8 @@ void ImportExportDialog::export_selected_gridviews() {
     s.endArray();
     s.sync();
     if (exported)
-        QMessageBox::information(this, tr("Export Successful"),
-            tr("Exported %n grid view(s)", "", exported));
+        QMessageBox::information(this, trUtf8("Export Successful"),
+            trUtf8("Exported %n grid view(s)", "", exported));
 
     m_views.clear();
 }
@@ -555,8 +555,8 @@ void ImportExportDialog::import_selected_gridviews() {
         imported++;
     }
     if (imported) {
-        QMessageBox::information(this, tr("Import Successful"),
-            tr("Imported %n grid view(s)", "", imported));
+        QMessageBox::information(this, trUtf8("Import Successful"),
+            trUtf8("Imported %n grid view(s)", "", imported));
         view_mgr->write_views();
         view_mgr->reload_views();
     }

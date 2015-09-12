@@ -40,7 +40,7 @@ QString EquipmentOverviewDock::m_option_name = "options/docks/equipoverview_incl
 EquipmentOverviewDock::EquipmentOverviewDock(QWidget *parent, Qt::WindowFlags flags)
     : BaseDock(parent, flags)
 {
-    setWindowTitle(tr("Equipment Overview"));
+    setWindowTitle(trUtf8("Equipment Overview"));
     setObjectName("dock_equipmentoverview");
     setFeatures(QDockWidget::AllDockWidgetFeatures);
     setAllowedAreas(Qt::AllDockWidgetAreas);
@@ -58,7 +58,7 @@ EquipmentOverviewDock::EquipmentOverviewDock(QWidget *parent, Qt::WindowFlags fl
     tw_wear->setAlternatingRowColors(true);
     tw_wear->setSelectionMode(QAbstractItemView::ExtendedSelection);
     tw_wear->setSelectionBehavior(QAbstractItemView::SelectRows);
-    tw_wear->setHorizontalHeaderLabels(QStringList() << tr("Item") << tr("Count") << tr("Status"));
+    tw_wear->setHorizontalHeaderLabels(QStringList() << trUtf8("Item") << trUtf8("Count") << trUtf8("Status"));
     tw_wear->verticalHeader()->hide();
     tw_wear->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
     tw_wear->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
@@ -80,10 +80,10 @@ EquipmentOverviewDock::EquipmentOverviewDock(QWidget *parent, Qt::WindowFlags fl
     l->addLayout(s);
 
     QPushButton *btn = new QPushButton("Clear Filter",this);
-    QCheckBox *chk_mats = new QCheckBox(tr("Include item materials"),this);
+    QCheckBox *chk_mats = new QCheckBox(trUtf8("Include item materials"),this);
     chk_mats->setChecked(DT->user_settings()->value(m_option_name,false).toBool());
-    chk_mats->setToolTip(tr("When checked, prefixes the item name with the general material type."));
-    lbl_read = new QLabel(tr("<font color='red'>Requires read to apply changes.</font>"));
+    chk_mats->setToolTip(trUtf8("When checked, prefixes the item name with the general material type."));
+    lbl_read = new QLabel(trUtf8("<font color='red'>Requires read to apply changes.</font>"));
     lbl_read->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Minimum);
     lbl_read->hide();
 
@@ -123,12 +123,12 @@ void EquipmentOverviewDock::refresh(){
         m_option_state = DT->user_settings()->value(m_option_name,false).toBool();
         QHash<QPair<QString,int>,int> worn_items = DT->get_DFInstance()->get_equip_warnings();
         if(worn_items.count()<=0){ //add a placeholder item
-            key = qMakePair(tr("N/A"),0);
+            key = qMakePair(trUtf8("N/A"),0);
             worn_items.insert(key,0);
         }
 
         QStringList wear_level_desc;
-        wear_level_desc << tr("No Worn/Missing Equipment") << tr("Some Wear") << tr("Heavily Worn") << tr("Tattered");
+        wear_level_desc << trUtf8("No Worn/Missing Equipment") << trUtf8("Some Wear") << trUtf8("Heavily Worn") << trUtf8("Tattered");
 
         tw_wear->setSortingEnabled(false);
         foreach(key, worn_items.uniqueKeys()){

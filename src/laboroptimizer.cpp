@@ -83,11 +83,11 @@ void LaborOptimizer::calc_population(bool load_labor_map){
 
         //exclude nobles, hospitalized dwarfs, children, babies and militia
         if(d->noble_position() != "" && m_plan->exclude_nobles){
-            m_current_message.append(QPair<int, QString> (d->id(), tr("(Noble) %1").arg(d->nice_name())));
+            m_current_message.append(QPair<int, QString> (d->id(), trUtf8("(Noble) %1").arg(d->nice_name())));
             m_dwarfs.removeAt(i);
         }
         else if(d->current_job_id() == 52 && m_plan->exclude_injured){
-            m_current_message.append(QPair<int, QString> (d->id(), tr("(Hospitalized) %1").arg(d->nice_name())));
+            m_current_message.append(QPair<int, QString> (d->id(), trUtf8("(Hospitalized) %1").arg(d->nice_name())));
             if(load_labor_map)
                 m_dwarfs.at(i)->clear_labors();
             m_dwarfs.removeAt(i);
@@ -96,23 +96,23 @@ void LaborOptimizer::calc_population(bool load_labor_map){
             m_dwarfs.removeAt(i);
         }
         else if(d->active_military() && m_plan->exclude_military){
-            m_current_message.append(QPair<int, QString> (d->id(), tr("(Active Duty) %1").arg(d->nice_name())));
+            m_current_message.append(QPair<int, QString> (d->id(), trUtf8("(Active Duty) %1").arg(d->nice_name())));
             if(load_labor_map)
                 m_dwarfs.at(i)->clear_labors();
             m_dwarfs.removeAt(i);
         }
         else if(d->squad_id() > -1 && m_plan->exclude_squads){
-            m_current_message.append(QPair<int, QString> (d->id(), tr("(Squad) %1, %2").arg(d->nice_name()).arg(d->squad_name())));
+            m_current_message.append(QPair<int, QString> (d->id(), trUtf8("(Squad) %1, %2").arg(d->nice_name()).arg(d->squad_name())));
             if(load_labor_map)
                 m_dwarfs.at(i)->clear_labors();
             m_dwarfs.removeAt(i);
         }
         else if(d->locked_in_mood()){
-            m_current_message.append(QPair<int, QString> (d->id(), tr("(Mood) %1").arg(d->nice_name())));
+            m_current_message.append(QPair<int, QString> (d->id(), trUtf8("(Mood) %1").arg(d->nice_name())));
             m_dwarfs.removeAt(i);
         }
         else if(d->is_child() && !DT->labor_cheats_allowed()){
-            m_current_message.append(QPair<int, QString> (d->id(), tr("(Child) %1").arg(d->nice_name())));
+            m_current_message.append(QPair<int, QString> (d->id(), trUtf8("(Child) %1").arg(d->nice_name())));
             m_dwarfs.removeAt(i);
         }
         else{
@@ -142,7 +142,7 @@ void LaborOptimizer::calc_population(bool load_labor_map){
     m_target_population = (m_plan->pop_percent/(float)100) * (float)m_total_population;
 
     if(m_current_message.count() > 0){
-        m_current_message.push_front(QPair<int,QString>(0,tr("%1 worker%2 excluded from optimization.")
+        m_current_message.push_front(QPair<int,QString>(0,trUtf8("%1 worker%2 excluded from optimization.")
                                                         .arg(QString::number(m_current_message.count()))
                                                         .arg(m_current_message.count() > 1 ? "s" : "")));
         if(load_labor_map)
@@ -157,7 +157,7 @@ void LaborOptimizer::optimize_labors(QList<Dwarf*> dwarfs){
         optimize();
 
         m_current_message.clear();
-        m_current_message.append(QPair<int,QString>(0,tr("Optimization Complete.")));
+        m_current_message.append(QPair<int,QString>(0,trUtf8("Optimization Complete.")));
         emit optimize_message(m_current_message);
     }
 }

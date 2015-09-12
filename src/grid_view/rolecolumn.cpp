@@ -85,16 +85,16 @@ QStandardItem *RoleColumn::build_cell(Dwarf *d) {
 
     if(d->is_baby()){
         item->setData(-2, DwarfModel::DR_SORT_VALUE);
-        item->setToolTip(tr("<center><b>Babies aren't included in role calculations.</b></center>"));
+        item->setToolTip(trUtf8("<center><b>Babies aren't included in role calculations.</b></center>"));
         item->setData(STATE_DISABLED,DwarfModel::DR_STATE);
         return item;
     }else if(!d->can_set_labors()){
         if(d->is_child()){
-            item->setToolTip(tr("<center><b>Children are only included in role calculations if labor cheats are enabled.</b></center>"));
+            item->setToolTip(trUtf8("<center><b>Children are only included in role calculations if labor cheats are enabled.</b></center>"));
             item->setData(STATE_DISABLED,DwarfModel::DR_STATE);
             return item;
         }else if(d->locked_in_mood()){
-            item->setToolTip(tr("<center><b>Labor can't be toggled due to mood.</b></center>"));
+            item->setToolTip(trUtf8("<center><b>Labor can't be toggled due to mood.</b></center>"));
             item->setData(STATE_DISABLED,DwarfModel::DR_STATE);
             return item;
         }
@@ -135,7 +135,7 @@ QStandardItem *RoleColumn::build_cell(Dwarf *d) {
         if (m_role->script() == "") {
             if(raw_rating >= 0){
                 aspects_str = m_role->get_role_details(d);
-                aspects_str += tr("<br/><b>Note:</b> A higher weight (w) puts greater value on the aspect. Default weights are not shown.");
+                aspects_str += trUtf8("<br/><b>Note:</b> A higher weight (w) puts greater value on the aspect. Default weights are not shown.");
                 match_str += aspects_str;
 
                 tooltip = QString("<center><h3>%1 - %3%</h3></center>%2%5<center><h4 font-weight:normal>%4 is a %3% fit for this role.</h4></center>")
@@ -149,10 +149,10 @@ QStandardItem *RoleColumn::build_cell(Dwarf *d) {
 
 
             }else{
-                match_str = tr("Incapable of filling this role.<br><br>Value: %1<br/>").arg(QString::number(raw_rating,'f',2));
+                match_str = trUtf8("Incapable of filling this role.<br><br>Value: %1<br/>").arg(QString::number(raw_rating,'f',2));
             }
         } else {
-            match_str = tr("%1<h4><b>Raw Rating:</b> %2</h4>")
+            match_str = trUtf8("%1<h4><b>Raw Rating:</b> %2</h4>")
                     .arg(m_role->get_role_details())
                     .arg(raw_rating, 0, 'f', 2);
             tooltip = QString("<center><h3>%1 - %3</h3></center>%2%4")

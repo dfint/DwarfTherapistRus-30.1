@@ -276,7 +276,7 @@ QtColorPicker::QtColorPicker(QWidget *parent,
     setCheckable(true);
 
     // Set text
-    setText(tr("Black"));
+    setText(trUtf8("Black"));
     firstInserted = false;
 
     // Create and set icon
@@ -402,23 +402,23 @@ QColor QtColorPicker::color(int index) const
 */
 void QtColorPicker::setStandardColors()
 {
-    insertColor(Qt::black, tr("Black"));
-    insertColor(Qt::white, tr("White"));
-    insertColor(Qt::red, tr("Red"));
-    insertColor(Qt::darkRed, tr("Dark red"));
-    insertColor(Qt::green, tr("Green"));
-    insertColor(Qt::darkGreen, tr("Dark green"));
-    insertColor(Qt::blue, tr("Blue"));
-    insertColor(Qt::darkBlue, tr("Dark blue"));
-    insertColor(Qt::cyan, tr("Cyan"));
-    insertColor(Qt::darkCyan, tr("Dark cyan"));
-    insertColor(Qt::magenta, tr("Magenta"));
-    insertColor(Qt::darkMagenta, tr("Dark magenta"));
-    insertColor(Qt::yellow, tr("Yellow"));
-    insertColor(Qt::darkYellow, tr("Dark yellow"));
-    insertColor(Qt::gray, tr("Gray"));
-    insertColor(Qt::darkGray, tr("Dark gray"));
-    insertColor(Qt::lightGray, tr("Light gray"));
+    insertColor(Qt::black, trUtf8("Black"));
+    insertColor(Qt::white, trUtf8("White"));
+    insertColor(Qt::red, trUtf8("Red"));
+    insertColor(Qt::darkRed, trUtf8("Dark red"));
+    insertColor(Qt::green, trUtf8("Green"));
+    insertColor(Qt::darkGreen, trUtf8("Dark green"));
+    insertColor(Qt::blue, trUtf8("Blue"));
+    insertColor(Qt::darkBlue, trUtf8("Dark blue"));
+    insertColor(Qt::cyan, trUtf8("Cyan"));
+    insertColor(Qt::darkCyan, trUtf8("Dark cyan"));
+    insertColor(Qt::magenta, trUtf8("Magenta"));
+    insertColor(Qt::darkMagenta, trUtf8("Dark magenta"));
+    insertColor(Qt::yellow, trUtf8("Yellow"));
+    insertColor(Qt::darkYellow, trUtf8("Dark yellow"));
+    insertColor(Qt::gray, trUtf8("Gray"));
+    insertColor(Qt::darkGray, trUtf8("Dark gray"));
+    insertColor(Qt::lightGray, trUtf8("Light gray"));
 }
 
 
@@ -436,7 +436,7 @@ void QtColorPicker::setCurrentColor(const QColor &color)
 
     ColorPickerItem *item = popup->find(color);
     if (!item) {
-        insertColor(color, tr("Custom HEX #%1").arg(col.name()));
+        insertColor(color, trUtf8("Custom HEX #%1").arg(col.name()));
         item = popup->find(color);
     }
     if (item) {
@@ -506,23 +506,23 @@ QColor QtColorPicker::getColor(const QPoint &point, bool allowCustomColors)
 {
     ColorPickerPopup popup(-1, allowCustomColors);
 
-    popup.insertColor(Qt::black, tr("Black"), 0);
-    popup.insertColor(Qt::white, tr("White"), 1);
-    popup.insertColor(Qt::red, tr("Red"), 2);
-    popup.insertColor(Qt::darkRed, tr("Dark red"), 3);
-    popup.insertColor(Qt::green, tr("Green"), 4);
-    popup.insertColor(Qt::darkGreen, tr("Dark green"), 5);
-    popup.insertColor(Qt::blue, tr("Blue"), 6);
-    popup.insertColor(Qt::darkBlue, tr("Dark blue"), 7);
-    popup.insertColor(Qt::cyan, tr("Cyan"), 8);
-    popup.insertColor(Qt::darkCyan, tr("Dark cyan"), 9);
-    popup.insertColor(Qt::magenta, tr("Magenta"), 10);
-    popup.insertColor(Qt::darkMagenta, tr("Dark magenta"), 11);
-    popup.insertColor(Qt::yellow, tr("Yellow"), 12);
-    popup.insertColor(Qt::darkYellow, tr("Dark yellow"), 13);
-    popup.insertColor(Qt::gray, tr("Gray"), 14);
-    popup.insertColor(Qt::darkGray, tr("Dark gray"), 15);
-    popup.insertColor(Qt::lightGray, tr("Light gray"), 16);
+    popup.insertColor(Qt::black, trUtf8("Black"), 0);
+    popup.insertColor(Qt::white, trUtf8("White"), 1);
+    popup.insertColor(Qt::red, trUtf8("Red"), 2);
+    popup.insertColor(Qt::darkRed, trUtf8("Dark red"), 3);
+    popup.insertColor(Qt::green, trUtf8("Green"), 4);
+    popup.insertColor(Qt::darkGreen, trUtf8("Dark green"), 5);
+    popup.insertColor(Qt::blue, trUtf8("Blue"), 6);
+    popup.insertColor(Qt::darkBlue, trUtf8("Dark blue"), 7);
+    popup.insertColor(Qt::cyan, trUtf8("Cyan"), 8);
+    popup.insertColor(Qt::darkCyan, trUtf8("Dark cyan"), 9);
+    popup.insertColor(Qt::magenta, trUtf8("Magenta"), 10);
+    popup.insertColor(Qt::darkMagenta, trUtf8("Dark magenta"), 11);
+    popup.insertColor(Qt::yellow, trUtf8("Yellow"), 12);
+    popup.insertColor(Qt::darkYellow, trUtf8("Dark yellow"), 13);
+    popup.insertColor(Qt::gray, trUtf8("Gray"), 14);
+    popup.insertColor(Qt::darkGray, trUtf8("Dark gray"), 15);
+    popup.insertColor(Qt::lightGray, trUtf8("Light gray"), 16);
 
     popup.move(point);
     popup.exec();
@@ -893,7 +893,7 @@ void ColorPickerPopup::getColorFromDialog()
     if(!col.isValid())
         return;
 
-    insertColor(col, tr("Custom (#%1)").arg(col.name()), -1);
+    insertColor(col, trUtf8("Custom (#%1)").arg(col.name()), -1);
     lastSel = col;
     emit selected(col);
 }

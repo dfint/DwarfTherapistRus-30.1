@@ -83,7 +83,7 @@ DFInstance::DFInstance(QObject* parent)
     , m_dwarf_civ_id(0)
     , m_languages(0x0)
     , m_fortress(0x0)
-    , m_fortress_name(tr("Embarking"))
+    , m_fortress_name(trUtf8("Embarking"))
     , m_fortress_name_translated("")
 {
     // let subclasses start the heartbeat timer, since we don't want to be
@@ -263,19 +263,19 @@ USIZE DFInstance::write_raw(const VIRTADDR &addr, const USIZE &bytes, const QByt
 
 void DFInstance::load_game_data()
 {
-    emit progress_message(tr("Loading languages"));
+    emit progress_message(trUtf8("Loading languages"));
     if(m_languages){
         delete m_languages;
         m_languages = 0;
     }
     m_languages = Languages::get_languages(this);
 
-    emit progress_message(tr("Loading reactions"));
+    emit progress_message(trUtf8("Loading reactions"));
     qDeleteAll(m_reactions);
     m_reactions.clear();
     load_reactions();
 
-    emit progress_message(tr("Loading item and material lists"));
+    emit progress_message(trUtf8("Loading item and material lists"));
     qDeleteAll(m_plants_vector);
     m_plants_vector.clear();
     qDeleteAll(m_inorganics_vector);
@@ -292,12 +292,12 @@ void DFInstance::load_game_data()
     LOGD << "dwarf race:" << hexify(m_dwarf_race_id);
 
 
-    emit progress_message(tr("Loading races and castes"));
+    emit progress_message(trUtf8("Loading races and castes"));
     qDeleteAll(m_races);
     m_races.clear();
     load_races_castes();
 
-    emit progress_message(tr("Loading item types"));
+    emit progress_message(trUtf8("Loading item types"));
     load_item_defs();
 
     load_fortress_name();
@@ -335,7 +335,7 @@ QVector<Dwarf*> DFInstance::load_dwarves() {
     LOGD << "loading creatures from " << hexify(creature_vector);
     LOGD << "loading current year from" << hexify(current_year);
 
-    emit progress_message(tr("Loading Units"));
+    emit progress_message(trUtf8("Loading Units"));
 
     attach();
     m_dwarf_civ_id = read_int(dwarf_civ_idx_addr);
@@ -812,7 +812,7 @@ QList<Squad *> DFInstance::load_squads(bool show_progress) {
             return squads;
         }
         LOGD << "loading squads from " << hexify(m_squad_vector);
-        emit progress_message(tr("Loading Squads"));
+        emit progress_message(trUtf8("Loading Squads"));
     }
 
     attach();
@@ -1075,17 +1075,17 @@ void DFInstance::layout_not_found(const QString & checksum) {
 
     QMessageBox *mb = new QMessageBox(qApp->activeWindow());
     mb->setIcon(QMessageBox::Critical);
-    mb->setWindowTitle(tr("Unidentified Game Version"));
-    mb->setText(tr("I'm sorry but I don't know how to talk to this "
+    mb->setWindowTitle(trUtf8("Unidentified Game Version"));
+    mb->setText(trUtf8("I'm sorry but I don't know how to talk to this "
                    "version of Dwarf Fortress! (checksum:%1)<br><br> <b>Supported "
                    "Versions:</b><ul>%2</ul>").arg(checksum).arg(supported_vers));
 
     /*
-    mb->setDetailedText(tr("Failed to locate a memory layout file for "
+    mb->setDetailedText(trUtf8("Failed to locate a memory layout file for "
         "Dwarf Fortress exectutable with checksum '%1'").arg(checksum));
     */
     mb->exec();
-    LOGE << tr("unable to identify version from checksum:") << checksum;
+    LOGE << trUtf8("unable to identify version from checksum:") << checksum;
 }
 
 

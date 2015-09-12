@@ -54,41 +54,41 @@ public:
 
     static const QString get_material_flag_desc(const MATERIAL_FLAGS &flag) {
         QMap<MATERIAL_FLAGS, QString> m;
-        m[BONE]=tr("Bone");
-        m[TOOTH]=tr("Ivory/Tooth");
-        m[HORN]=tr("Horn/Hoof");
-        m[PEARL]=tr("Pearl");
-        m[SHELL]=tr("Shell");
-        m[LEATHER]=tr("Leather");
-        m[SILK]=tr("Silk");
-        m[IS_GEM]=tr("Gems");
-        m[IS_GLASS]=tr("Glass");
-        m[IS_WOOD]=tr("Wood");
-        m[IS_STONE]=tr("Stone");
-        m[IS_METAL]=tr("Metal");
-        m[THREAD_PLANT]=tr("Cloth");
-        m[YARN]=tr("Yarn/Wool/Fur");
+        m[BONE]=trUtf8("Bone");
+        m[TOOTH]=trUtf8("Ivory/Tooth");
+        m[HORN]=trUtf8("Horn/Hoof");
+        m[PEARL]=trUtf8("Pearl");
+        m[SHELL]=trUtf8("Shell");
+        m[LEATHER]=trUtf8("Leather");
+        m[SILK]=trUtf8("Silk");
+        m[IS_GEM]=trUtf8("Gems");
+        m[IS_GLASS]=trUtf8("Glass");
+        m[IS_WOOD]=trUtf8("Wood");
+        m[IS_STONE]=trUtf8("Stone");
+        m[IS_METAL]=trUtf8("Metal");
+        m[THREAD_PLANT]=trUtf8("Cloth");
+        m[YARN]=trUtf8("Yarn/Wool/Fur");
         return m.value(flag, "Missing Description");
     }
 
     static const QString get_mat_class_desc(const int mat_class){
         QMap<int, QString> m;
-        m[MC_LEATHER]=tr("Leather");
-        m[MC_CLOTH]=tr("Cloth");
-        m[MC_WOOD]=tr("Wooden");
-        m[MC_STONE]=tr("Stone");
-        m[MC_METAL_AMMO]=tr("Metal");
-        m[MC_METAL_AMMO2]=tr("Metal");
-        m[MC_METAL_ARMOR]=tr("Metal");
-        m[MC_GEM]=tr("Gem");
-        m[MC_BONE]=tr("Bone");
-        m[MC_SHELL]=tr("Shell");
-        m[MC_PEARL]=tr("Pearl");
-        m[MC_TOOTH]=tr("Ivory/Tooth");
-        m[MC_HORN]=tr("Horn/Hoof");
-        m[MC_PLANT_FIBER]=tr("Plant Fiber");
-        m[MC_SILK]=tr("Silk");
-        m[MC_YARN]=tr("Yarn/Wool/Fur");
+        m[MC_LEATHER]=trUtf8("Leather");
+        m[MC_CLOTH]=trUtf8("Cloth");
+        m[MC_WOOD]=trUtf8("Wooden");
+        m[MC_STONE]=trUtf8("Stone");
+        m[MC_METAL_AMMO]=trUtf8("Metal");
+        m[MC_METAL_AMMO2]=trUtf8("Metal");
+        m[MC_METAL_ARMOR]=trUtf8("Metal");
+        m[MC_GEM]=trUtf8("Gem");
+        m[MC_BONE]=trUtf8("Bone");
+        m[MC_SHELL]=trUtf8("Shell");
+        m[MC_PEARL]=trUtf8("Pearl");
+        m[MC_TOOTH]=trUtf8("Ivory/Tooth");
+        m[MC_HORN]=trUtf8("Horn/Hoof");
+        m[MC_PLANT_FIBER]=trUtf8("Plant Fiber");
+        m[MC_SILK]=trUtf8("Silk");
+        m[MC_YARN]=trUtf8("Yarn/Wool/Fur");
         return m.value(mat_class, "???");
     }
 

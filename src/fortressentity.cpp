@@ -81,7 +81,7 @@ void FortressEntity::read_entity(){
 
     QVector<VIRTADDR> entities = m_df->enumerate_vector(m_mem->address("historical_entities_vector"));
     QHash<int, position> positions;
-    QString unk_name = tr("Unknown");
+    QString unk_name = trUtf8("Unknown");
     position pos_unk = {unk_name,unk_name,unk_name,m_noble_colors.value(MULTIPLE)};
 
     int assign_pos_id;

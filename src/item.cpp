@@ -86,7 +86,7 @@ Item::Item(DFInstance *df, ItemDefUniform *u, QObject *parent)
             m_item_name = Item::get_item_name(m_iType);
             //check skill type
             if(!u->indv_choice() && u->job_skill() >= 0)
-                m_item_name.append(QObject::tr(" of %1 skill type").arg(GameDataReader::ptr()->get_skill_name(u->job_skill())));
+                m_item_name.append(QObject::trUtf8(" of %1 skill type").arg(GameDataReader::ptr()->get_skill_name(u->job_skill())));
         }
     }
     //set the color to the missing uniform color, since we passed in a uniform itemdef
@@ -121,7 +121,7 @@ Item::Item(ITEM_TYPE itype, QString name, QObject *parent)
     , m_affection(0)
     , m_stack_size(0)
 {
-    m_item_name = (!name.trimmed().isEmpty() ? name : QObject::tr("Unknown"));
+    m_item_name = (!name.trimmed().isEmpty() ? name : QObject::trUtf8("Unknown"));
     m_display_name = m_item_name;
     m_color_display = Item::color_uncovered();
 }
@@ -232,11 +232,11 @@ void Item::set_default_name(Material *m){
     //only handling equipment for now
     if(m_iType == FLASK){
         if(m->flags().has_flag(47))
-            m_item_name = QObject::tr("Flask");
+            m_item_name = QObject::trUtf8("Flask");
         else if(m->flags().has_flag(49))
-            m_item_name = QObject::tr("Vial");
+            m_item_name = QObject::trUtf8("Vial");
         else
-            m_item_name = QObject::tr("Waterskin");
+            m_item_name = QObject::trUtf8("Waterskin");
     }else{
         m_item_name = get_item_name(m_iType);
     }
@@ -282,7 +282,7 @@ void Item::build_display_name(){
 
     //weapons/shields that aren't artifacts (named) yet, seems around 300 (3%) they become attached?
     if(m_affection >= 300 && m_affection < MAX_AFFECTION){
-        m_display_name.append(QObject::tr(" (%1% Named)").arg(QString::number((float)m_affection / MAX_AFFECTION * 100.0f,'f',0)));
+        m_display_name.append(QObject::trUtf8(" (%1% Named)").arg(QString::number((float)m_affection / MAX_AFFECTION * 100.0f,'f',0)));
     }
 
     //weapons/shields that have become artifacts (named)

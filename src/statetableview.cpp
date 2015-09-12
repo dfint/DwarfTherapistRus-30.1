@@ -99,13 +99,13 @@ StateTableView::StateTableView(QWidget *parent)
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(vscroll_value_changed(int)));
 
     m = new QMenu(this);
-    m->addAction(QIcon(":img/ui-text-field-select.png"),tr("Set Nickname..."), this, SLOT(set_nickname()));
+    m->addAction(QIcon(":img/ui-text-field-select.png"),trUtf8("Set Nickname..."), this, SLOT(set_nickname()));
     m->addSeparator();
 
     customization_menu = new QMenu(m);
 
     //CUSTOM PROFESSIONS/SUPER LABORS
-    customization_menu->setTitle(tr("Customization"));
+    customization_menu->setTitle(trUtf8("Customization"));
     customization_menu->setTearOffEnabled(true);
     customization_menu->setWindowTitle("Customization");
 
@@ -114,34 +114,34 @@ StateTableView::StateTableView(QWidget *parent)
 
     //TOGGLE ALL LABORS
     m->addSeparator();
-    m_assign_labors = m->addAction(QIcon(":img/plus-circle.png"), tr("Assign All Labors"), this, SLOT(toggle_all_row_labors()));
+    m_assign_labors = m->addAction(QIcon(":img/plus-circle.png"), trUtf8("Assign All Labors"), this, SLOT(toggle_all_row_labors()));
     m_assign_labors->setData(true);
-    m_assign_skilled_labors = m->addAction(QIcon(":img/plus-white.png"), tr("Assign Skilled Labors"), this, SLOT(toggle_skilled_row_labors()));
-    m_assign_skilled_labors->setStatusTip(tr("Assigns all labors above 'Dabbling'."));
-    m_remove_labors = m->addAction(QIcon(":img/minus-circle.png"), tr("Clear All Labors"), this, SLOT(toggle_all_row_labors()));
+    m_assign_skilled_labors = m->addAction(QIcon(":img/plus-white.png"), trUtf8("Assign Skilled Labors"), this, SLOT(toggle_skilled_row_labors()));
+    m_assign_skilled_labors->setStatusTip(trUtf8("Assigns all labors above 'Dabbling'."));
+    m_remove_labors = m->addAction(QIcon(":img/minus-circle.png"), trUtf8("Clear All Labors"), this, SLOT(toggle_all_row_labors()));
     m_remove_labors->setData(false);
 
     m->addSeparator();
-    m_clear = m->addAction(QIcon(":img/table--minus.png"),tr("Clear pending changes."),this,SLOT(clear_pending()));
-    m_commit = m->addAction(QIcon(":img/table--arrow.png"),tr("Commit changes."),this,SLOT(commit_pending()));
+    m_clear = m->addAction(QIcon(":img/table--minus.png"),trUtf8("Clear pending changes."),this,SLOT(clear_pending()));
+    m_commit = m->addAction(QIcon(":img/table--arrow.png"),trUtf8("Commit changes."),this,SLOT(commit_pending()));
     m->addSeparator();
 
     squads_menu = new QMenu(m);
     m_unassign_squad = new QAction(QIcon(QString::fromUtf8(":/img/minus-circle.png")),"",m);
     m->addSeparator();
     debug_menu = new QMenu(m);
-    debug_menu->setTitle(tr("Memory Tools"));
+    debug_menu->setTitle(trUtf8("Memory Tools"));
 }
 
 void StateTableView::build_custom_profession_menu(){
     customization_menu->clear();
-    m_prof_name = customization_menu->addAction(QIcon(":img/ui-text-field-select.png"), tr("Set custom profession name..."), this, SLOT(set_custom_profession_text()));
-    customization_menu->addAction(QIcon(":img/ui-text-field-clear-button.png"), tr("Clear custom profession name"), this, SLOT(clear_custom_profession_text()));
-    customization_menu->addAction(tr("Reset to default profession"), this, SLOT(reset_custom_profession()));
+    m_prof_name = customization_menu->addAction(QIcon(":img/ui-text-field-select.png"), trUtf8("Set custom profession name..."), this, SLOT(set_custom_profession_text()));
+    customization_menu->addAction(QIcon(":img/ui-text-field-clear-button.png"), trUtf8("Clear custom profession name"), this, SLOT(clear_custom_profession_text()));
+    customization_menu->addAction(trUtf8("Reset to default profession"), this, SLOT(reset_custom_profession()));
     customization_menu->addSeparator();
-    m_professions = customization_menu->addAction(QIcon(":img/new.png"), tr("New custom profession from this unit..."), this, SLOT(custom_profession_from_dwarf()));
+    m_professions = customization_menu->addAction(QIcon(":img/new.png"), trUtf8("New custom profession from this unit..."), this, SLOT(custom_profession_from_dwarf()));
     m_update_profession = customization_menu->addAction(QIcon(":img/refresh.png"), "", this, SLOT(update_custom_profession_from_dwarf()));
-    m_super_labors = customization_menu->addAction(QIcon(":img/new.png"), tr("New super labor column from this unit..."), this, SLOT(super_labor_from_dwarf()));
+    m_super_labors = customization_menu->addAction(QIcon(":img/new.png"), trUtf8("New super labor column from this unit..."), this, SLOT(super_labor_from_dwarf()));
     customization_menu->addSeparator();
     foreach(CustomProfession *cp, DT->get_custom_professions()) {
         customization_menu->addAction(QIcon(cp->get_pixmap()), cp->get_name(), this, SLOT(apply_custom_profession()));
@@ -265,11 +265,11 @@ void StateTableView::contextMenuEvent(QContextMenuEvent *event) {
 
             if(d->is_adult()){
                 if(m_model->active_squads().count() <= 0){
-                    squads_menu->setTitle(tr("No squads found."));
+                    squads_menu->setTitle(trUtf8("No squads found."));
                     squads_menu->setEnabled(false);
                     m->addMenu(squads_menu);
                 }else{
-                    squads_menu->setTitle(tr("Assign to squad..."));
+                    squads_menu->setTitle(trUtf8("Assign to squad..."));
                     squads_menu->clear();
                     squads_menu->setEnabled(true);
                     QIcon icon;
@@ -278,9 +278,9 @@ void StateTableView::contextMenuEvent(QContextMenuEvent *event) {
                         if(d->squad_id() != s->id()){
                             QAction *add;
                             if(s->assigned_count() < 10){
-                                add = squads_menu->addAction(tr("%1 (%2 members)").arg(s->name()).arg(s->assigned_count()), this, SLOT(assign_to_squad()));
+                                add = squads_menu->addAction(trUtf8("%1 (%2 members)").arg(s->name()).arg(s->assigned_count()), this, SLOT(assign_to_squad()));
                             }else{
-                                add = squads_menu->addAction(tr("%1 (Full)").arg(s->name()));
+                                add = squads_menu->addAction(trUtf8("%1 (Full)").arg(s->name()));
                                 add->setEnabled(false);
                             }
                             add->setData(s->id());
@@ -295,11 +295,11 @@ void StateTableView::contextMenuEvent(QContextMenuEvent *event) {
                         Squad *s = m_model->get_squad(d->squad_id());
                         if(s){
                             if((d->squad_position()==0 && s->assigned_count()==1) || d->squad_position() != 0){
-                                m_unassign_squad->setText(tr("Remove from squad."));
+                                m_unassign_squad->setText(trUtf8("Remove from squad."));
                                 connect(m_unassign_squad,SIGNAL(triggered()),this, SLOT(remove_squad()));
                                 m->addAction(m_unassign_squad);
                             }else{
-                                m_unassign_squad->setText(tr("Remove subordinates first!"));
+                                m_unassign_squad->setText(trUtf8("Remove subordinates first!"));
                                 disconnect(m_unassign_squad, SIGNAL(triggered()), this, SLOT(remove_squad()));
                                 m->addAction(m_unassign_squad);
                             }
@@ -307,7 +307,7 @@ void StateTableView::contextMenuEvent(QContextMenuEvent *event) {
                     }
                 }
             }else{
-                squads_menu->setTitle(tr("Ineligible for military."));
+                squads_menu->setTitle(trUtf8("Ineligible for military."));
                 squads_menu->actions().clear();
                 squads_menu->setEnabled(false);
                 m->addMenu(squads_menu);
@@ -349,27 +349,27 @@ void StateTableView::contextMenuEvent(QContextMenuEvent *event) {
         ViewColumnSet *set = DT->get_main_window()->get_view_manager()->get_active_view()->get_set(set_name);
         if (idx.data(DwarfModel::DR_IS_AGGREGATE).toBool()) { //aggregate labor
             QString group_name = idx.data(DwarfModel::DR_GROUP_NAME).toString();
-            QAction *a = labor.addAction(tr("Toggle %1 for %2").arg(set_name).arg(group_name));
+            QAction *a = labor.addAction(trUtf8("Toggle %1 for %2").arg(set_name).arg(group_name));
             a->setData(group_name);
             connect(a, SIGNAL(triggered()), set, SLOT(toggle_for_dwarf_group()));
         } else { // single dwarf labor
             // find the dwarf...
             int dwarf_id = idx.data(DwarfModel::DR_ID).toInt();
             Dwarf *d = m_model->get_dwarf_by_id(dwarf_id);
-            QAction *a = labor.addAction(tr("Toggle %1 for %2").arg(set_name).arg(d->nice_name()));
+            QAction *a = labor.addAction(trUtf8("Toggle %1 for %2").arg(set_name).arg(d->nice_name()));
             a->setData(dwarf_id);
             connect(a, SIGNAL(triggered()), set, SLOT(toggle_for_dwarf()));
         }
         labor.exec(viewport()->mapToGlobal(event->pos()));
     } else if (idx.data(DwarfModel::DR_IS_AGGREGATE).toBool() && m_model->current_grouping()==DwarfModel::GB_SQUAD){
         QMenu squad_name(this);
-        QAction *a = squad_name.addAction(tr("Change Squad Name"),this,SLOT(set_squad_name()));
+        QAction *a = squad_name.addAction(trUtf8("Change Squad Name"),this,SLOT(set_squad_name()));
         a->setData(idx.data(DwarfModel::DR_ID));
         squad_name.exec(viewport()->mapToGlobal(event->pos()));
     } else if (idx.data(DwarfModel::DR_COL_TYPE).toInt() == CT_PROFESSION) {
         QMenu prof_icon(this);
         int id = idx.data(DwarfModel::DR_SORT_VALUE).toInt(); //sort value is the profession id
-        QAction *a = prof_icon.addAction(tr("Customize %1 Icon")
+        QAction *a = prof_icon.addAction(trUtf8("Customize %1 Icon")
                                          .arg(GameDataReader::ptr()->get_profession(id)->name()),DT,SLOT(edit_customization()));
         //build the data list
         QVariantList data;
@@ -377,7 +377,7 @@ void StateTableView::contextMenuEvent(QContextMenuEvent *event) {
         a->setData(data);
 
         if(DT->get_custom_prof_icon(id)){
-            a = prof_icon.addAction(QIcon(":img/minus-circle.png"), tr("Reset to Default"), DT, SLOT(delete_customization()));
+            a = prof_icon.addAction(QIcon(":img/minus-circle.png"), trUtf8("Reset to Default"), DT, SLOT(delete_customization()));
             a->setData(data);
         }
 
@@ -389,7 +389,7 @@ void StateTableView::refresh_update_c_prof_menu(Dwarf *d){
     if(!d->custom_profession_name().isEmpty()){
         m_update_profession->setVisible(true);
         m_update_profession->setEnabled(true);
-        m_update_profession->setText(tr("Update custom profession (%1) from this unit").arg(d->custom_profession_name()));
+        m_update_profession->setText(trUtf8("Update custom profession (%1) from this unit").arg(d->custom_profession_name()));
     }else{
         m_update_profession->setEnabled(false);
         m_update_profession->setVisible(false);
@@ -478,14 +478,14 @@ void StateTableView::set_squad_name(){
     Squad *s = m_model->get_squad(a->data().toInt());
     if(s){
         bool ok;
-        QString alias = QInputDialog::getText(this, tr("New Squad Name"),
-                                              tr("Enter a new squad name for %1, or leave blank to reset "
+        QString alias = QInputDialog::getText(this, trUtf8("New Squad Name"),
+                                              trUtf8("Enter a new squad name for %1, or leave blank to reset "
                                                  "to their default name.").arg(s->name()), QLineEdit::Normal, "", &ok);
         if(ok) {
             int limit = 16;
             if (alias.length() > limit) {
-                QMessageBox::warning(this, tr("Squad name too long"),
-                                     tr("Squad names must be under %1 characters "
+                QMessageBox::warning(this, trUtf8("Squad name too long"),
+                                     trUtf8("Squad names must be under %1 characters "
                                         "long.").arg(limit));
                 return;
             }
@@ -549,15 +549,15 @@ void StateTableView::set_nickname() {
     if(sel.count() <= 0)
         return;
     bool ok;
-    QString new_nick = QInputDialog::getText(this, tr("New Nickname"),
-                                             tr("Enter a new nickname for the selected dwarves. Or leave blank to reset "
+    QString new_nick = QInputDialog::getText(this, trUtf8("New Nickname"),
+                                             trUtf8("Enter a new nickname for the selected dwarves. Or leave blank to reset "
                                                 "to their default name."), QLineEdit::Normal,
                                              m_model->get_dwarf_by_id(sel.indexes().at(0).data(DwarfModel::DR_ID).toInt())->nickname(), &ok);
     if(ok) {
         int limit = 16;
         if (new_nick.length() > limit) {
-            QMessageBox::warning(this, tr("Max Length Exceeded"),
-                                 tr("Due to technical limitations, nicknames must be under %1 characters "
+            QMessageBox::warning(this, trUtf8("Max Length Exceeded"),
+                                 trUtf8("Due to technical limitations, nicknames must be under %1 characters "
                                     "long. If you require a longer nickname, you'll have to set it within Dwarf Fortress!").arg(limit));
             return;
         }
@@ -637,9 +637,9 @@ void StateTableView::set_custom_profession_text(bool prompt) {
         do {
             bool ok;
             if (warn)
-                QMessageBox::warning(this, tr("Name too long!"), tr("Profession names must be 15 characters or shorter!"));
-            prof_name = QInputDialog::getText(this, tr("New Custom Profession Name"),
-                                              tr("Custom Profession"), QLineEdit::Normal, QString(), &ok);
+                QMessageBox::warning(this, trUtf8("Name too long!"), trUtf8("Profession names must be 15 characters or shorter!"));
+            prof_name = QInputDialog::getText(this, trUtf8("New Custom Profession Name"),
+                                              trUtf8("Custom Profession"), QLineEdit::Normal, QString(), &ok);
             if (!ok)
                 return;
             warn = prof_name.length() > 15;
@@ -864,16 +864,16 @@ void StateTableView::column_right_clicked(int idx){
         if(col->type() == CT_LABOR){
             int labor_id = static_cast<LaborColumn*>(col)->labor_id();
             m->addSeparator();
-            a = m->addAction(QIcon(":img/plus-circle.png"),tr("Assign %1 to everyone.").arg(col->title()),this, SLOT(toggle_column_labors()));
+            a = m->addAction(QIcon(":img/plus-circle.png"),trUtf8("Assign %1 to everyone.").arg(col->title()),this, SLOT(toggle_column_labors()));
             data.clear();
             data << labor_id << true << false;
             a->setData(QVariant(data));
 
-            a = m->addAction(QIcon(":img/plus-white.png"),tr("Assign %1 to skilled workers only.").arg(col->title()),this, SLOT(toggle_column_labors()));
+            a = m->addAction(QIcon(":img/plus-white.png"),trUtf8("Assign %1 to skilled workers only.").arg(col->title()),this, SLOT(toggle_column_labors()));
             data.replace(2,true); //skilled only
             a->setData(QVariant(data));
 
-            a = m->addAction(QIcon(":img/minus-circle.png"),tr("Unassign %1 from everyone.").arg(col->title()),this, SLOT(toggle_column_labors()));
+            a = m->addAction(QIcon(":img/minus-circle.png"),trUtf8("Unassign %1 from everyone.").arg(col->title()),this, SLOT(toggle_column_labors()));
             data.replace(1,false); //disable
             data.replace(2, false); //ignore skill
             a->setData(QVariant(data));

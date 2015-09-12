@@ -20,7 +20,7 @@ IconChooser::IconChooser(QWidget *parent)
     , m_selected_id(-1)
 {
     setWindowIcon(QIcon(":img/hammer.png"));
-    setWindowTitle(tr("Choose New Icon"));
+    setWindowTitle(trUtf8("Choose New Icon"));
 
     QVBoxLayout* vLayout = new QVBoxLayout(this);
     m_imageListView = new QListView(this);
@@ -33,7 +33,7 @@ IconChooser::IconChooser(QWidget *parent)
     m_imageListView->setSelectionMode(QListView::SingleSelection);
     m_imageListView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    m_lbl_info = new QLabel(tr("Choose a new icon and click OK"),this);
+    m_lbl_info = new QLabel(trUtf8("Choose a new icon and click OK"),this);
     vLayout->addWidget(m_lbl_info,0,Qt::AlignCenter);
 
     QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
@@ -82,7 +82,7 @@ void IconChooser::imageClicked(QModelIndex index)
         m_lbl_info->setText(i->data(Qt::UserRole+2).toString());
     }else{
         m_selected_id = -1;
-        m_lbl_info->setText(tr("No icon selected."));
+        m_lbl_info->setText(trUtf8("No icon selected."));
     }
 }
 
