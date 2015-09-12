@@ -52,8 +52,8 @@ GameDataReader::GameDataReader(QObject *parent)
         m_data_settings = QPointer<QSettings>(new QSettings(":config/game_data", QSettings::IniFormat));
         m_data_settings->setIniCodec("UTF-8");
         if(m_data_settings->childGroups().count() <= 0){
-            QString err = tr("Dwarf Therapist cannot run because game_data.ini could not be found!");
-            QMessageBox::critical(0,tr("Missing File"),err);
+            QString err = trUtf8("Dwarf Therapist cannot run because game_data.ini could not be found!");
+            QMessageBox::critical(0,trUtf8("Missing File"),err);
             FATAL << err;
             exit(1);
         }
@@ -63,8 +63,8 @@ GameDataReader::GameDataReader(QObject *parent)
     required_sections << "labors" << "attributes" << "dwarf_jobs" << "goals" << "beliefs" << "unit_thoughts" << "facets" << "skill_names" << "skill_levels";
     foreach(QString key, required_sections){
         if(!m_data_settings->childGroups().contains(key)){
-            QString err = tr("Dwarf Therapist cannot run because game_data.ini is missing [%1], a critical section!").arg(key);
-            QMessageBox::critical(0,tr("Missing Section"),err);
+            QString err = trUtf8("Dwarf Therapist cannot run because game_data.ini is missing [%1], a critical section!").arg(key);
+            QMessageBox::critical(0,trUtf8("Missing Section"),err);
             FATAL << err;
             break;
         }
@@ -95,7 +95,7 @@ GameDataReader::GameDataReader(QObject *parent)
             }
         }
         if (!found) {
-            LOGW << tr("'%1' was not found in the labor map! Most likely, labor"
+            LOGW << trUtf8("'%1' was not found in the labor map! Most likely, labor"
                        "ids are duplicated in game_data.ini");
         }
     }
@@ -103,7 +103,7 @@ GameDataReader::GameDataReader(QObject *parent)
     //load health category descriptors
     UnitHealth::load_health_descriptors(*m_data_settings);
     if(UnitHealth::get_display_categories().count() <= 0){
-        LOGW << tr("Missing health information in game_data.ini!!");
+        LOGW << trUtf8("Missing health information in game_data.ini!!");
     }
 
     //load up the list of attributes and their descriptors
@@ -239,13 +239,13 @@ GameDataReader::GameDataReader(QObject *parent)
     m_dwarf_jobs.clear();
     QStringList job_names;
     //add custom jobs
-    m_dwarf_jobs[-1] = new DwarfJob(-1,tr("Soldier"), DwarfJob::DJT_SOLDIER, "", this);
+    m_dwarf_jobs[-1] = new DwarfJob(-1,trUtf8("Soldier"), DwarfJob::DJT_SOLDIER, "", this);
     job_names << m_dwarf_jobs[-1]->description;
-    m_dwarf_jobs[-2] = new DwarfJob(-2,tr("On Break"), DwarfJob::DJT_ON_BREAK, "", this);
+    m_dwarf_jobs[-2] = new DwarfJob(-2,trUtf8("On Break"), DwarfJob::DJT_ON_BREAK, "", this);
     job_names << m_dwarf_jobs[-2]->description;
-    m_dwarf_jobs[-3] = new DwarfJob(-3,tr("No Job"), DwarfJob::DJT_IDLE, "", this);
+    m_dwarf_jobs[-3] = new DwarfJob(-3,trUtf8("No Job"), DwarfJob::DJT_IDLE, "", this);
     job_names << m_dwarf_jobs[-3]->description;
-    m_dwarf_jobs[-4] = new DwarfJob(-4,tr("Caged"), DwarfJob::DJT_CAGED, "", this);
+    m_dwarf_jobs[-4] = new DwarfJob(-4,trUtf8("Caged"), DwarfJob::DJT_CAGED, "", this);
     job_names << m_dwarf_jobs[-4]->description;
 
     for (short i = 0; i < job_count; ++i) {
@@ -372,16 +372,16 @@ GameDataReader::GameDataReader(QObject *parent)
     m_building_names.insert(49,"Hive");
     m_building_names.insert(50,"Rollers");
 
-    m_building_quality.insert(0,tr("fine"));
-    m_building_quality.insert(1,tr("very fine"));
-    m_building_quality.insert(2,tr("splendid"));
-    m_building_quality.insert(3,tr("wonderful"));
-    m_building_quality.insert(4,tr("completely sublime"));
+    m_building_quality.insert(0,trUtf8("fine"));
+    m_building_quality.insert(1,trUtf8("very fine"));
+    m_building_quality.insert(2,trUtf8("splendid"));
+    m_building_quality.insert(3,trUtf8("wonderful"));
+    m_building_quality.insert(4,trUtf8("completely sublime"));
 }
 
 //value here is the base value of the item/building
 QString GameDataReader::get_building_name(BUILDING_TYPE b_type, int value){
-    QString name = m_building_names.value(b_type,tr("building"));
+    QString name = m_building_names.value(b_type,trUtf8("building"));
     int key = value / 128;
     if(key > 4)
         key = 4;
@@ -395,14 +395,14 @@ GameDataReader::~GameDataReader(){
 
 int GameDataReader::get_int_for_key(QString key, short base) {
     if (!m_data_settings->contains(key)) {
-        LOGE << tr("Couldn't find key '%1' in file '%2'").arg(key)
+        LOGE << trUtf8("Couldn't find key '%1' in file '%2'").arg(key)
                 .arg(m_data_settings->fileName());
     }
     bool ok;
     QString offset_str = m_data_settings->value(key, QVariant(-1)).toString();
     int val = offset_str.toInt(&ok, base);
     if (!ok) {
-        LOGE << tr("Key '%1' could not be read as an integer in file '%2'")
+        LOGE << trUtf8("Key '%1' could not be read as an integer in file '%2'")
                 .arg(key).arg(m_data_settings->fileName());
     }
     return val;
@@ -410,7 +410,7 @@ int GameDataReader::get_int_for_key(QString key, short base) {
 
 QString GameDataReader::get_string_for_key(QString key) {
     if (!m_data_settings->contains(key)) {
-        LOGE << tr("Couldn't find key '%1' in file '%2'").arg(key)
+        LOGE << trUtf8("Couldn't find key '%1' in file '%2'").arg(key)
                 .arg(m_data_settings->fileName());
     }
     return m_data_settings->value(key, QVariant("UNKNOWN")).toString();
@@ -440,7 +440,7 @@ Profession* GameDataReader::get_profession(const short &profession_id) {
 QString GameDataReader::get_goal_desc(int id, bool realized){
     QString desc = capitalize(m_goals.value(id).second);
     if(realized)
-        desc.append(tr(", and this dream was realized"));
+        desc.append(trUtf8(", and this dream was realized"));
     return desc;
 }
 
@@ -641,23 +641,23 @@ void GameDataReader::load_role_mappings(){
 
 void GameDataReader::build_calendar(){
     if(m_seasons.length()<=0 || m_months.length()<=0){
-        m_seasons.append(tr("Spring"));
-        m_seasons.append(tr("Summer"));
-        m_seasons.append(tr("Autumn"));
-        m_seasons.append(tr("Winter"));
+        m_seasons.append(trUtf8("Spring"));
+        m_seasons.append(trUtf8("Summer"));
+        m_seasons.append(trUtf8("Autumn"));
+        m_seasons.append(trUtf8("Winter"));
 
-        m_months.append(tr("Granite"));
-        m_months.append(tr("Slate"));
-        m_months.append(tr("Felsite"));
-        m_months.append(tr("Hematite"));
-        m_months.append(tr("Malachite"));
-        m_months.append(tr("Galena"));
-        m_months.append(tr("Limestone"));
-        m_months.append(tr("Sandstone"));
-        m_months.append(tr("Timber"));
-        m_months.append(tr("Moonstone"));
-        m_months.append(tr("Opal"));
-        m_months.append(tr("Obsidian"));
+        m_months.append(trUtf8("Granite"));
+        m_months.append(trUtf8("Slate"));
+        m_months.append(trUtf8("Felsite"));
+        m_months.append(trUtf8("Hematite"));
+        m_months.append(trUtf8("Malachite"));
+        m_months.append(trUtf8("Galena"));
+        m_months.append(trUtf8("Limestone"));
+        m_months.append(trUtf8("Sandstone"));
+        m_months.append(trUtf8("Timber"));
+        m_months.append(trUtf8("Moonstone"));
+        m_months.append(trUtf8("Opal"));
+        m_months.append(trUtf8("Obsidian"));
     }
 }
 

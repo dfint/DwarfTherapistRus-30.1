@@ -126,7 +126,7 @@ build_pass {
 }
 
 # Translation files
-TRANSLATIONS += ./dwarftherapist_en.ts
+TRANSLATIONS += ./dwarftherapist_ru.ts
 HEADERS += inc/viewmanager.h \
     inc/version.h \
     inc/utils.h \

@@ -135,6 +135,7 @@ private:
     bool m_show_skill_roles;
 
     LogManager *m_log_mgr;
+	QTranslator *translator;
     QHash<GLOBAL_COLOR_TYPES,QSharedPointer<CellColorDef> > m_colors;
     QHash<DWARF_HAPPINESS,QColor> m_happiness_colors;
 

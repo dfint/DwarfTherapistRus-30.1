@@ -63,11 +63,11 @@ ViewManager::ViewManager(DwarfModel *dm, DwarfModelProxy *proxy,
 
     //reload_views();
 
-    m_add_tab_button->setText(tr("Add "));
+    m_add_tab_button->setText(trUtf8("Add "));
     m_add_tab_button->setIcon(QIcon(":img/ui-tab--plus.png"));
     m_add_tab_button->setPopupMode(QToolButton::InstantPopup);
     m_add_tab_button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_add_tab_button->setToolTip(tr("Add an existing view. New views can be copied or created from the [Windows->Docks->Grid Views] dock."));
+    m_add_tab_button->setToolTip(trUtf8("Add an existing view. New views can be copied or created from the [Windows->Docks->Grid Views] dock."));
     draw_add_tab_button();
     setCornerWidget(m_add_tab_button, Qt::TopLeftCorner);
 
@@ -133,6 +133,7 @@ void ViewManager::reload_views() {
     }
     //packaged default views, if we've already loaded an override for a view, don't include these views
     QSettings s(":config/default_gridviews", QSettings::IniFormat);
+    s.setIniCodec("UTF-8");
     load_views(s,view_names,built_in_views);
 
     //special default weapon view
@@ -153,14 +154,14 @@ void ViewManager::reload_views() {
                 }
             }
             if (name_taken) {
-                QMessageBox::information(this, tr("Name in Use!"),
-                    tr("A custom view was found in your settings called '%1.' "
+                QMessageBox::information(this, trUtf8("Name in Use!"),
+                    trUtf8("A custom view was found in your settings called '%1.' "
                     "However, this name is already taken by a built-in view, "
                     "you must rename the custom view.").arg(gv->name()));
                 QString new_name;
                 while (new_name.isEmpty() || new_name == gv->name()) {
-                    new_name = QInputDialog::getText(this, tr("Rename View"),
-                                    tr("New name for '%1'").arg(gv->name()));
+                    new_name = QInputDialog::getText(this, trUtf8("Rename View"),
+                                    trUtf8("New name for '%1'").arg(gv->name()));
                 }
                 gv->set_name(new_name);
             }
@@ -294,7 +295,7 @@ void ViewManager::draw_views() {
     connect(tabBar(), SIGNAL(currentChanged(int)), SLOT(setCurrentIndex(int)), Qt::UniqueConnection);
 
     QStringList tab_order = DT->user_settings()->value("gui_options/tab_order").toStringList();
-    QString default_view_name = tr("Labors Full"); //default view to use if none are found/loaded
+    QString default_view_name = trUtf8("Labors Full"); //default view to use if none are found/loaded
     if (tab_order.size() == 0) {
         tab_order << default_view_name << "Military" << "Social" << "Attributes" << "Roles" << "Animals";
     }
@@ -625,8 +626,8 @@ int ViewManager::add_tab_for_gridview(GridView *v) {
 
 void ViewManager::remove_tab_for_gridview(int idx) {
     if (count() < 2) {
-        QMessageBox::warning(this, tr("Can't Remove Tab"),
-            tr("Cannot remove the last tab!"));
+        QMessageBox::warning(this, trUtf8("Can't Remove Tab"),
+            trUtf8("Cannot remove the last tab!"));
         return;
     }
     foreach(GridView *v, m_views) {
@@ -700,7 +701,7 @@ void ViewManager::redraw_specific_header(int id, COLUMN_TYPE type){
 
 void ViewManager::show_squad_warning(){
     if(m_squad_warning)
-        m_squad_warning->showMessage(tr("It's advisable to open the Military screen in Dwarf Fortress after making any changes to squad leaders."));
+        m_squad_warning->showMessage(trUtf8("It's advisable to open the Military screen in Dwarf Fortress after making any changes to squad leaders."));
 }
 
 void ViewManager::save_column_sort(COLUMN_TYPE cType, ViewColumn::COLUMN_SORT_TYPE sType){

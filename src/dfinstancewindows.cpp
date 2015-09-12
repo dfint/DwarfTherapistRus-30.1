@@ -92,7 +92,7 @@ QString DFInstanceWindows::read_string(const uint &addr) {
 
     char buf[len];
     read_raw(buffer_addr, len, buf);
-    return QTextCodec::codecForName("IBM437")->toUnicode(buf, len);
+    return QTextCodec::codecForName("Windows-1251")->toUnicode(buf, len);
 }
 
 USIZE DFInstanceWindows::write_string(const VIRTADDR &addr, const QString &str) {
@@ -147,8 +147,8 @@ bool DFInstanceWindows::find_running_copy(bool connect_anyway) {
         m_hwnd = FindWindow(NULL, L"Dwarf Fortress");
 
     if (!m_hwnd) {
-        QMessageBox::warning(0, tr("Warning"),
-            tr("Unable to locate a running copy of Dwarf "
+        QMessageBox::warning(0, trUtf8("Warning"),
+            trUtf8("Unable to locate a running copy of Dwarf "
             "Fortress, are you sure it's running?"));
         LOGW << "can't find running copy";
         return m_is_ok;

@@ -187,10 +187,10 @@ QList<Dwarf*> DwarfTherapist::get_dwarves(){
 
 void DwarfTherapist::load_translator() {
     TRACE << "loading translations";
-    QTranslator translator;
-    translator.load("dwarftherapist_en");
-    installTranslator(&translator);
-    TRACE << "english translation loaded";
+	translator = new QTranslator();
+	translator->load("dwarftherapist_" + QLocale::system().name());
+	installTranslator(translator);
+	TRACE << "russian translation loaded";
 }
 
 void DwarfTherapist::read_settings() {
@@ -219,9 +219,9 @@ void DwarfTherapist::read_settings() {
 
     //refresh global colors
     m_user_settings->beginGroup("colors");
-    check_global_color(GCOL_ACTIVE,"active_labor",tr("Active"),tr("Color when the related action is enabled and active."),QColor(78,78,179));
-    check_global_color(GCOL_PENDING,"pending_color",tr("Pending"),tr("Color when an action has been flagged to be enabled, but hasn't been yet."),QColor(203,174,40));
-    check_global_color(GCOL_DISABLED,"disabled_color",tr("Disabled"),tr("Color of the cell when the action cannot be toggled."),QColor(187,34,34,125));
+    check_global_color(GCOL_ACTIVE,"active_labor",trUtf8("Active"),trUtf8("Color when the related action is enabled and active."),QColor(78,78,179));
+    check_global_color(GCOL_PENDING,"pending_color",trUtf8("Pending"),trUtf8("Color when an action has been flagged to be enabled, but hasn't been yet."),QColor(203,174,40));
+    check_global_color(GCOL_DISABLED,"disabled_color",trUtf8("Disabled"),trUtf8("Color of the cell when the action cannot be toggled."),QColor(187,34,34,125));
 
     m_user_settings->beginGroup("happiness");
     foreach(QString k, m_user_settings->childKeys()) {
@@ -369,8 +369,8 @@ void DwarfTherapist::import_existing_professions() {
         }
     }
     m_main_window->load_customizations();
-    QMessageBox::information(m_main_window, tr("Import Successful"),
-                             tr("Imported %n custom profession(s)", "", imported));
+    QMessageBox::information(m_main_window, trUtf8("Import Successful"),
+                             trUtf8("Imported %n custom profession(s)", "", imported));
 }
 
 CustomProfession *DwarfTherapist::get_custom_profession(QString name) {
@@ -520,11 +520,11 @@ void DwarfTherapist::delete_customization() {
             if (in_use_by.size() > 0) {
                 QMessageBox *box = new QMessageBox(m_main_window);
                 box->setIcon(QMessageBox::Warning);
-                box->setWindowTitle(tr("Cannot Remove Profession"));
-                box->setText(tr("<b>%1</b> is still in use by: %2 %3. Please change them to"
+                box->setWindowTitle(trUtf8("Cannot Remove Profession"));
+                box->setText(trUtf8("<b>%1</b> is still in use by: %2 %3. Please change them to"
                                 " another profession before deleting this profession!")
-                             .arg(capitalize(c_data.id.toString())).arg(in_use_by.size()).arg((in_use_by.size() > 1 ? tr("units") : tr("unit"))));
-                box->setDetailedText(tr("Units with this profession:\n\n%1").arg(in_use_by.join("\n")));
+                             .arg(capitalize(c_data.id.toString())).arg(in_use_by.size()).arg((in_use_by.size() > 1 ? trUtf8("units") : trUtf8("unit"))));
+                box->setDetailedText(trUtf8("Units with this profession:\n\n%1").arg(in_use_by.join("\n")));
                 box->exec();
                 return;
             }
